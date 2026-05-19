@@ -39,7 +39,7 @@ export default function Hero() {
     if (!titleRef.current || isMobile) return;
 
     const chars = titleRef.current.querySelectorAll('.hero-char');
-    gsap.fromTo(
+    const anim = gsap.fromTo(
       chars,
       { opacity: 0, y: 80, rotateX: -90 },
       {
@@ -54,6 +54,7 @@ export default function Hero() {
     );
 
     return () => {
+      anim.kill();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, [isMobile, data.title]);
@@ -120,7 +121,7 @@ export default function Hero() {
       {/* Hero Overlaid Texts & Premium Buttons - Positioned on z-[30] to be on top of FloatingContainer z-[20] */}
       <motion.div
         style={{ y: contentFadeY, opacity: contentOpacity }}
-        className="absolute inset-x-0 bottom-[14%] md:bottom-[16%] z-[30] flex flex-col items-center justify-center text-center px-6 max-w-3xl mx-auto pointer-events-auto"
+        className="absolute inset-x-0 bottom-[22%] md:bottom-[16%] z-[30] flex flex-col items-center justify-center text-center px-6 max-w-3xl mx-auto pointer-events-auto"
       >
         <motion.p
           initial={{ opacity: 0, y: 20 }}
