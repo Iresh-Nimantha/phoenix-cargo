@@ -1,0 +1,358 @@
+import { useState } from 'react';
+import AdminSidebar from '../../components/admin/AdminSidebar';
+import AnalyticsDashboard from '../../components/admin/AnalyticsDashboard';
+import UsersManager from '../../components/admin/UsersManager';
+import QuoteRequestsManager from '../../components/admin/QuoteRequestsManager';
+import ContactMessagesManager from '../../components/admin/ContactMessagesManager';
+import ContentEditor from '../../components/admin/ContentEditor';
+import MediaManager from '../../components/admin/MediaManager';
+import { motion, AnimatePresence } from 'motion/react';
+import {
+  Globe,
+  Info,
+  ShipWheel,
+  Factory,
+  ShieldCheck,
+  MapPin,
+  Phone,
+  MessageSquare as FooterIcon,
+  Navigation,
+  Truck,
+  type LucideIcon,
+} from 'lucide-react';
+
+// Each section maps to a Firestore document in the 'content' collection
+interface ContentSection {
+  name: string;
+  icon: LucideIcon;
+  description: string;
+  schema: Record<string, 'string' | 'text' | 'url'>;
+  initial: Record<string, string>;
+}
+
+const contentSections: ContentSection[] = [
+  {
+    name: 'Hero',
+    icon: Globe,
+    description: 'Main hero banner — title text, subtitle, video background',
+    schema: {
+      title: 'string',
+      subtitle: 'text',
+      ctaText: 'string',
+      backgroundVideoUrl: 'url',
+      backgroundPosterUrl: 'url',
+    },
+    initial: {
+      title: 'PRECISION DELIVERY',
+      subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
+      ctaText: 'Get a Quote',
+      backgroundVideoUrl: 'https://assets.mixkit.co/videos/20179/20179-720.mp4',
+      backgroundPosterUrl: '',
+    },
+  },
+  {
+    name: 'About',
+    icon: Info,
+    description: 'About Alliance Freight — company description, stats',
+    schema: {
+      sectionTitle: 'string',
+      description1: 'text',
+      description2: 'text',
+      stat1Label: 'string',
+      stat1Value: 'string',
+      stat2Label: 'string',
+      stat2Value: 'string',
+      stat3Label: 'string',
+      stat3Value: 'string',
+      feature1Title: 'string',
+      feature1Description: 'text',
+      feature2Title: 'string',
+      feature2Description: 'text',
+      feature3Title: 'string',
+      feature3Description: 'text',
+    },
+    initial: {
+      sectionTitle: 'ABOUT ALLIANCE FREIGHT',
+      description1: 'Alliance Freight is a professional logistics and freight company that provides unique freight solutions.',
+      description2: 'Alliance Freight was built on a custom history of logistics and freight and solutions.',
+      stat1Label: 'Global Partners',
+      stat1Value: '5000',
+      stat2Label: 'Logistics Routes',
+      stat2Value: '25',
+      stat3Label: 'Yearly Shipments',
+      stat3Value: '1000000',
+      feature1Title: 'Global Reach',
+      feature1Description: 'Global reach, effective conservation, connecting production cost movements.',
+      feature2Title: 'Advanced Tracking',
+      feature2Description: 'Advanced tracking, access to status, checkout and constant tracking.',
+      feature3Title: 'Custom Solutions',
+      feature3Description: 'Custom solutions, expert sort level for trading and transport solutions.',
+    },
+  },
+  {
+    name: 'Services',
+    icon: ShipWheel,
+    description: 'Services section — title, description, and individual service cards',
+    schema: {
+      sectionTitle: 'string',
+      sectionDescription: 'text',
+      service1Title: 'string',
+      service1Items: 'text',
+      service1Image: 'url',
+      service2Title: 'string',
+      service2Items: 'text',
+      service2Image: 'url',
+      service3Title: 'string',
+      service3Items: 'text',
+      service3Image: 'url',
+      service4Title: 'string',
+      service4Items: 'text',
+      service4Image: 'url',
+    },
+    initial: {
+      sectionTitle: 'OUR SERVICES',
+      sectionDescription: 'Alliance Freight offers a complete range of freight forwarding and logistics services.',
+      service1Title: 'SEA FREIGHT (FCL / LCL)',
+      service1Items: 'FCL (Full Container Load)\nLCL (Less Than Container Load)\nPort-to-Port & Door-to-Door',
+      service1Image: '',
+      service2Title: 'AIR FREIGHT',
+      service2Items: 'Express shipments\nHigh-value cargo handling\nGlobal delivery solutions',
+      service2Image: '',
+      service3Title: 'ROAD & RAIL FREIGHT',
+      service3Items: 'Integrated Road & Rail\nFlexible Multi-Modal Routing\nEfficient Overland Transport',
+      service3Image: '',
+      service4Title: 'CUSTOMS CLEARANCE',
+      service4Items: 'Customs Declarations\nHS Code Classification\nCompliance Coordination',
+      service4Image: '',
+    },
+  },
+  {
+    name: 'Industries',
+    icon: Factory,
+    description: 'Industries We Serve — list of industries',
+    schema: {
+      sectionTitle: 'string',
+      sectionDescription: 'text',
+      industries: 'text',
+      footerNote: 'text',
+    },
+    initial: {
+      sectionTitle: 'INDUSTRIES WE SERVE',
+      sectionDescription: 'Alliance Freight supports a wide range of industries with customized logistics solutions.',
+      industries: 'Importers & Exporters\nApparel & Textile Industry\nManufacturing & Industrial Suppliers\nConstruction & Engineering Projects\nFMCG & Food Products\nPharmaceutical & Healthcare\nE-commerce & Retail Businesses',
+      footerNote: 'Our flexible freight solutions allow businesses to expand their global trade operations with confidence.',
+    },
+  },
+  {
+    name: 'WhyChoose',
+    icon: ShieldCheck,
+    description: 'Why Choose Alliance Freight — strengths list and CTA message',
+    schema: {
+      sectionTitle: 'string',
+      sectionDescription: 'text',
+      ctaMessage: 'text',
+      strength1: 'string',
+      strength2: 'string',
+      strength3: 'string',
+      strength4: 'string',
+      strength5: 'string',
+      strength6: 'string',
+      strength7: 'string',
+      strength8: 'string',
+    },
+    initial: {
+      sectionTitle: 'WHY CHOOSE ALLIANCE FREIGHT',
+      sectionDescription: 'In freight forwarding, performance matters. Alliance Freight is committed to delivering professional logistics services.',
+      ctaMessage: 'Alliance Freight is not just a service provider — we are your long-term logistics partner.',
+      strength1: 'Export, Import & Cross Trading Expertise',
+      strength2: 'Sea Freight, Air Freight, Courier, Road & Rail Options',
+      strength3: 'Strong Worldwide Agent Network',
+      strength4: 'Competitive Freight Rates & Reliable Carriers',
+      strength5: 'Specialized Handling (Project / Pharmaceutical / Hazardous Cargo)',
+      strength6: 'Fast Import & Export Customs Clearance',
+      strength7: 'Well-Educated, Experienced Operations Team',
+      strength8: '24 Hours Customer Service & Shipment Updates',
+    },
+  },
+  {
+    name: 'Tracking',
+    icon: Navigation,
+    description: 'Tracking section — title, description, feature badges',
+    schema: {
+      sectionTitle: 'string',
+      sectionDescription: 'text',
+      badge1: 'string',
+      badge2: 'string',
+      badge3: 'string',
+      ctaText: 'string',
+      bottomText: 'string',
+    },
+    initial: {
+      sectionTitle: 'TRACK YOUR SHIPMENT & GET SUPPORT',
+      sectionDescription: 'Real-time tracking updates and 24/7 professional assistance for all your cargo needs.',
+      badge1: 'Real-Time Updates',
+      badge2: '24/7 Coordination',
+      badge3: 'Secure Information',
+      ctaText: 'TRACK & SUPPORT',
+      bottomText: 'Join 1m+ yearly shipments tracked with confidence',
+    },
+  },
+  {
+    name: 'Contact',
+    icon: Phone,
+    description: 'Contact section — address, phone numbers, email, support hours',
+    schema: {
+      sectionTitle: 'string',
+      sectionDescription: 'text',
+      address: 'string',
+      phone1: 'string',
+      phone2: 'string',
+      email: 'string',
+      supportHours: 'string',
+      mapEmbedUrl: 'url',
+      googleMapsLink: 'url',
+    },
+    initial: {
+      sectionTitle: 'Get in touch with Alliance Freight',
+      sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and logistics solutions worldwide.',
+      address: 'No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka',
+      phone1: '070 644 0992',
+      phone2: '076 736 7280',
+      email: 'imports@alliancefreightcmb.com',
+      supportHours: '24/7',
+      mapEmbedUrl: '',
+      googleMapsLink: '',
+    },
+  },
+  {
+    name: 'Footer',
+    icon: FooterIcon,
+    description: 'Footer — copyright, social links, brand description',
+    schema: {
+      brandDescription: 'text',
+      copyright: 'string',
+      facebookUrl: 'url',
+      linkedinUrl: 'url',
+      twitterUrl: 'url',
+      instagramUrl: 'url',
+    },
+    initial: {
+      brandDescription: 'Alliance Freight Logistics delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
+      copyright: '2026 Alliance Freight Logistics. All rights reserved.',
+      facebookUrl: '',
+      linkedinUrl: '',
+      twitterUrl: '',
+      instagramUrl: '',
+    },
+  },
+];
+
+export default function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState('analytics');
+  const [activeContentSection, setActiveContentSection] = useState(0);
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'analytics':
+        return <AnalyticsDashboard />;
+      case 'users':
+        return <UsersManager />;
+      case 'quotes':
+        return <QuoteRequestsManager />;
+      case 'messages':
+        return <ContactMessagesManager />;
+      case 'content':
+        return (
+          <div>
+            <h2 className="text-2xl font-black text-gray-900 mb-2">Website Content Editor</h2>
+            <p className="text-gray-500 text-sm mb-6">
+              Edit all website sections. Changes are saved to Firestore and reflected in real-time.
+            </p>
+
+            {/* Section navigation cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+              {contentSections.map((section, i) => {
+                const Icon = section.icon;
+                const isActive = activeContentSection === i;
+                return (
+                  <motion.button
+                    key={section.name}
+                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ y: -2 }}
+                    onClick={() => setActiveContentSection(i)}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      isActive
+                        ? 'bg-[#0B2545] text-white border-[#0B2545] shadow-lg shadow-[#0B2545]/20'
+                        : 'bg-white text-gray-700 border-gray-100 hover:border-cyan-200 hover:shadow-md'
+                    }`}
+                  >
+                    <Icon className={`w-5 h-5 mb-2 ${isActive ? 'text-cyan-300' : 'text-cyan-600'}`} />
+                    <p className="font-bold text-sm">{section.name}</p>
+                    <p className={`text-[11px] mt-0.5 line-clamp-2 ${isActive ? 'text-white/60' : 'text-gray-400'}`}>
+                      {section.description}
+                    </p>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Active section editor */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={contentSections[activeContentSection].name}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm"
+              >
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
+                  {(() => {
+                    const Icon = contentSections[activeContentSection].icon;
+                    return <Icon className="w-6 h-6 text-cyan-600" />;
+                  })()}
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {contentSections[activeContentSection].name} Section
+                    </h3>
+                    <p className="text-xs text-gray-400">
+                      {contentSections[activeContentSection].description}
+                    </p>
+                  </div>
+                </div>
+                <ContentEditor
+                  key={contentSections[activeContentSection].name}
+                  sectionId={contentSections[activeContentSection].name.toLowerCase().replace(/\s+/g, '')}
+                  schema={contentSections[activeContentSection].schema}
+                  initialData={contentSections[activeContentSection].initial}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        );
+      case 'media':
+        return <MediaManager />;
+      default:
+        return <AnalyticsDashboard />;
+    }
+  };
+
+  return (
+    <div className="h-screen bg-gray-50 flex overflow-hidden">
+      <AdminSidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <main className="flex-1 p-8 overflow-y-auto h-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+          >
+            {renderContent()}
+          </motion.div>
+        </AnimatePresence>
+      </main>
+    </div>
+  );
+}

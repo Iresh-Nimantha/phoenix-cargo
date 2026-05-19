@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helpers
+    function isSignedIn() { return request.auth != null; }
+    // Since registration is disabled and only admin accounts can exist in Auth,
+    // any authenticated user is granted administrative access.
+    function isAdmin() { 
+      return isSignedIn(); 
+    }
+
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Website content — public read, admin write
+    match /content/{contentId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Admin collection — admin only
+    match /admins/{adminId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Quote requests — anyone can create, admin can manage
+    match /quoteRequests/{requestId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Contact messages — anyone can create, admin can manage
+    match /contactMessages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Media assets — admin only
+    match /mediaAssets/{assetId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Newsletter subscriptions — anyone can create
+    match /newsletter/{subId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Admin settings — admin only
+    match /adminSettings/{settingId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Analytics logs — admin only
+    match /analyticsLogs/{logId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
