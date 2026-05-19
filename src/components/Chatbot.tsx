@@ -127,7 +127,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999] select-none">
+    <div className="fixed bottom-24 md:bottom-6 right-6 z-[999] select-none">
       {/* Floating launcher button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
