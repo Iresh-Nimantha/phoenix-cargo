@@ -36,17 +36,17 @@ export default function Hero() {
 
   // GSAP text split reveal
   useEffect(() => {
-    if (!titleRef.current || isMobile) return;
+    if (!titleRef.current) return;
 
     const chars = titleRef.current.querySelectorAll('.hero-char');
     const anim = gsap.fromTo(
       chars,
-      { opacity: 0, y: 80, rotateX: -90 },
+      { opacity: 0, y: isMobile ? 30 : 80, rotateX: isMobile ? 0 : -90 },
       {
         opacity: 1,
         y: 0,
         rotateX: 0,
-        duration: 0.8,
+        duration: isMobile ? 0.6 : 0.8,
         stagger: 0.03,
         ease: 'power3.out',
         delay: 0.3,

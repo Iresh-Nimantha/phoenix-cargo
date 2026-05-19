@@ -62,7 +62,7 @@ export default function AboutSection() {
 
   // Parallax transforms
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
-  const contentY = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -30]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [120, -120]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
 
   return (

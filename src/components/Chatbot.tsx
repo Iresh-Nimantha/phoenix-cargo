@@ -28,6 +28,25 @@ Do not invent facts or promise exact delivery rates without verification. Always
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Synchronize bottom offset with MobileBottomNav scroll visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsNavVisible(false);
+      } else {
+        setIsNavVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -127,7 +146,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-24 md:bottom-6 right-6 z-[999] select-none">
+    <div className={`fixed ${isNavVisible ? 'bottom-24' : 'bottom-6'} md:bottom-6 right-6 z-[999] select-none transition-all duration-300`}>
       {/* Floating launcher button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}

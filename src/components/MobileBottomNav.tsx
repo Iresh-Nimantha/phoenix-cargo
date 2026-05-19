@@ -70,9 +70,9 @@ export default function MobileBottomNav() {
           animate={{ y: 0 }}
           exit={{ y: 100 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="md:hidden fixed bottom-4 left-4 right-4 z-50"
+          className="md:hidden fixed bottom-0 left-0 right-0 z-50"
         >
-          <div className="bg-[#0B2545]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl flex justify-between items-center px-2">
+          <div className="bg-[#0B2545]/95 backdrop-blur-2xl border-t border-white/10 p-2 pb-5 shadow-[0_-8px_30px_rgba(0,0,0,0.35)] flex justify-around items-center px-4">
             {navItems.map((item, idx) => {
               const isActive = item.path && location.pathname === item.path;
               return (
@@ -82,8 +82,8 @@ export default function MobileBottomNav() {
                     if (item.path) navigate(item.path);
                     if (item.action) item.action();
                   }}
-                  className={`flex flex-col items-center justify-center w-14 h-14 rounded-xl transition-all relative ${
-                    isActive ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  className={`flex flex-col items-center justify-center w-14 h-12 rounded-xl transition-all relative ${
+                    isActive ? 'text-cyan-400' : 'text-gray-400 hover:text-white'
                   }`}
                 >
                   <item.icon className={`w-5 h-5 mb-1 ${isActive ? 'stroke-[2.5]' : 'stroke-2'}`} />
@@ -91,7 +91,7 @@ export default function MobileBottomNav() {
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIndicator"
-                      className="absolute bottom-1 w-1 h-1 rounded-full bg-cyan-400"
+                      className="absolute -bottom-1.5 w-1.5 h-1.5 rounded-full bg-cyan-400"
                     />
                   )}
                 </button>

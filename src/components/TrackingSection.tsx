@@ -110,28 +110,7 @@ export default function TrackingSection() {
         </TiltCard>
       </motion.div>
 
-      {/* 3D Security Badge */}
-      <motion.div
-        style={{ scale: badgeScale }}
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-        className="absolute bottom-20 left-10 z-20"
-      >
-        <TiltCard maxTilt={15} glare={true}>
-          <div className="w-24 h-24 bg-white/20 backdrop-blur-md rounded-2xl border border-white/40 shadow-lg flex items-center justify-center">
-            <motion.div
-              className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md"
-              animate={{ rotateY: [0, 360] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <Lock className="w-6 h-6 text-[#0B2545]" />
-            </motion.div>
-          </div>
-        </TiltCard>
-      </motion.div>
+
 
       {/* Footer */}
       <motion.div
