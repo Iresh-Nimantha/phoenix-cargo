@@ -69,7 +69,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen w-full text-[#0B2545] px-6 md:px-16 flex items-center justify-center overflow-hidden select-none py-24"
+      className="relative w-full text-[#0B2545] px-6 md:px-16 flex flex-col items-center justify-center overflow-hidden select-none py-12 md:py-16"
     >
       {/* Parallax Background */}
       <motion.div
@@ -82,11 +82,11 @@ export default function AboutSection() {
       />
       <div className="absolute inset-0 bg-[#EBEBEB]/90 backdrop-blur-[2px]" />
 
-      {/* Title with parallax scale */}
-      <div className="absolute top-[6%] left-0 w-full flex justify-center z-20 px-6">
+      <div className="relative z-10 w-full max-w-7xl flex flex-col items-center space-y-6 md:space-y-10">
+        {/* Title with natural layout flow */}
         <motion.h2
           style={{ scale: titleScale }}
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
@@ -98,15 +98,14 @@ export default function AboutSection() {
             </span>
           ))}
         </motion.h2>
-      </div>
 
-      {/* Content with parallax slide */}
-      <motion.div
-        style={{ y: contentY }}
-        className="relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-x-12 xl:gap-x-16 items-center pt-20"
-      >
-        {/* Left: placeholder for FloatingContainer (keep as past in desktop view) */}
-        <div className="hidden lg:block w-full h-full" />
+        {/* Content with parallax slide */}
+        <motion.div
+          style={{ y: contentY }}
+          className="w-full grid grid-cols-1 lg:grid-cols-2 gap-y-12 xl:gap-x-16 items-center pt-2"
+        >
+          {/* Left: placeholder for FloatingContainer (keep as past in desktop view) */}
+          <div className="hidden lg:block w-full h-full" />
 
         {/* Right: Content */}
         <motion.div
@@ -205,6 +204,7 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
       </motion.div>
+      </div>
     </section>
   );
 }

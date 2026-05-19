@@ -98,7 +98,7 @@ export default function OurServices() {
   return (
     <section
       id="services"
-      className="relative min-h-screen w-full text-[#0B2545] px-6 py-24 flex items-center justify-center overflow-hidden"
+      className="relative w-full text-[#0B2545] px-6 py-12 md:py-16 flex items-center justify-center overflow-hidden"
     >
       {/* Background */}
       <div

@@ -207,7 +207,7 @@ export default function IndustriesSection() {
     <section
       ref={sectionRef}
       id="industries"
-      className="relative w-full text-[#0B2545] overflow-hidden py-24 min-h-[90vh]"
+      className="relative w-full text-[#0B2545] overflow-hidden py-12 md:py-16"
     >
       {/* Parallax Background */}
       <motion.div

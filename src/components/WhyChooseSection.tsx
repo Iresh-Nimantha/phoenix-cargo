@@ -87,7 +87,7 @@ export default function WhyChooseSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-full px-6 md:px-16 flex items-center justify-center overflow-hidden select-none text-[#0B2545] py-24"
+      className="relative w-full px-6 md:px-16 flex items-center justify-center overflow-hidden select-none text-[#0B2545] py-12 md:py-16"
     >
       {/* Parallax Background */}
       <motion.div

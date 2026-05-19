@@ -43,7 +43,7 @@ export default function TrackingSection() {
     <section
       ref={sectionRef}
       id="tracking"
-      className="relative h-screen w-full text-white overflow-hidden flex items-center justify-center"
+      className="relative w-full text-white overflow-hidden flex items-center justify-center py-12 md:py-16 min-h-[70vh]"
     >
       {/* Parallax Background */}
       <motion.div
