@@ -55,10 +55,6 @@ export default function AboutSection() {
   const { content, loading } = useContent('about', defaultData);
   const data = { ...defaultData, ...content };
 
-  if (loading) {
-    return <div className="w-full min-h-[400px] bg-[#EBEBEB]/90" />;
-  }
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -68,6 +64,10 @@ export default function AboutSection() {
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
   const contentY = useTransform(scrollYProgress, [0, 1], [120, -120]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+
+  if (loading) {
+    return <div className="w-full min-h-[400px] bg-[#EBEBEB]/90" />;
+  }
 
   return (
     <section

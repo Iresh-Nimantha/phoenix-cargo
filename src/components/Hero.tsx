@@ -29,10 +29,6 @@ export default function Hero() {
   const { content, loading } = useContent('hero', defaultData);
   const data = { ...defaultData, ...content };
 
-  if (loading) {
-    return <div className="w-full h-screen bg-[#0B2545]" />;
-  }
-
   const { scrollY } = useScroll();
   const mediaScale = useTransform(scrollY, [0, 600], [1, 1.12]);
   const mediaOpacity = useTransform(scrollY, [0, 500], [1, 0.25]);
@@ -104,6 +100,10 @@ export default function Hero() {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, [isMobile, data.title]);
+
+  if (loading) {
+    return <div className="w-full h-screen bg-[#0B2545]" />;
+  }
 
   return (
     <section ref={sectionRef} id="home" className="relative w-full h-screen overflow-hidden">
