@@ -71,8 +71,11 @@ export default function WhyChooseSection() {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const leftX = useTransform(scrollYProgress, [0, 0.5], [-30, 0]);
-  const rightX = useTransform(scrollYProgress, [0, 0.5], [30, 0]);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const leftXVal = useTransform(scrollYProgress, [0, 0.5], [-30, 0]);
+  const rightXVal = useTransform(scrollYProgress, [0, 0.5], [30, 0]);
+  const leftX = isMobile ? 0 : leftXVal;
+  const rightX = isMobile ? 0 : rightXVal;
 
   // Build dynamic strength cards
   const strengths = Array.from({ length: 8 }).map((_, idx) => {

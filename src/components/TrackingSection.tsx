@@ -28,9 +28,12 @@ export default function TrackingSection() {
     offset: ['start end', 'end start'],
   });
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const cardY = useTransform(scrollYProgress, [0.2, 0.6], [80, 0]);
-  const cardRotate = useTransform(scrollYProgress, [0.2, 0.6], [3, 0]);
+  const cardYVal = useTransform(scrollYProgress, [0.2, 0.6], [80, 0]);
+  const cardY = isMobile ? 0 : cardYVal;
+  const cardRotateVal = useTransform(scrollYProgress, [0.2, 0.6], [3, 0]);
+  const cardRotate = isMobile ? 0 : cardRotateVal;
   const badgeScale = useTransform(scrollYProgress, [0.3, 0.7], [0.8, 1]);
 
   const badges = [

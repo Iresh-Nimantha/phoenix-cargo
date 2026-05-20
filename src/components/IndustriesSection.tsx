@@ -194,10 +194,12 @@ export default function IndustriesSection() {
     offset: ['start end', 'end start'],
   });
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const shipX = useTransform(scrollYProgress, [0, 1], [300, -100]);
   const shipScale = useTransform(scrollYProgress, [0.2, 0.8], [0.8, 1.1]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [40, 0]);
+  const contentYVal = useTransform(scrollYProgress, [0, 0.5], [40, 0]);
+  const contentY = isMobile ? 0 : contentYVal;
 
   const industryList = data.industries
     ? data.industries.split('\n').filter((item: string) => item.trim() !== '')

@@ -143,9 +143,10 @@ export default function OurServices() {
           {displayServices.map((service, index) => {
             const col = index % 4;
             const row = Math.floor(index / 4);
-            const xOffset = col === 0 ? 300 : col === 1 ? 100 : col === 2 ? -100 : -300;
-            const yOffset = row === 0 ? 150 : -150;
-            const startRotate = index * 4 - 14;
+            const isMobileViewport = typeof window !== 'undefined' && window.innerWidth < 768;
+            const xOffset = isMobileViewport ? 0 : (col === 0 ? 200 : col === 1 ? 80 : col === 2 ? -80 : -200);
+            const yOffset = isMobileViewport ? 20 : (row === 0 ? 100 : -100);
+            const startRotate = isMobileViewport ? 0 : (index * 4 - 14);
 
             return (
               <motion.div

@@ -32,8 +32,10 @@ export default function Hero() {
   const { scrollY } = useScroll();
   const mediaScale = useTransform(scrollY, [0, 600], [1, 1.12]);
   const mediaOpacity = useTransform(scrollY, [0, 500], [1, 0.25]);
-  const titleY = useTransform(scrollY, [0, 400], [0, 80]);
-  const contentFadeY = useTransform(scrollY, [0, 300], [0, 40]);
+  const titleYVal = useTransform(scrollY, [0, 400], [0, 80]);
+  const titleY = isMobile ? 0 : titleYVal;
+  const contentFadeYVal = useTransform(scrollY, [0, 300], [0, 40]);
+  const contentFadeY = isMobile ? 0 : contentFadeYVal;
   const contentOpacity = useTransform(scrollY, [0, 350], [1, 0]);
 
   // Support both single media links and arrays/comma lists without modifying original backend keys
@@ -159,7 +161,7 @@ export default function Hero() {
 
       {/* Hero Title - Navy blue theme color text color and outlines */}
       <motion.div
-        className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none px-4 -translate-y-24 md:-translate-y-36"
+        className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none px-4 -translate-y-16 sm:-translate-y-20 md:-translate-y-36"
         style={{ y: titleY }}
       >
         <h1

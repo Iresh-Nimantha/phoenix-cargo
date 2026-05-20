@@ -61,9 +61,11 @@ export default function AboutSection() {
   });
 
   // Parallax transforms
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
-  const contentY = useTransform(scrollYProgress, [0, 1], [120, -120]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const contentYVal = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const contentY = isMobile ? 0 : contentYVal;
+  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1]);
 
   if (loading) {
     return <div className="w-full min-h-[400px] bg-[#EBEBEB]/90" />;
@@ -73,7 +75,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full text-[#0B2545] px-6 md:px-16 flex flex-col items-center justify-center overflow-hidden select-none py-12 md:py-16"
+      className="relative w-full text-[#0B2545] px-6 md:px-16 flex flex-col items-center justify-center overflow-hidden select-none py-8 sm:py-12"
     >
       {/* Parallax Background */}
       <motion.div
