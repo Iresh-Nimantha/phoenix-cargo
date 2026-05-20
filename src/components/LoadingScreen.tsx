@@ -1,12 +1,15 @@
+import { useSettings } from '../context/SettingsContext';
 import { motion } from 'motion/react';
 import { Truck } from 'lucide-react';
 
 export default function LoadingScreen() {
+  const { logoUrl } = useSettings();
+
   return (
     <div className="fixed inset-0 z-[9999] bg-[#0B2545] flex flex-col items-center justify-center">
       {/* Logo */}
       <motion.img
-        src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+        src={logoUrl}
         alt="Alliance Freight"
         className="h-16 w-auto mb-10"
         initial={{ opacity: 0, scale: 0.8 }}

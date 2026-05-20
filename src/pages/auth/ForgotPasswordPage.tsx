@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Mail, ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useSettings } from '../../context/SettingsContext';
 
 export default function ForgotPasswordPage() {
   const { resetPassword } = useAuth();
+  const { logoUrl } = useSettings();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -46,10 +48,11 @@ export default function ForgotPasswordPage() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-md mx-4"
       >
+        {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/">
             <img
-              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+              src={logoUrl}
               alt="Alliance Freight"
               className="h-12 w-auto mx-auto mb-4"
             />

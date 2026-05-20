@@ -4,9 +4,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useSettings } from '../../context/SettingsContext';
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const { logoUrl } = useSettings();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,7 +61,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <Link to="/">
             <img
-              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+              src={logoUrl}
               alt="Alliance Freight"
               className="h-12 w-auto mx-auto mb-4"
             />

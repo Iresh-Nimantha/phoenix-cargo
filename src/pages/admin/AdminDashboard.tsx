@@ -7,6 +7,7 @@ import ContactMessagesManager from '../../components/admin/ContactMessagesManage
 import ContentEditor from '../../components/admin/ContentEditor';
 import MediaManager from '../../components/admin/MediaManager';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSettings } from '../../context/SettingsContext';
 import {
   Globe,
   Info,
@@ -306,9 +307,23 @@ If asked about rates or quote requests, guide the user to click the "Get a Quote
 Do not invent facts or promise exact delivery rates without verification. Always remain polite and elite.`,
     },
   },
+  {
+    name: 'Settings',
+    icon: Globe,
+    description: 'Global settings — company logo and active seasonal particle effects (christmas, winter, autumn, none)',
+    schema: {
+      logoUrl: 'url',
+      activeSeasonalEffect: 'string',
+    },
+    initial: {
+      logoUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png',
+      activeSeasonalEffect: 'none',
+    },
+  },
 ];
 
 export default function AdminDashboard() {
+  const { logoUrl } = useSettings();
   const [activeTab, setActiveTab] = useState('analytics');
   const [activeContentSection, setActiveContentSection] = useState(0);
 
@@ -447,7 +462,7 @@ export default function AdminDashboard() {
               <Menu className="w-6 h-6" />
             </button>
             <img
-              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+              src={logoUrl}
               alt="Logo"
               className="h-7 w-auto"
             />

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useQuote } from '../context/QuoteContext';
 import { useScrollDirection } from '../hooks/useScrollDirection';
+import { useSettings } from '../context/SettingsContext';
 import MagneticButton from '../animations/MagneticButton';
 
 const navLinks = [
@@ -16,6 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const { openModal } = useQuote();
   const { scrollDirection, isAtTop } = useScrollDirection();
+  const { logoUrl } = useSettings();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -58,7 +60,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <motion.img
-            src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+            src={logoUrl}
             alt="Alliance Freight Logo"
             className="h-9 w-auto drop-shadow-sm"
             whileHover={{ scale: 1.05 }}

@@ -22,6 +22,8 @@ import TrackingSection from './components/TrackingSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
+import { SettingsProvider } from './context/SettingsContext';
+import SeasonalEffect from './components/SeasonalEffect';
 
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './lib/firebase';
@@ -231,19 +233,22 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <QuoteProvider>
-          <AnimatePresence mode="wait">
-            {isPageLoading && <LoadingScreen key="global-preloader" />}
-          </AnimatePresence>
-          {!isPageLoading && (
-            <>
-              <AnimatedRoutes />
-              <Chatbot />
-            </>
-          )}
-        </QuoteProvider>
-      </AuthProvider>
+      <SettingsProvider>
+        <AuthProvider>
+          <QuoteProvider>
+            <SeasonalEffect />
+            <AnimatePresence mode="wait">
+              {isPageLoading && <LoadingScreen key="global-preloader" />}
+            </AnimatePresence>
+            {!isPageLoading && (
+              <>
+                <AnimatedRoutes />
+                <Chatbot />
+              </>
+            )}
+          </QuoteProvider>
+        </AuthProvider>
+      </SettingsProvider>
     </BrowserRouter>
   );
 }

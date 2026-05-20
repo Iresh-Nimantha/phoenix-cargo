@@ -6,6 +6,7 @@ import { db } from '../lib/firebase';
 import toast from 'react-hot-toast';
 import { staggerContainer, fadeSlideUp } from '../animations/variants';
 import { useContent } from '../hooks/useContent';
+import { useSettings } from '../context/SettingsContext';
 
 const defaultFooterData = {
   brandDescription: 'Alliance Freight Logistics delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
@@ -26,6 +27,7 @@ const defaultContactData = {
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subLoading, setSubLoading] = useState(false);
+  const { logoUrl } = useSettings();
 
   const { content: footerContent } = useContent('footer', defaultFooterData);
   const footer = { ...defaultFooterData, ...footerContent };
@@ -85,7 +87,7 @@ export default function Footer() {
         {/* Brand */}
         <motion.div variants={fadeSlideUp} className="space-y-4">
           <img
-            src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+            src={logoUrl}
             alt="Alliance Freight Logistics"
             className="h-20 w-auto"
           />

@@ -14,6 +14,8 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 
+import { useSettings } from '../../context/SettingsContext';
+
 const tabs = [
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
   { id: 'users', label: 'Users', icon: Users },
@@ -30,6 +32,7 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarProps) {
   const { userProfile, logout } = useAuth();
+  const { logoUrl } = useSettings();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -45,7 +48,7 @@ export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarPro
           className="flex items-center gap-3"
         >
           <img
-            src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+            src={logoUrl}
             alt="Logo"
             className="h-8 w-auto"
           />

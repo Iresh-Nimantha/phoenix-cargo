@@ -113,32 +113,54 @@ export default function QuoteRequestsManager() {
                 exit={{ height: 0, opacity: 0 }}
                 className="border-t px-5 py-4 bg-gray-50/50"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-4">
                   <div>
                     <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Phone</p>
-                    <p>{q.userDetails?.phone || '—'}</p>
+                    <p className="font-semibold text-gray-800">{q.userDetails?.phone || '—'}</p>
                   </div>
                   <div>
                     <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Company</p>
-                    <p>{q.userDetails?.company || '—'}</p>
+                    <p className="font-semibold text-gray-800">{q.userDetails?.company || '—'}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Service</p>
-                    <p>{q.quoteDetails?.service || q.quoteDetails?.cargo || '—'}</p>
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Transport Mode / Service</p>
+                    <p className="font-semibold text-gray-800">{q.quoteDetails?.mode || q.quoteDetails?.service || '—'}</p>
                   </div>
                   <div>
                     <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Route</p>
-                    <p>
+                    <p className="font-semibold text-gray-800">
                       {q.quoteDetails?.origin && q.quoteDetails?.destination
                         ? `${q.quoteDetails.origin} → ${q.quoteDetails.destination}`
                         : '—'}
                     </p>
                   </div>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Weight / Dimensions</p>
+                    <p className="font-semibold text-gray-800">{q.quoteDetails?.weight || '—'}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Quantity / Packages</p>
+                    <p className="font-semibold text-gray-800">{q.quoteDetails?.quantity || '—'}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Incoterms</p>
+                    <p className="font-semibold text-gray-800">{q.quoteDetails?.incoterms || '—'}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Preferred Date</p>
+                    <p className="font-semibold text-gray-800">{q.quoteDetails?.preferredDate || '—'}</p>
+                  </div>
                 </div>
+                {q.quoteDetails?.cargo && (
+                  <div className="mb-4">
+                    <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Cargo Description</p>
+                    <p className="text-sm bg-white p-3 rounded-lg border font-semibold text-gray-800">{q.quoteDetails.cargo}</p>
+                  </div>
+                )}
                 {q.quoteDetails?.message && (
                   <div className="mb-4">
                     <p className="text-gray-500 text-xs uppercase font-semibold mb-1">Message</p>
-                    <p className="text-sm bg-white p-3 rounded-lg border">{q.quoteDetails.message}</p>
+                    <p className="text-sm bg-white p-3 rounded-lg border font-semibold text-gray-800">{q.quoteDetails.message}</p>
                   </div>
                 )}
 

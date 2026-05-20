@@ -4,9 +4,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { User, Mail, Lock, Phone, Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useSettings } from '../../context/SettingsContext';
 
 export default function RegisterPage() {
   const { register } = useAuth();
+  const { logoUrl } = useSettings();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '', phone: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -57,6 +59,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-12">
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -72,10 +75,11 @@ export default function RegisterPage() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-md mx-4"
       >
+        {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/">
             <img
-              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+              src={logoUrl}
               alt="Alliance Freight"
               className="h-12 w-auto mx-auto mb-4"
             />
