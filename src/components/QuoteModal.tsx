@@ -140,54 +140,72 @@ export default function QuoteModal() {
                   <p className="text-gray-500 text-sm mb-6">Get competitive freight rates with expert support</p>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
-                    <input
-                      required
-                      type="text"
-                      placeholder="Full Name *"
-                      value={form.name}
-                      onChange={(e) => update('name', e.target.value)}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
-                    />
-                    <input
-                      required
-                      type="email"
-                      placeholder="Email *"
-                      value={form.email}
-                      onChange={(e) => update('email', e.target.value)}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
-                    />
-                    <input
-                      required
-                      type="tel"
-                      placeholder="Phone Number *"
-                      value={form.phone}
-                      onChange={(e) => update('phone', e.target.value)}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Company (optional)"
-                      value={form.company}
-                      onChange={(e) => update('company', e.target.value)}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
-                    />
-                    <select
-                      value={form.service}
-                      onChange={(e) => update('service', e.target.value)}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm text-gray-500"
-                    >
-                      <option value="">Service Interested (optional)</option>
-                      {services.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                    <textarea
-                      placeholder="Additional details (optional)"
-                      value={form.message}
-                      onChange={(e) => update('message', e.target.value)}
-                      rows={3}
-                      className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm resize-none"
-                    />
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Full Name *</label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="Your Full Name"
+                        value={form.name}
+                        onChange={(e) => update('name', e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Email Address *</label>
+                      <input
+                        required
+                        type="email"
+                        placeholder="Your Email Address"
+                        value={form.email}
+                        onChange={(e) => update('email', e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Phone Number *</label>
+                      <input
+                        required
+                        type="tel"
+                        placeholder="Your Phone Number"
+                        value={form.phone}
+                        onChange={(e) => update('phone', e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Company Name</label>
+                      <input
+                        type="text"
+                        placeholder="Company Name (optional)"
+                        value={form.company}
+                        onChange={(e) => update('company', e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Service Interested</label>
+                      <select
+                        value={form.service}
+                        onChange={(e) => update('service', e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm text-gray-700 bg-white"
+                      >
+                        <option value="">Select Service Interested</option>
+                        {services.map((s) => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Additional details</label>
+                      <textarea
+                        placeholder="Additional details (optional)"
+                        value={form.message}
+                        onChange={(e) => update('message', e.target.value)}
+                        rows={3}
+                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm resize-none"
+                      />
+                    </div>
 
                     <motion.button
                       type="submit"

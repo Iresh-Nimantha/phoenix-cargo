@@ -68,6 +68,18 @@ const defaultData = {
   service4Title: '',
   service4Items: '',
   service4Image: '',
+  service5Title: '',
+  service5Items: '',
+  service5Image: '',
+  service6Title: '',
+  service6Items: '',
+  service6Image: '',
+  service7Title: '',
+  service7Items: '',
+  service7Image: '',
+  service8Title: '',
+  service8Items: '',
+  service8Image: '',
 };
 
 export default function OurServices() {

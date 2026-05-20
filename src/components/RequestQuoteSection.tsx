@@ -202,34 +202,37 @@ export default function RequestQuoteSection() {
                 <h3 className="text-xl font-black uppercase text-[#0B2545] border-b border-gray-200/50 pb-2 mb-4">Customer Details</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Full Name *</label>
                     <input
                       type="text"
                       value={form.name}
                       onChange={(e) => update('name', e.target.value)}
-                      placeholder="Your Full Name *"
+                      placeholder="Your Full Name"
                       className={`w-full p-4 rounded-xl border ${errors.name ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60`}
                     />
                     {errors.name && <p className="text-red-500 text-xs mt-1 ml-1">{errors.name}</p>}
                   </div>
-                  <div>
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Email Address *</label>
                     <input
                       type="email"
                       value={form.email}
                       onChange={(e) => update('email', e.target.value)}
-                      placeholder="Your Email Address *"
+                      placeholder="Your Email Address"
                       className={`w-full p-4 rounded-xl border ${errors.email ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60`}
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1 ml-1">{errors.email}</p>}
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col text-left">
+                  <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Phone Number *</label>
                   <input
                     type="tel"
                     value={form.phone}
                     onChange={(e) => update('phone', e.target.value)}
-                    placeholder="Your Phone Number *"
+                    placeholder="Your Phone Number"
                     className={`w-full p-4 rounded-xl border ${errors.phone ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60`}
                   />
                   {errors.phone && <p className="text-red-500 text-xs mt-1 ml-1">{errors.phone}</p>}
@@ -237,64 +240,80 @@ export default function RequestQuoteSection() {
 
                 <h3 className="text-xl font-black uppercase text-[#0B2545] border-b border-gray-200/50 pb-2 pt-2 mb-4">Cargo & Route Details</h3>
 
-                <div>
+                <div className="flex flex-col text-left">
+                  <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Cargo Description *</label>
                   <textarea
                     value={form.cargo}
                     onChange={(e) => update('cargo', e.target.value)}
                     className={`w-full p-4 rounded-xl border ${errors.cargo ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60 resize-none`}
-                    placeholder="Cargo description * (e.g., Apparel, industrial machinery)"
+                    placeholder="e.g., Apparel, industrial machinery"
                     rows={2}
                   />
                   {errors.cargo && <p className="text-red-500 text-xs mt-1 ml-1">{errors.cargo}</p>}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <input value={form.weight} onChange={(e) => update('weight', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60" placeholder="Weight / Dimensions" />
-                  <input value={form.quantity} onChange={(e) => update('quantity', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60" placeholder="Quantity / Packages" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Weight / Dimensions</label>
+                    <input value={form.weight} onChange={(e) => update('weight', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60" placeholder="e.g. 500kg, 120x80x80cm" />
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Quantity / Packages</label>
+                    <input value={form.quantity} onChange={(e) => update('quantity', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60" placeholder="e.g. 2 Pallets, 10 Boxes" />
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Origin Port/City *</label>
                     <input
                       type="text"
                       value={form.origin}
                       onChange={(e) => update('origin', e.target.value)}
-                      placeholder="Origin (Country/City) *"
+                      placeholder="e.g., Colombo, Sri Lanka"
                       className={`w-full p-4 rounded-xl border ${errors.origin ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60`}
                     />
                     {errors.origin && <p className="text-red-500 text-xs mt-1 ml-1">{errors.origin}</p>}
                   </div>
-                  <div>
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Destination Port/City *</label>
                     <input
                       type="text"
                       value={form.destination}
                       onChange={(e) => update('destination', e.target.value)}
-                      placeholder="Destination (Country/City) *"
+                      placeholder="e.g., London, UK"
                       className={`w-full p-4 rounded-xl border ${errors.destination ? 'border-red-400' : 'border-gray-200'} focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm bg-white/60`}
                     />
                     {errors.destination && <p className="text-red-500 text-xs mt-1 ml-1">{errors.destination}</p>}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <select value={form.mode} onChange={(e) => update('mode', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-500 bg-white/60">
-                    <option value="">Transport mode</option>
-                    <option>Sea Freight (FCL/LCL)</option>
-                    <option>Air Freight</option>
-                    <option>Road & Rail</option>
-                    <option>Courier & Express</option>
-                  </select>
-                  <select value={form.incoterms} onChange={(e) => update('incoterms', e.target.value)} className="p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-500 bg-white/60">
-                    <option value="">Incoterms</option>
-                    <option>EXW (Ex Works)</option>
-                    <option>FOB (Free on Board)</option>
-                    <option>CIF (Cost, Insurance & Freight)</option>
-                    <option>CPT (Carriage Paid To)</option>
-                  </select>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Transport Mode</label>
+                    <select value={form.mode} onChange={(e) => update('mode', e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-700 bg-white/60 h-[54px]">
+                      <option value="">Select Transport Mode</option>
+                      <option>Sea Freight (FCL/LCL)</option>
+                      <option>Air Freight</option>
+                      <option>Road & Rail</option>
+                      <option>Courier & Express</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Incoterms</label>
+                    <select value={form.incoterms} onChange={(e) => update('incoterms', e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-700 bg-white/60 h-[54px]">
+                      <option value="">Select Incoterms</option>
+                      <option>EXW (Ex Works)</option>
+                      <option>FOB (Free on Board)</option>
+                      <option>CIF (Cost, Insurance & Freight)</option>
+                      <option>CPT (Carriage Paid To)</option>
+                    </select>
+                  </div>
                 </div>
 
-                <div className="relative">
-                  <input type="date" value={form.date} onChange={(e) => update('date', e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-500 bg-white/60" />
+                <div className="flex flex-col text-left">
+                  <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Preferred Shipping Date</label>
+                  <input type="date" value={form.date} onChange={(e) => update('date', e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-700 bg-white/60 h-[54px]" />
                 </div>
 
                 <motion.button

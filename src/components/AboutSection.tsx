@@ -52,8 +52,12 @@ const defaultData = {
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { content } = useContent('about', defaultData);
+  const { content, loading } = useContent('about', defaultData);
   const data = { ...defaultData, ...content };
+
+  if (loading) {
+    return <div className="w-full min-h-[400px] bg-[#EBEBEB]/90" />;
+  }
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -93,7 +97,7 @@ export default function AboutSection() {
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words"
         >
           {data.sectionTitle.split(' ').map((word: string, idx: number) => (
-            <span key={idx} className={idx >= 2 ? 'text-black ml-2' : 'text-[#0B2545] ml-2'}>
+            <span key={idx} className="text-[#0B2545] ml-2">
               {word}
             </span>
           ))}
@@ -104,8 +108,28 @@ export default function AboutSection() {
           style={{ y: contentY }}
           className="w-full grid grid-cols-1 lg:grid-cols-2 gap-y-12 xl:gap-x-16 items-center pt-2"
         >
-          {/* Left: placeholder for FloatingContainer (keep as past in desktop view) */}
-          <div className="hidden lg:block w-full h-full" />
+          {/* Left: About image entrance animation - scale/increase from left bottom corner */}
+          <div className="hidden lg:flex w-full h-full items-center justify-center relative min-h-[350px]">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.3, x: -100, y: 100 }}
+              whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              style={{ transformOrigin: 'left bottom' }}
+              transition={{
+                duration: 1.4,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={{ scale: 1.02, y: -4 }}
+              className="relative w-full max-w-[550px] flex justify-center items-center"
+            >
+              <img
+                src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/about.png"
+                alt="Alliance Freight About"
+                className="w-full h-auto object-contain drop-shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
 
         {/* Right: Content */}
         <motion.div

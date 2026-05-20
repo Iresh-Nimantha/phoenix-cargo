@@ -18,6 +18,7 @@ import {
   MessageSquare as FooterIcon,
   Navigation,
   Truck,
+  Bot,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -26,28 +27,33 @@ interface ContentSection {
   name: string;
   icon: LucideIcon;
   description: string;
-  schema: Record<string, 'string' | 'text' | 'url'>;
-  initial: Record<string, string>;
+  schema: Record<string, 'string' | 'text' | 'url' | 'boolean' | 'url-list'>;
+  initial: Record<string, any>;
 }
 
 const contentSections: ContentSection[] = [
   {
     name: 'Hero',
     icon: Globe,
-    description: 'Main hero banner — title text, subtitle, video background',
+    description: 'Main hero banner — title text, subtitle, background media list, dark overlay toggle',
     schema: {
       title: 'string',
       subtitle: 'text',
       ctaText: 'string',
-      backgroundVideoUrl: 'url',
+      backgroundVideoUrl: 'url-list',
       backgroundPosterUrl: 'url',
+      useDarkOverlay: 'boolean',
     },
     initial: {
       title: 'PRECISION DELIVERY',
       subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
       ctaText: 'Get a Quote',
-      backgroundVideoUrl: 'https://assets.mixkit.co/videos/20179/20179-720.mp4',
+      backgroundVideoUrl: [
+        'https://assets.mixkit.co/videos/20179/20179-720.mp4',
+        'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg'
+      ],
       backgroundPosterUrl: '',
+      useDarkOverlay: true,
     },
   },
   {
@@ -108,6 +114,18 @@ const contentSections: ContentSection[] = [
       service4Title: 'string',
       service4Items: 'text',
       service4Image: 'url',
+      service5Title: 'string',
+      service5Items: 'text',
+      service5Image: 'url',
+      service6Title: 'string',
+      service6Items: 'text',
+      service6Image: 'url',
+      service7Title: 'string',
+      service7Items: 'text',
+      service7Image: 'url',
+      service8Title: 'string',
+      service8Items: 'text',
+      service8Image: 'url',
     },
     initial: {
       sectionTitle: 'OUR SERVICES',
@@ -124,6 +142,18 @@ const contentSections: ContentSection[] = [
       service4Title: 'CUSTOMS CLEARANCE',
       service4Items: 'Customs Declarations\nHS Code Classification\nCompliance Coordination',
       service4Image: '',
+      service5Title: 'COURIER & EXPRESS CARGO',
+      service5Items: 'International Document Delivery\nUrgent Parcel Delivery\nFast, Door-to-Door Service',
+      service5Image: '',
+      service6Title: 'PROJECT CARGO HANDLING',
+      service6Items: 'Heavy Lift & OOG Cargo\nCustom Logistics Planning\nSite Inspection & Surveys\nEquipment Management\nEnd-to-End Tracking',
+      service6Image: '',
+      service7Title: 'PHARMACEUTICAL CARGO HANDLING',
+      service7Items: 'Strict Temperature Controls\nCompliant with Standards\nSpecialized Handling Protocols\nPharma Facility Access',
+      service7Image: '',
+      service8Title: 'HAZARDOUS CARGO HANDLING',
+      service8Items: 'Safe & Compliant Handling\nRegulations Adherence (IMDG, IATA)\nHazard Containerization\nDocumentation & Declarations',
+      service8Image: '',
     },
   },
   {
@@ -243,6 +273,35 @@ const contentSections: ContentSection[] = [
       linkedinUrl: '',
       twitterUrl: '',
       instagramUrl: '',
+    },
+  },
+  {
+    name: 'Chatbot',
+    icon: Bot,
+    description: 'Chatbot Settings — customize AI assistant name and prompt persona',
+    schema: {
+      botName: 'string',
+      persona: 'text',
+    },
+    initial: {
+      botName: 'Alliance Assistant',
+      persona: `You are "Alliance Assistant", the official friendly customer support AI bot for Alliance Freight (Pvt) Ltd.
+Provide professional, polite, and accurate logistics answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
+
+Core Company Information:
+- Address: No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka.
+- Phone Support: 070 644 0992 | 076 736 7280.
+- Email Support: imports@alliancefreightcmb.com.
+- Core Services: Air Freight, Sea Freight (FCL/LCL), Road & Rail Freight, Customs Clearance & Brokerage.
+- Specialized Cargo Handling:
+  * Project Cargo: Heavy lift, Out of Gauge (OOG) shipping, custom industrial routes.
+  * Pharmaceutical Cargo: Cold-chain logistics, strict temperature control, medical grade.
+  * Hazardous Cargo: Dangerous goods class 1-9 handling, compliance certification.
+- 24/7 Operations: We run constant tracking and dispatch support.
+
+If asked about tracking, guide the user to the "/tracking" page.
+If asked about rates or quote requests, guide the user to click the "Get a Quote" button on the website.
+Do not invent facts or promise exact delivery rates without verification. Always remain polite and elite.`,
     },
   },
 ];

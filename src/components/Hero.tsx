@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useEffect, useRef, lazy, Suspense } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap, ScrollTrigger } from '../animations/gsap';
 import { useIsMobile } from '../hooks/useMediaQuery';
@@ -8,14 +8,16 @@ import { useContent } from '../hooks/useContent';
 import { useQuote } from '../context/QuoteContext';
 import MagneticButton from '../animations/MagneticButton';
 
-const HeroScene = lazy(() => import('../three/HeroScene'));
-
 const defaultData = {
   title: 'PRECISION DELIVERY',
   subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
   ctaText: 'Get a Quote',
-  backgroundVideoUrl: 'https://assets.mixkit.co/videos/20179/20179-720.mp4',
-  backgroundPosterUrl: 'https://assets.mixkit.co/videos/20179/20179-thumb-720-0.jpg',
+  backgroundVideoUrl: [
+    'https://assets.mixkit.co/videos/20179/20179-720.mp4',
+    'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg'
+  ] as any,
+  backgroundPosterUrl: '',
+  useDarkOverlay: true,
 };
 
 export default function Hero() {
@@ -24,15 +26,59 @@ export default function Hero() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
   const { openModal } = useQuote();
-  const { content } = useContent('hero', defaultData);
+  const { content, loading } = useContent('hero', defaultData);
   const data = { ...defaultData, ...content };
 
+  if (loading) {
+    return <div className="w-full h-screen bg-[#0B2545]" />;
+  }
+
   const { scrollY } = useScroll();
-  const videoScale = useTransform(scrollY, [0, 600], [1, 1.15]);
-  const videoOpacity = useTransform(scrollY, [0, 500], [1, 0.3]);
+  const mediaScale = useTransform(scrollY, [0, 600], [1, 1.12]);
+  const mediaOpacity = useTransform(scrollY, [0, 500], [1, 0.25]);
   const titleY = useTransform(scrollY, [0, 400], [0, 80]);
   const contentFadeY = useTransform(scrollY, [0, 300], [0, 40]);
   const contentOpacity = useTransform(scrollY, [0, 350], [1, 0]);
+
+  // Support both single media links and arrays/comma lists without modifying original backend keys
+  const backgroundMedia = useMemo(() => {
+    const val = data.backgroundVideoUrl;
+    if (Array.isArray(val)) {
+      return val.filter(Boolean);
+    }
+    if (typeof val === 'string') {
+      return val
+        .split(',')
+        .map((u) => u.trim())
+        .filter(Boolean);
+    }
+    return ['https://assets.mixkit.co/videos/20179/20179-720.mp4'];
+  }, [data.backgroundVideoUrl]);
+
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+
+  // Auto-cycling background slideshow
+  useEffect(() => {
+    if (backgroundMedia.length <= 1) return;
+
+    const currentUrl = backgroundMedia[activeMediaIndex] || '';
+    const isVideo = urlIsVideo(currentUrl);
+
+    const duration = isVideo ? 12000 : 6000;
+    const timer = setTimeout(() => {
+      setActiveMediaIndex((prev) => (prev + 1) % backgroundMedia.length);
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [activeMediaIndex, backgroundMedia]);
+
+  function urlIsVideo(url: string): boolean {
+    return (
+      url.match(/\.(mp4|webm|ogg|mov)($|\?)/i) !== null ||
+      url.includes('video') ||
+      url.includes('mixkit.co')
+    );
+  }
 
   // GSAP text split reveal
   useEffect(() => {
@@ -61,48 +107,75 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="home" className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
-      <motion.div className="absolute inset-0 z-0" style={{ scale: videoScale, opacity: videoOpacity }}>
-        <video
-          key={data.backgroundVideoUrl}
-          className="w-full h-full object-cover"
-          poster={data.backgroundPosterUrl}
-          src={data.backgroundVideoUrl}
-          autoPlay
-          playsInline
-          loop
-          muted
-        />
+      {/* Background Slideshow Layer */}
+      <motion.div
+        className="absolute inset-0 z-0 bg-black overflow-hidden"
+        style={{ scale: mediaScale, opacity: mediaOpacity }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeMediaIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full"
+          >
+            {(() => {
+              const url = backgroundMedia[activeMediaIndex] || '';
+              if (urlIsVideo(url)) {
+                return (
+                  <video
+                    className="w-full h-full object-cover"
+                    src={url}
+                    autoPlay
+                    playsInline
+                    loop
+                    muted
+                  />
+                );
+              } else {
+                return (
+                  <img
+                    className="w-full h-full object-cover"
+                    src={url}
+                    alt="Alliance Freight Background"
+                  />
+                );
+              }
+            })()}
+          </motion.div>
+        </AnimatePresence>
       </motion.div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/15 to-black/50" />
+      {/* Dark Overlay Layer */}
+      {(data.useDarkOverlay === true ||
+        data.useDarkOverlay === 'true' ||
+        data.useDarkOverlay === 1) && (
+          <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
+        )}
 
-      {/* 3D Scene Layer */}
-      {!isMobile && (
-        <Suspense fallback={null}>
-          <HeroScene />
-        </Suspense>
-      )}
-
-      {/* Hero Title */}
+      {/* Hero Title - Navy blue theme color text color and outlines */}
       <motion.div
         className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none px-4 -translate-y-24 md:-translate-y-36"
         style={{ y: titleY }}
       >
         <h1
           ref={titleRef}
-          className="uppercase font-black text-black w-full text-center text-[14vw] sm:text-[12vw] md:text-[11vw] lg:text-[10vw] tracking-[0.01em] leading-[0.82] select-none whitespace-normal pointer-events-auto"
+          className="uppercase font-black text-[#0B2545] w-full text-center text-[14vw] sm:text-[12vw] md:text-[11vw] lg:text-[10vw] tracking-[0.01em] leading-[0.82] select-none whitespace-normal pointer-events-auto"
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
             perspective: '600px',
             textShadow: `
-              2px 0 0 rgba(255,255,255,0.75),
-              -2px 0 0 rgba(255,255,255,0.75),
-              0 2px 0 rgba(255,255,255,0.75),
-              0 -2px 0 rgba(255,255,255,0.75),
-              0 0 8px rgba(255,255,255,0.15),
-              0 8px 24px rgba(0,0,0,0.40)
+              3px 0 0 rgba(255,255,255,0.95),
+              -3px 0 0 rgba(255,255,255,0.95),
+              0 3px 0 rgba(255,255,255,0.95),
+              0 -3px 0 rgba(255,255,255,0.95),
+              2px 2px 0 rgba(255,255,255,0.95),
+              -2px -2px 0 rgba(255,255,255,0.95),
+              2px -2px 0 rgba(255,255,255,0.95),
+              -2px 2px 0 rgba(255,255,255,0.95),
+              0 8px 24px rgba(0,0,0,0.50)
             `,
           }}
         >
@@ -118,7 +191,7 @@ export default function Hero() {
         </h1>
       </motion.div>
 
-      {/* Hero Overlaid Texts & Premium Buttons - Positioned on z-[30] to be on top of FloatingContainer z-[20] */}
+      {/* Hero Overlaid Texts & Premium Buttons */}
       <motion.div
         style={{ y: contentFadeY, opacity: contentOpacity }}
         className="absolute inset-x-0 bottom-[22%] md:bottom-[16%] z-[30] flex flex-col items-center justify-center text-center px-6 max-w-3xl mx-auto pointer-events-auto"
