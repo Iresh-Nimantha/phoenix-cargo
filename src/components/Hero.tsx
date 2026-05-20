@@ -13,7 +13,7 @@ const defaultData = {
   subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
   ctaText: 'Get a Quote',
   backgroundVideoUrl: [
-    'https://assets.mixkit.co/videos/20179/20179-720.mp4',
+    'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/afterbgvdo.mp4',
     'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg'
   ] as any,
   backgroundPosterUrl: '',
@@ -123,22 +123,24 @@ export default function Hero() {
           >
             {(() => {
               const url = backgroundMedia[activeMediaIndex] || '';
+              const safeUrl = url.replace(/ /g, '%20');
               if (urlIsVideo(url)) {
                 return (
                   <video
                     className="w-full h-full object-cover"
-                    src={url}
+                    src={safeUrl}
                     autoPlay
                     playsInline
                     loop
                     muted
+                    preload="auto"
                   />
                 );
               } else {
                 return (
                   <img
                     className="w-full h-full object-cover"
-                    src={url}
+                    src={safeUrl}
                     alt="Alliance Freight Background"
                   />
                 );

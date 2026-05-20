@@ -110,9 +110,10 @@ export default function App() {
     let imagesLoaded = false;
     let windowLoaded = false;
     let cmsLoaded = false;
+    let videoLoaded = false;
 
     const checkLoadState = () => {
-      if (imagesLoaded && windowLoaded && cmsLoaded) {
+      if (imagesLoaded && windowLoaded && cmsLoaded && videoLoaded) {
         setTimeout(() => {
           setIsPageLoading(false);
         }, 1500); // 1.5 seconds of buffer to guarantee rich loading presentation
@@ -154,29 +155,76 @@ export default function App() {
       };
     });
 
-    // 3. Preload Firestore documents to populate offline cache
+    // 3. Preload background video buffer dynamically
+    const preloadVideo = (url: string) => {
+      if (!url) {
+        videoLoaded = true;
+        checkLoadState();
+        return;
+      }
+
+      const safeUrl = url.replace(/ /g, '%20');
+      const video = document.createElement('video');
+      video.src = safeUrl;
+      video.preload = 'auto';
+      video.muted = true;
+      video.playsInline = true;
+
+      const handleCanPlay = () => {
+        videoLoaded = true;
+        checkLoadState();
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
+
+      const handleError = () => {
+        videoLoaded = true;
+        checkLoadState();
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
+
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('error', handleError);
+      video.load();
+    };
+
+    // 4. Preload Firestore documents to populate offline cache and retrieve active video background
     const preloadCMS = async () => {
+      let heroVideoUrl = 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/afterbgvdo.mp4';
       try {
-        await Promise.all([
+        const [heroSnap] = await Promise.all([
           getDoc(doc(db, 'content', 'hero')),
           getDoc(doc(db, 'content', 'about'))
         ]);
+
+        if (heroSnap.exists()) {
+          const heroData = heroSnap.data();
+          const val = heroData.backgroundVideoUrl;
+          if (Array.isArray(val) && val[0]) {
+            heroVideoUrl = val[0];
+          } else if (typeof val === 'string' && val.trim()) {
+            heroVideoUrl = val.split(',')[0].trim();
+          }
+        }
       } catch (err) {
         console.error('Firestore cache pre-loading failure', err);
       } finally {
         cmsLoaded = true;
         checkLoadState();
+        preloadVideo(heroVideoUrl);
       }
     };
     preloadCMS();
 
-    // 4. Robust fallback safety timer
+    // 5. Robust fallback safety timer
     const fallbackTimer = setTimeout(() => {
       imagesLoaded = true;
       windowLoaded = true;
       cmsLoaded = true;
+      videoLoaded = true;
       checkLoadState();
-    }, 4500);
+    }, 8500); // Expanded fallback timer for video caching over diverse networks
 
     return () => clearTimeout(fallbackTimer);
   }, []);
