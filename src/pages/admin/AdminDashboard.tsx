@@ -19,6 +19,8 @@ import {
   Navigation,
   Truck,
   Bot,
+  Menu,
+  X,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -328,8 +330,26 @@ export default function AdminDashboard() {
               Edit all website sections. Changes are saved to Firestore and reflected in real-time.
             </p>
 
-            {/* Section navigation cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+            {/* Responsive section selector */}
+            <div className="block md:hidden mb-6">
+              <label className="block text-xs font-black uppercase text-[#0B2545]/60 tracking-widest mb-2">
+                Active Section
+              </label>
+              <select
+                value={activeContentSection}
+                onChange={(e) => setActiveContentSection(Number(e.target.value))}
+                className="w-full p-3.5 bg-white border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 font-bold text-gray-700 text-sm shadow-sm"
+              >
+                {contentSections.map((section, i) => (
+                  <option key={section.name} value={i}>
+                    {section.name} Section
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Section navigation cards (desktop only) */}
+            <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
               {contentSections.map((section, i) => {
                 const Icon = section.icon;
                 const isActive = activeContentSection === i;
@@ -363,7 +383,7 @@ export default function AdminDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
-                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm"
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-gray-100 shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
                   {(() => {
@@ -396,22 +416,59 @@ export default function AdminDashboard() {
     }
   };
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div className="h-screen bg-gray-50 flex overflow-hidden">
-      <AdminSidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="flex-1 p-8 overflow-y-auto h-full">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+    <div className="h-screen bg-gray-50 flex overflow-hidden relative">
+      {/* Mobile Sidebar Backdrop Overlay */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Admin Sidebar Container */}
+      <div className={`fixed md:relative md:flex z-50 transition-transform duration-300 h-screen ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+        <AdminSidebar activeTab={activeTab} onTabChange={(tab) => {
+          setActiveTab(tab);
+          setSidebarOpen(false); // Auto close sidebar on mobile viewport select
+        }} />
+      </div>
+
+      <div className="flex-1 flex flex-col overflow-hidden h-full">
+        {/* Mobile Header Bar */}
+        <header className="md:hidden bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between z-30 shrink-0 shadow-sm">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 -ml-2 rounded-lg hover:bg-gray-50 text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <img
+              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png"
+              alt="Logo"
+              className="h-7 w-auto"
+            />
+            <span className="text-xs font-black text-gray-900 uppercase tracking-widest">Admin</span>
+          </div>
+        </header>
+
+        <main className="flex-1 p-5 md:p-8 overflow-y-auto h-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+            >
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
+      </div>
     </div>
   );
 }
