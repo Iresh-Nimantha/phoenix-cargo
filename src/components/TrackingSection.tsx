@@ -80,7 +80,7 @@ export default function TrackingSection() {
             <div className="absolute -top-16 -right-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-colors" />
             <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
 
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase text-[#0B2545] tracking-tighter mb-4 relative z-10 leading-tight break-words px-4">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase text-[#0B2545] tracking-tighter mb-4 relative z-10 leading-tight break-words px-4 text-center whitespace-normal">
               {data.sectionTitle}
             </h2>
             <p className="text-[#0B2545]/80 mb-8 text-lg font-bold relative z-10">

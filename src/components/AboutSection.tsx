@@ -97,7 +97,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words px-4 text-[#0B2545]"
+          className="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words px-4 text-[#0B2545] whitespace-normal"
         >
           {data.sectionTitle}
         </motion.h2>

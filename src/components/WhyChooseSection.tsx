@@ -113,7 +113,7 @@ export default function WhyChooseSection() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="space-y-8"
         >
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight break-words text-center lg:text-left px-4 lg:px-0 text-[#0B2545]">
+          <h2 className="text-xl sm:text-3xl lg:text-5xl font-black uppercase tracking-tighter leading-tight break-words text-center lg:text-left px-4 lg:px-0 text-[#0B2545] whitespace-normal">
             {data.sectionTitle}
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed font-semibold text-center lg:text-left px-2 sm:px-4 lg:px-0">
