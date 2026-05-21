@@ -34,11 +34,11 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
 
 const defaultData = {
   sectionTitle: 'ABOUT ALLIANCE FREIGHT',
-  description1: 'Alliance Freight is a professional logistics and freight company that provides unique freight solutions. We enter anew, our company Alliance Freight leads for you, introduced with its solution professional with a profound dedication and their team, that pure, living solutions in air, ocean, and land freight transport.',
-  description2: 'Alliance Freight was built on a custom history of logistics and freight and solutions. The strength of our expertise denies the professional freight clouds for any company, built with a strong logistics base and a network designed to ensure operations with local presence. We enhance a grand concentration on global networks and trading with professional empowerment.',
+  description1: 'Alliance Freight (Pvt) Ltd is a professional freight forwarding company that provides unique shipping and cargo solutions. We enter anew, our company Alliance Freight leads for you, introduced with its solution professional with a profound dedication and their team, that pure, living solutions in air, ocean, and land freight transport.',
+  description2: 'Alliance Freight (Pvt) Ltd was built on a custom history of freight forwarding and shipping solutions. The strength of our expertise denies the professional freight clouds for any company, built with a strong shipping network and a system designed to ensure operations with local presence. We enhance a grand concentration on global networks and trading with professional empowerment.',
   stat1Label: 'Global Partners',
   stat1Value: '5000',
-  stat2Label: 'Logistics Routes',
+  stat2Label: 'Shipping Routes',
   stat2Value: '25',
   stat3Label: 'Yearly Shipments',
   stat3Value: '1000000',
@@ -48,6 +48,8 @@ const defaultData = {
   feature2Description: 'Advanced tracking, access to status, checkout and constant tracking.',
   feature3Title: 'Custom Solutions',
   feature3Description: 'Custom solutions, expert sort level for trading and transport solutions.',
+  aboutImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/about.png',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
 };
 
 export default function AboutSection() {
@@ -75,14 +77,13 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full text-[#0B2545] px-6 md:px-16 flex flex-col items-center justify-center overflow-hidden select-none py-8 sm:py-12"
+      className="relative w-full text-[#0B2545] px-4 md:px-16 flex flex-col items-center justify-center overflow-hidden select-none py-8 sm:py-12"
     >
       {/* Parallax Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
           y: bgY,
         }}
       />
@@ -96,13 +97,9 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words px-4 text-[#0B2545]"
         >
-          {data.sectionTitle.split(' ').map((word: string, idx: number) => (
-            <span key={idx} className="text-[#0B2545] ml-2">
-              {word}
-            </span>
-          ))}
+          {data.sectionTitle}
         </motion.h2>
 
         {/* Content with parallax slide */}
@@ -125,7 +122,7 @@ export default function AboutSection() {
               className="relative w-full max-w-[550px] flex justify-center items-center"
             >
               <img
-                src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/about.png"
+                src={data.aboutImageUrl}
                 alt="Alliance Freight About"
                 className="w-full h-auto object-contain drop-shadow-2xl"
                 referrerPolicy="no-referrer"

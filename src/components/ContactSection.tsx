@@ -10,7 +10,7 @@ import { useContent } from '../hooks/useContent';
 
 const defaultData = {
   sectionTitle: 'Get in touch with Alliance Freight',
-  sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and logistics solutions worldwide.',
+  sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and shipping solutions worldwide.',
   address: 'No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka',
   phone1: '070 644 0992',
   phone2: '076 736 7280',
@@ -18,6 +18,22 @@ const defaultData = {
   supportHours: '24/7',
   mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.042790919323!2d79.88373187428458!3d6.877684018610582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25a587e148e65%3A0x6a0a0b22f2f11ed7!2sNo.+77+Sri+Medhananda+Mawatha%2C+Moratuwa%2C+Sri+Lanka!5e0!3m2!1sen!2slk!4v1716035000000!5m2!1sen!2slk',
   googleMapsLink: 'https://www.google.com/maps/search/?api=1&query=No.+77,+Sri+Medhananda+Mawatha,+Moratuwa,+Sri+Lanka',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
+  directionsText: 'Directions',
+  telephoneTitle: 'Telephone',
+  telephoneSubtitle: 'Call us anytime',
+  emailTitle: 'Email',
+  emailSubtitle: 'Response within 4 hours',
+  supportNote: 'Always available for your shipping and cargo needs',
+  formTitle: 'Send us a Message',
+  formNamePlaceholder: 'Your Name',
+  formEmailPlaceholder: 'Your Email',
+  formSubjectPlaceholder: 'Subject',
+  formMessagePlaceholder: 'Your Message',
+  formSubmitText: 'Send Message',
+  successTitle: 'Message Sent!',
+  successMessage: "We'll get back to you within 4 business hours.",
+  successButtonText: 'Send Another Message',
 };
 
 export default function ContactSection() {
@@ -61,7 +77,7 @@ export default function ContactSection() {
         status: 'new',
         replied: false,
       });
-      await sendContactEmail(form).catch(() => {});
+      await sendContactEmail(form).catch(() => { });
       setSuccess(true);
       setForm({ name: '', email: '', subject: '', message: '' });
       toast.success('Message sent successfully!');
@@ -76,14 +92,13 @@ export default function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative min-h-screen w-full text-[#0B2545] px-6 py-24 flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen w-full text-[#0B2545] px-4 sm:px-6 py-24 flex items-center justify-center overflow-hidden"
     >
       {/* Parallax Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
           y: bgY,
         }}
       />
@@ -96,9 +111,9 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="text-center mb-16"
+          className="text-center mb-16 px-4"
         >
-          <h2 className="text-3xl xl:text-4xl font-black uppercase mb-4">
+          <h2 className="text-2xl sm:text-3xl xl:text-4xl font-black uppercase mb-4 leading-tight break-words text-[#0B2545]">
             {data.sectionTitle}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto font-medium">
@@ -119,7 +134,7 @@ export default function ContactSection() {
                   referrerPolicy="no-referrer-when-downgrade"
                 />
                 <div className="absolute bottom-4 left-4 bg-white p-3 rounded-xl shadow-lg border-l-4 border-red-500 w-56 z-20">
-                  <h4 className="font-bold text-[#0B2545] text-sm">Alliance Freight</h4>
+                  <h4 className="font-bold text-[#0B2545] text-sm">Alliance Freight (Pvt) Ltd</h4>
                   <p className="text-xs text-gray-600 line-clamp-2">{data.address}</p>
                 </div>
                 <a
@@ -128,7 +143,7 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="absolute bottom-4 right-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full text-white px-4 py-2 shadow-lg flex items-center gap-2 hover:shadow-cyan-500/20 transition-all font-bold text-sm z-20"
                 >
-                  <Navigation className="w-4 h-4" /> Directions
+                  <Navigation className="w-4 h-4" /> {data.directionsText}
                 </a>
               </div>
             </TiltCard>
@@ -142,8 +157,8 @@ export default function ContactSection() {
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm">Telephone</h4>
-                      <p className="text-xs text-gray-500">Call us anytime</p>
+                      <h4 className="font-bold text-sm">{data.telephoneTitle}</h4>
+                      <p className="text-xs text-gray-500">{data.telephoneSubtitle}</p>
                     </div>
                   </div>
                   <p className="text-sm font-semibold">{data.phone1} {data.phone2 ? `/ ${data.phone2}` : ''}</p>
@@ -156,8 +171,8 @@ export default function ContactSection() {
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm">Email</h4>
-                      <p className="text-xs text-gray-500">Response within 4 hours</p>
+                      <h4 className="font-bold text-sm">{data.emailTitle}</h4>
+                      <p className="text-xs text-gray-500">{data.emailSubtitle}</p>
                     </div>
                   </div>
                   <a href={`mailto:${data.email}`} className="block text-sm text-[#0B2545] font-semibold hover:underline break-all">
@@ -172,8 +187,8 @@ export default function ContactSection() {
                       <Clock className="w-8 h-8" />
                     </div>
                     <div>
-                      <p className="text-xl font-black text-[#0B2545]">{data.supportHours} Hours / 7 Days a Week</p>
-                      <p className="text-sm text-gray-600">Always available for your logistics needs</p>
+                      <p className="text-xl font-black text-[#0B2545]">{data.supportHours}</p>
+                      <p className="text-sm text-gray-600">{data.supportNote}</p>
                     </div>
                   </div>
                 </TiltCard>
@@ -201,23 +216,23 @@ export default function ContactSection() {
                     >
                       <CheckCircle className="w-20 h-20 text-green-500 mb-6" />
                     </motion.div>
-                    <h3 className="text-2xl font-black text-[#0B2545] mb-2">Message Sent!</h3>
-                    <p className="text-gray-600 mb-6">We'll get back to you within 4 business hours.</p>
+                    <h3 className="text-2xl font-black text-[#0B2545] mb-2">{data.successTitle}</h3>
+                    <p className="text-gray-600 mb-6">{data.successMessage}</p>
                     <button
                       onClick={() => setSuccess(false)}
                       className="px-6 py-2 border-2 border-[#0B2545] text-[#0B2545] rounded-xl font-bold hover:bg-[#0B2545] hover:text-white transition-colors"
                     >
-                      Send Another Message
+                      {data.successButtonText}
                     </button>
                   </motion.div>
                 ) : (
                   <div className="relative z-10">
-                    <h3 className="text-xl font-black uppercase text-[#0B2545] mb-6">Send us a Message</h3>
+                    <h3 className="text-xl font-black uppercase text-[#0B2545] mb-6">{data.formTitle}</h3>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       {[
-                        { key: 'name', placeholder: 'Your Name', type: 'text' },
-                        { key: 'email', placeholder: 'Your Email', type: 'email' },
-                        { key: 'subject', placeholder: 'Subject', type: 'text' },
+                        { key: 'name', placeholder: data.formNamePlaceholder, type: 'text' },
+                        { key: 'email', placeholder: data.formEmailPlaceholder, type: 'email' },
+                        { key: 'subject', placeholder: data.formSubjectPlaceholder, type: 'text' },
                       ].map(({ key, placeholder, type }) => (
                         <div key={key}>
                           <input
@@ -240,7 +255,7 @@ export default function ContactSection() {
                             setForm({ ...form, message: e.target.value });
                             if (errors.message) setErrors({ ...errors, message: '' });
                           }}
-                          placeholder="Your Message"
+                          placeholder={data.formMessagePlaceholder}
                           rows={4}
                           className={`w-full p-4 rounded-xl border ${errors.message ? 'border-red-400' : 'border-gray-200'} outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all bg-white/60 text-sm resize-none`}
                         />
@@ -256,7 +271,7 @@ export default function ContactSection() {
                           <Loader2 className="w-5 h-5 animate-spin" />
                         ) : (
                           <>
-                            Send Message <Send className="w-4 h-4" />
+                            {data.formSubmitText} <Send className="w-4 h-4" />
                           </>
                         )}
                       </motion.button>

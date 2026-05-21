@@ -14,9 +14,12 @@ const defaultIndustries = [
 
 const defaultData = {
   sectionTitle: 'INDUSTRIES WE SERVE',
-  sectionDescription: 'Alliance Freight supports a wide range of industries with customized logistics solutions.',
+  sectionDescription: 'Alliance Freight (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
   industries: 'Importers & Exporters\nApparel & Textile Industry\nManufacturing & Industrial Suppliers\nConstruction & Engineering Projects\nFMCG & Food Products\nPharmaceutical & Healthcare\nE-commerce & Retail Businesses',
   footerNote: 'Our flexible freight solutions allow businesses to expand their global trade operations with confidence.',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
+  mapImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/map.png',
+  shipImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/ship.png',
 };
 
 function KineticGrid() {
@@ -215,8 +218,7 @@ export default function IndustriesSection() {
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
           y: bgY,
         }}
       />
@@ -229,13 +231,12 @@ export default function IndustriesSection() {
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.10] mix-blend-multiply z-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/map.png')",
+          backgroundImage: `url('${data.mapImageUrl}')`,
           y: bgY,
         }}
       />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col lg:flex-row lg:items-stretch gap-0 py-16 lg:py-0">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col lg:flex-row lg:items-stretch gap-0 py-16 lg:py-0">
         {/* LEFT with parallax Y */}
         <motion.div style={{ y: contentY }} className="flex-1 flex flex-col justify-center py-20 lg:py-24 pr-0 lg:pr-16 z-20">
           <motion.div
@@ -243,9 +244,9 @@ export default function IndustriesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-            className="mb-10 text-center lg:text-left"
+            className="mb-10 text-center lg:text-left px-2 sm:px-4"
           >
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-center lg:text-left leading-tight break-words px-4 lg:px-0 text-[#0B2545]">
               {data.sectionTitle}
             </h2>
             <p className="text-gray-600 text-base max-w-xl mx-auto lg:mx-0 font-semibold">
@@ -253,7 +254,7 @@ export default function IndustriesSection() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 px-4 sm:px-0">
             {industryList.map((industry: string, index: number) => (
               <motion.div
                 key={index}
@@ -324,7 +325,7 @@ export default function IndustriesSection() {
             className="absolute -right-20 bottom-[-5%] w-[120%]"
           >
             <motion.img
-              src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/ship.png"
+              src={data.shipImageUrl}
               alt="Cargo ship"
               className="w-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]"
               animate={isInView ? { 

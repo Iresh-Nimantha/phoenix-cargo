@@ -9,12 +9,20 @@ import { useContent } from '../hooks/useContent';
 import { useSettings } from '../context/SettingsContext';
 
 const defaultFooterData = {
-  brandDescription: 'Alliance Freight Logistics delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
-  copyright: '2026 Alliance Freight Logistics. All rights reserved.',
+  brandDescription: 'Alliance Freight (Pvt) Ltd delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
+  copyright: '2026 Alliance Freight (Pvt) Ltd. All rights reserved.',
   facebookUrl: '',
   linkedinUrl: '',
   twitterUrl: '',
   instagramUrl: '',
+  quickLinksTitle: 'Quick Links',
+  contactInfoTitle: 'Contact Information',
+  supportHoursText: '24/7 Support',
+  connectTitle: 'Connect With Us',
+  newsletterTitle: 'Newsletter Signup',
+  newsletterPlaceholder: 'Enter Your Email',
+  newsletterButtonText: 'Subscribe',
+  newsletterSubscribingText: 'Subscribing...',
 };
 
 const defaultContactData = {
@@ -88,11 +96,11 @@ export default function Footer() {
         <motion.div variants={fadeSlideUp} className="space-y-4">
           <img
             src={logoUrl}
-            alt="Alliance Freight Logistics"
+            alt="Alliance Freight"
             className="h-20 w-auto"
           />
           <h2 className="text-xl font-black text-white uppercase tracking-tight">
-            ALLIANCE FREIGHT <span className="text-[#FF7A1A]">LOGISTICS</span>
+            ALLIANCE FREIGHT PVT LTD <span className="text-[#FF7A1A]"></span>
           </h2>
           <p className="text-sm leading-relaxed">
             {footer.brandDescription}
@@ -101,7 +109,7 @@ export default function Footer() {
 
         {/* Quick Links */}
         <motion.div variants={fadeSlideUp} className="space-y-4">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">Quick Links</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.quickLinksTitle}</h3>
           <ul className="space-y-2 text-sm">
             {['About Us', 'Our Services', 'Air Freight', 'Ocean Freight', 'Land Transport', 'Track Shipment', 'Request a Quote', 'Contact Us'].map((link) => (
               <motion.li
@@ -117,7 +125,7 @@ export default function Footer() {
 
         {/* Contact */}
         <motion.div variants={fadeSlideUp} className="space-y-4">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">Contact Information</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.contactInfoTitle}</h3>
           <div className="space-y-3 text-sm">
             <div className="flex gap-3">
               <MapPin className="w-5 h-5 text-[#FF7A1A] shrink-0" />
@@ -133,14 +141,14 @@ export default function Footer() {
             </div>
             <div className="flex gap-3 font-bold text-white">
               <Clock className="w-5 h-5 text-[#FF7A1A] shrink-0" />
-              <p>24/7 Support</p>
+              <p>{footer.supportHoursText}</p>
             </div>
           </div>
         </motion.div>
 
         {/* Connect */}
         <motion.div variants={fadeSlideUp} className="space-y-6">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">Connect With Us</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.connectTitle}</h3>
           <div className="flex gap-3">
             {socialLinks.map((item, i) => (
               <motion.a
@@ -158,12 +166,12 @@ export default function Footer() {
           </div>
 
           <form onSubmit={handleSubscribe} className="space-y-2">
-            <h4 className="font-bold text-white uppercase text-sm">Newsletter Signup</h4>
+            <h4 className="font-bold text-white uppercase text-sm">{footer.newsletterTitle}</h4>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Your Email"
+              placeholder={footer.newsletterPlaceholder}
               className="w-full p-3 bg-transparent border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-[#FF7A1A] outline-none transition-colors"
             />
             <motion.button
@@ -172,7 +180,7 @@ export default function Footer() {
               whileTap={{ scale: 0.97 }}
               className="w-full bg-[#FF7A1A] hover:bg-[#ff8c3a] text-white font-black py-3 rounded-lg text-sm uppercase transition-colors tracking-wider disabled:opacity-60"
             >
-              {subLoading ? 'Subscribing...' : 'Subscribe'}
+              {subLoading ? footer.newsletterSubscribingText : footer.newsletterButtonText}
             </motion.button>
           </form>
         </motion.div>

@@ -36,7 +36,7 @@ const defaultServicesList = [
   {
     title: 'PROJECT CARGO HANDLING',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop',
-    items: ['Heavy Lift & OOG Cargo', 'Custom Logistics Planning', 'Site Inspection & Surveys', 'Equipment Management', 'End-to-End Tracking'],
+    items: ['Heavy Lift & OOG Cargo', 'Custom Freight Planning', 'Site Inspection & Surveys', 'Equipment Management', 'End-to-End Tracking'],
     gradient: 'from-green-600/10 to-emerald-500/10',
   },
   {
@@ -55,7 +55,8 @@ const defaultServicesList = [
 
 const defaultData = {
   sectionTitle: 'OUR SERVICES',
-  sectionDescription: 'Alliance Freight (Pvt) Ltd offers a complete range of freight forwarding and logistics services designed to support global trade and supply chain efficiency.',
+  sectionDescription: 'Alliance Freight (Pvt) Ltd offers a complete range of freight forwarding services designed to support global trade and supply chain efficiency.',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
   service1Title: '',
   service1Items: '',
   service1Image: '',
@@ -110,14 +111,13 @@ export default function OurServices() {
   return (
     <section
       id="services"
-      className="relative w-full text-[#0B2545] px-6 py-12 md:py-16 flex items-center justify-center overflow-hidden"
+      className="relative w-full text-[#0B2545] px-4 py-12 md:py-16 flex items-center justify-center overflow-hidden"
     >
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
         }}
       />
       <div className="absolute inset-0 bg-[#EBEBEB]/90 backdrop-blur-[2px]" />
@@ -130,7 +130,7 @@ export default function OurServices() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-tight break-words">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-tight break-words px-4">
             {data.sectionTitle}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto font-semibold">

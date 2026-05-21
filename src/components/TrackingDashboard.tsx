@@ -140,7 +140,7 @@ export default function TrackingDashboard() {
             },
             {
               time: new Date(Date.now() - 86400000 * 4).toISOString(),
-              location: 'Alliance Logistics Facility',
+              location: 'Alliance Freight Facility',
               message: 'Cargo scanned, grouped, and packed successfully.',
               status: 'InfoReceived',
             }

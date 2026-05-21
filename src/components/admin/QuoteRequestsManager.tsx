@@ -9,7 +9,18 @@ import toast from 'react-hot-toast';
 
 interface QuoteRequest {
   userDetails: { name: string; email: string; phone: string; company?: string };
-  quoteDetails: { service?: string; message?: string; cargo?: string; origin?: string; destination?: string };
+  quoteDetails: {
+    service?: string;
+    message?: string;
+    cargo?: string;
+    origin?: string;
+    destination?: string;
+    mode?: string;
+    weight?: string;
+    quantity?: string;
+    incoterms?: string;
+    preferredDate?: string;
+  };
   submittedAt: any;
   status: string;
   notes: string;

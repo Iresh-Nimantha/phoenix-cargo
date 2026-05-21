@@ -156,7 +156,7 @@ export default function RequestQuoteSection() {
                   {[
                     'Competitive global freight rates',
                     '24/7 customer support & shipment updates',
-                    'Professional tailored logistics solutions',
+                    'Professional tailored shipping solutions',
                     'Reliable, on-time delivery guaranteed',
                   ].map((item, i) => (
                     <motion.div

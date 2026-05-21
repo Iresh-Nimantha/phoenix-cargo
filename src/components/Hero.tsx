@@ -10,8 +10,10 @@ import MagneticButton from '../animations/MagneticButton';
 
 const defaultData = {
   title: 'PRECISION DELIVERY',
-  subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
+  subtitle: 'Your trusted partner in global freight forwarding and Alliance Freight (Pvt) Ltd solutions.',
   ctaText: 'Get a Quote',
+  trackText: 'Track Shipment',
+  scrollText: 'Scroll',
   backgroundVideoUrl: [
     'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/afterbgvdo.mp4',
     'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg'
@@ -227,7 +229,7 @@ export default function Hero() {
             onClick={() => navigate('/tracking')}
             className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-extrabold rounded-full transition-all shadow-xl hover:shadow-white/10 tracking-wider text-xs uppercase flex items-center justify-center gap-2"
           >
-            Track Shipment <Compass className="w-4 h-4" />
+            {data.trackText} <Compass className="w-4 h-4" />
           </MagneticButton>
         </motion.div>
       </motion.div>
@@ -239,7 +241,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
       >
-        <span className="text-white/50 text-[9px] uppercase tracking-[0.35em] font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">Scroll</span>
+        <span className="text-white/50 text-[9px] uppercase tracking-[0.35em] font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">{data.scrollText}</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

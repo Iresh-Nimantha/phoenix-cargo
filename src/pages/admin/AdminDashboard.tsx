@@ -43,14 +43,18 @@ const contentSections: ContentSection[] = [
       title: 'string',
       subtitle: 'text',
       ctaText: 'string',
+      trackText: 'string',
+      scrollText: 'string',
       backgroundVideoUrl: 'url-list',
       backgroundPosterUrl: 'url',
       useDarkOverlay: 'boolean',
     },
     initial: {
       title: 'PRECISION DELIVERY',
-      subtitle: 'Your trusted partner in global freight forwarding and logistics solutions.',
+      subtitle: 'Your trusted partner in global freight forwarding and Alliance Freight (Pvt) Ltd solutions.',
       ctaText: 'Get a Quote',
+      trackText: 'Track Shipment',
+      scrollText: 'Scroll',
       backgroundVideoUrl: [
         'https://assets.mixkit.co/videos/20179/20179-720.mp4',
         'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg'
@@ -62,7 +66,7 @@ const contentSections: ContentSection[] = [
   {
     name: 'About',
     icon: Info,
-    description: 'About Alliance Freight — company description, stats',
+    description: 'About Alliance Freight — company description, stats, images',
     schema: {
       sectionTitle: 'string',
       description1: 'text',
@@ -79,14 +83,16 @@ const contentSections: ContentSection[] = [
       feature2Description: 'text',
       feature3Title: 'string',
       feature3Description: 'text',
+      aboutImageUrl: 'url',
+      backgroundImageUrl: 'url',
     },
     initial: {
       sectionTitle: 'ABOUT ALLIANCE FREIGHT',
-      description1: 'Alliance Freight is a professional logistics and freight company that provides unique freight solutions.',
-      description2: 'Alliance Freight was built on a custom history of logistics and freight and solutions.',
+      description1: 'Alliance Freight (Pvt) Ltd is a professional freight forwarding company that provides unique shipping and cargo solutions.',
+      description2: 'Alliance Freight (Pvt) Ltd was built on a custom history of freight forwarding and shipping solutions. The strength of our expertise denies the professional freight clouds for any company, built with a strong shipping network and a system designed to ensure operations with local presence. We enhance a grand concentration on global networks and trading with professional empowerment.',
       stat1Label: 'Global Partners',
       stat1Value: '5000',
-      stat2Label: 'Logistics Routes',
+      stat2Label: 'Shipping Routes',
       stat2Value: '25',
       stat3Label: 'Yearly Shipments',
       stat3Value: '1000000',
@@ -96,15 +102,18 @@ const contentSections: ContentSection[] = [
       feature2Description: 'Advanced tracking, access to status, checkout and constant tracking.',
       feature3Title: 'Custom Solutions',
       feature3Description: 'Custom solutions, expert sort level for trading and transport solutions.',
+      aboutImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/about.png',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
     },
   },
   {
     name: 'Services',
     icon: ShipWheel,
-    description: 'Services section — title, description, and individual service cards',
+    description: 'Services section — title, description, backgrounds, and individual service cards',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
+      backgroundImageUrl: 'url',
       service1Title: 'string',
       service1Items: 'text',
       service1Image: 'url',
@@ -132,7 +141,8 @@ const contentSections: ContentSection[] = [
     },
     initial: {
       sectionTitle: 'OUR SERVICES',
-      sectionDescription: 'Alliance Freight offers a complete range of freight forwarding and logistics services.',
+      sectionDescription: 'Alliance Freight (Pvt) Ltd offers a complete range of freight forwarding services designed to support global trade and supply chain efficiency.',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
       service1Title: 'SEA FREIGHT (FCL / LCL)',
       service1Items: 'FCL (Full Container Load)\nLCL (Less Than Container Load)\nPort-to-Port & Door-to-Door',
       service1Image: '',
@@ -149,7 +159,7 @@ const contentSections: ContentSection[] = [
       service5Items: 'International Document Delivery\nUrgent Parcel Delivery\nFast, Door-to-Door Service',
       service5Image: '',
       service6Title: 'PROJECT CARGO HANDLING',
-      service6Items: 'Heavy Lift & OOG Cargo\nCustom Logistics Planning\nSite Inspection & Surveys\nEquipment Management\nEnd-to-End Tracking',
+      service6Items: 'Heavy Lift & OOG Cargo\nCustom Freight Planning\nSite Inspection & Surveys\nEquipment Management\nEnd-to-End Tracking',
       service6Image: '',
       service7Title: 'PHARMACEUTICAL CARGO HANDLING',
       service7Items: 'Strict Temperature Controls\nCompliant with Standards\nSpecialized Handling Protocols\nPharma Facility Access',
@@ -162,28 +172,35 @@ const contentSections: ContentSection[] = [
   {
     name: 'Industries',
     icon: Factory,
-    description: 'Industries We Serve — list of industries',
+    description: 'Industries We Serve — list of industries, background, illustrations',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
       industries: 'text',
       footerNote: 'text',
+      backgroundImageUrl: 'url',
+      mapImageUrl: 'url',
+      shipImageUrl: 'url',
     },
     initial: {
       sectionTitle: 'INDUSTRIES WE SERVE',
-      sectionDescription: 'Alliance Freight supports a wide range of industries with customized logistics solutions.',
+      sectionDescription: 'Alliance Freight (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
       industries: 'Importers & Exporters\nApparel & Textile Industry\nManufacturing & Industrial Suppliers\nConstruction & Engineering Projects\nFMCG & Food Products\nPharmaceutical & Healthcare\nE-commerce & Retail Businesses',
       footerNote: 'Our flexible freight solutions allow businesses to expand their global trade operations with confidence.',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
+      mapImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/map.png',
+      shipImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/ship.png',
     },
   },
   {
     name: 'WhyChoose',
     icon: ShieldCheck,
-    description: 'Why Choose Alliance Freight — strengths list and CTA message',
+    description: 'Why Choose Alliance Freight — strengths, background',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
       ctaMessage: 'text',
+      backgroundImageUrl: 'url',
       strength1: 'string',
       strength2: 'string',
       strength3: 'string',
@@ -195,8 +212,9 @@ const contentSections: ContentSection[] = [
     },
     initial: {
       sectionTitle: 'WHY CHOOSE ALLIANCE FREIGHT',
-      sectionDescription: 'In freight forwarding, performance matters. Alliance Freight is committed to delivering professional logistics services.',
-      ctaMessage: 'Alliance Freight is not just a service provider — we are your long-term logistics partner.',
+      sectionDescription: 'In freight forwarding, performance matters. Alliance Freight (Pvt) Ltd is committed to delivering professional shipping and cargo solutions.',
+      ctaMessage: 'Alliance Freight (Pvt) Ltd is not just a service provider — we are your long-term shipping and freight forwarding partner.',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
       strength1: 'Export, Import & Cross Trading Expertise',
       strength2: 'Sea Freight, Air Freight, Courier, Road & Rail Options',
       strength3: 'Strong Worldwide Agent Network',
@@ -210,10 +228,11 @@ const contentSections: ContentSection[] = [
   {
     name: 'Tracking',
     icon: Navigation,
-    description: 'Tracking section — title, description, feature badges',
+    description: 'Tracking section — title, description, background, feature badges',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
+      backgroundImageUrl: 'url',
       badge1: 'string',
       badge2: 'string',
       badge3: 'string',
@@ -223,6 +242,7 @@ const contentSections: ContentSection[] = [
     initial: {
       sectionTitle: 'TRACK YOUR SHIPMENT & GET SUPPORT',
       sectionDescription: 'Real-time tracking updates and 24/7 professional assistance for all your cargo needs.',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
       badge1: 'Real-Time Updates',
       badge2: '24/7 Coordination',
       badge3: 'Secure Information',
@@ -233,7 +253,7 @@ const contentSections: ContentSection[] = [
   {
     name: 'Contact',
     icon: Phone,
-    description: 'Contact section — address, phone numbers, email, support hours',
+    description: 'Contact section — address, phone numbers, email, background',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
@@ -244,10 +264,26 @@ const contentSections: ContentSection[] = [
       supportHours: 'string',
       mapEmbedUrl: 'url',
       googleMapsLink: 'url',
+      backgroundImageUrl: 'url',
+      directionsText: 'string',
+      telephoneTitle: 'string',
+      telephoneSubtitle: 'string',
+      emailTitle: 'string',
+      emailSubtitle: 'string',
+      supportNote: 'string',
+      formTitle: 'string',
+      formNamePlaceholder: 'string',
+      formEmailPlaceholder: 'string',
+      formSubjectPlaceholder: 'string',
+      formMessagePlaceholder: 'string',
+      formSubmitText: 'string',
+      successTitle: 'string',
+      successMessage: 'string',
+      successButtonText: 'string',
     },
     initial: {
       sectionTitle: 'Get in touch with Alliance Freight',
-      sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and logistics solutions worldwide.',
+      sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and shipping solutions worldwide.',
       address: 'No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka',
       phone1: '070 644 0992',
       phone2: '076 736 7280',
@@ -255,6 +291,22 @@ const contentSections: ContentSection[] = [
       supportHours: '24/7',
       mapEmbedUrl: '',
       googleMapsLink: '',
+      backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
+      directionsText: 'Directions',
+      telephoneTitle: 'Telephone',
+      telephoneSubtitle: 'Call us anytime',
+      emailTitle: 'Email',
+      emailSubtitle: 'Response within 4 hours',
+      supportNote: 'Always available for your shipping and cargo needs',
+      formTitle: 'Send us a Message',
+      formNamePlaceholder: 'Your Name',
+      formEmailPlaceholder: 'Your Email',
+      formSubjectPlaceholder: 'Subject',
+      formMessagePlaceholder: 'Your Message',
+      formSubmitText: 'Send Message',
+      successTitle: 'Message Sent!',
+      successMessage: "We'll get back to you within 4 business hours.",
+      successButtonText: 'Send Another Message',
     },
   },
   {
@@ -268,14 +320,30 @@ const contentSections: ContentSection[] = [
       linkedinUrl: 'url',
       twitterUrl: 'url',
       instagramUrl: 'url',
+      quickLinksTitle: 'string',
+      contactInfoTitle: 'string',
+      supportHoursText: 'string',
+      connectTitle: 'string',
+      newsletterTitle: 'string',
+      newsletterPlaceholder: 'string',
+      newsletterButtonText: 'string',
+      newsletterSubscribingText: 'string',
     },
     initial: {
-      brandDescription: 'Alliance Freight Logistics delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
-      copyright: '2026 Alliance Freight Logistics. All rights reserved.',
+      brandDescription: 'Alliance Freight (Pvt) Ltd delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
+      copyright: '2026 Alliance Freight (Pvt) Ltd. All rights reserved.',
       facebookUrl: '',
       linkedinUrl: '',
       twitterUrl: '',
       instagramUrl: '',
+      quickLinksTitle: 'Quick Links',
+      contactInfoTitle: 'Contact Information',
+      supportHoursText: '24/7 Support',
+      connectTitle: 'Connect With Us',
+      newsletterTitle: 'Newsletter Signup',
+      newsletterPlaceholder: 'Enter Your Email',
+      newsletterButtonText: 'Subscribe',
+      newsletterSubscribingText: 'Subscribing...',
     },
   },
   {
@@ -289,7 +357,7 @@ const contentSections: ContentSection[] = [
     initial: {
       botName: 'Alliance Assistant',
       persona: `You are "Alliance Assistant", the official friendly customer support AI bot for Alliance Freight (Pvt) Ltd.
-Provide professional, polite, and accurate logistics answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
+Provide professional, polite, and accurate freight forwarding answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
 
 Core Company Information:
 - Address: No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka.
@@ -298,7 +366,7 @@ Core Company Information:
 - Core Services: Air Freight, Sea Freight (FCL/LCL), Road & Rail Freight, Customs Clearance & Brokerage.
 - Specialized Cargo Handling:
   * Project Cargo: Heavy lift, Out of Gauge (OOG) shipping, custom industrial routes.
-  * Pharmaceutical Cargo: Cold-chain logistics, strict temperature control, medical grade.
+  * Pharmaceutical Cargo: Cold-chain solutions, strict temperature control, medical grade.
   * Hazardous Cargo: Dangerous goods class 1-9 handling, compliance certification.
 - 24/7 Operations: We run constant tracking and dispatch support.
 

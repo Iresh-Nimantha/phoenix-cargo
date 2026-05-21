@@ -62,7 +62,7 @@ export default function Navbar() {
           <motion.img
             src={logoUrl}
             alt="Alliance Freight Logo"
-            className="h-9 w-auto drop-shadow-sm"
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-sm transition-all"
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300 }}
           />

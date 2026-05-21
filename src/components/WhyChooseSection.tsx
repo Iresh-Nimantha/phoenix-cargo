@@ -38,8 +38,9 @@ const colors = [
 
 const defaultData = {
   sectionTitle: 'WHY CHOOSE ALLIANCE FREIGHT',
-  sectionDescription: 'In freight forwarding, performance matters. Alliance Freight is committed to delivering professional logistics services.',
-  ctaMessage: 'Alliance Freight is not just a service provider — we are your long-term logistics partner.',
+  sectionDescription: 'In freight forwarding, performance matters. Alliance Freight (Pvt) Ltd is committed to delivering professional shipping and cargo solutions.',
+  ctaMessage: 'Alliance Freight (Pvt) Ltd is not just a service provider — we are your long-term shipping and freight forwarding partner.',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
   strength1: 'Export, Import & Cross Trading Expertise',
   strength2: 'Sea Freight, Air Freight, Courier, Road & Rail Options',
   strength3: 'Strong Worldwide Agent Network',
@@ -90,14 +91,13 @@ export default function WhyChooseSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full px-6 md:px-16 flex items-center justify-center overflow-hidden select-none text-[#0B2545] py-12 md:py-16"
+      className="relative w-full px-4 md:px-16 flex items-center justify-center overflow-hidden select-none text-[#0B2545] py-12 md:py-16"
     >
       {/* Parallax Background */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
           y: bgY,
         }}
       />
@@ -113,24 +113,25 @@ export default function WhyChooseSection() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="space-y-8"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight break-words">
-            {data.sectionTitle.split(' ').slice(0, 2).join(' ')}<br />
-            <span className="text-[#0B2545]">{data.sectionTitle.split(' ').slice(2).join(' ')}</span>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight break-words text-center lg:text-left px-4 lg:px-0 text-[#0B2545]">
+            {data.sectionTitle}
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed font-semibold">
+          <p className="text-lg text-gray-700 leading-relaxed font-semibold text-center lg:text-left px-2 sm:px-4 lg:px-0">
             {data.sectionDescription}
           </p>
 
           {/* 3D CTA Card */}
-          <TiltCard className="group" maxTilt={6} glare={true}>
-            <div className="bg-[#0B2545] text-white p-6 rounded-2xl shadow-lg relative overflow-hidden group-hover:shadow-2xl group-hover:shadow-[#0B2545]/30 transition-shadow duration-300">
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-colors" />
-              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
-              <p className="text-lg font-semibold relative z-10">
-                {data.ctaMessage}
-              </p>
-            </div>
-          </TiltCard>
+          <div className="px-4 sm:px-0">
+            <TiltCard className="group animate-glow" maxTilt={6} glare={true}>
+              <div className="bg-[#0B2545] text-white p-6 rounded-2xl shadow-lg relative overflow-hidden group-hover:shadow-2xl group-hover:shadow-[#0B2545]/30 transition-shadow duration-300">
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-colors" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
+                <p className="text-lg font-semibold relative z-10 text-center lg:text-left">
+                  {data.ctaMessage}
+                </p>
+              </div>
+            </TiltCard>
+          </div>
         </motion.div>
 
         {/* Right - with parallax slide */}

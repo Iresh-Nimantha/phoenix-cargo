@@ -11,6 +11,7 @@ const icons = [Clock, RefreshCw, Lock];
 const defaultData = {
   sectionTitle: 'TRACK YOUR SHIPMENT & GET SUPPORT',
   sectionDescription: 'Real-time tracking updates and 24/7 professional assistance for all your cargo needs.',
+  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
   badge1: 'Real-Time Updates',
   badge2: '24/7 Coordination',
   badge3: 'Secure Information',
@@ -52,8 +53,7 @@ export default function TrackingSection() {
       <motion.div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
+          backgroundImage: `url('${data.backgroundImageUrl}')`,
           y: bgY,
         }}
       />
@@ -74,13 +74,13 @@ export default function TrackingSection() {
       {/* 3D Glass Content Card with parallax */}
       <motion.div style={{ y: cardY, rotateX: cardRotate }} className="relative z-10 mx-6">
         <TiltCard className="group" maxTilt={5} glare={true}>
-          <div className="p-10 bg-white/80 backdrop-blur-xl border border-white/30 rounded-3xl max-w-2xl text-center shadow-2xl relative overflow-hidden group-hover:shadow-3xl transition-shadow duration-500">
+          <div className="p-6 sm:p-10 bg-white/80 backdrop-blur-xl border border-white/30 rounded-3xl max-w-2xl text-center shadow-2xl relative overflow-hidden group-hover:shadow-3xl transition-shadow duration-500">
             <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-r from-cyan-500/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity blur-sm pointer-events-none" />
             
             <div className="absolute -top-16 -right-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-colors" />
             <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
 
-            <h2 className="text-4xl md:text-5xl font-black uppercase text-[#0B2545] tracking-tighter mb-4 relative z-10">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase text-[#0B2545] tracking-tighter mb-4 relative z-10 leading-tight break-words px-4">
               {data.sectionTitle}
             </h2>
             <p className="text-[#0B2545]/80 mb-8 text-lg font-bold relative z-10">

@@ -12,7 +12,7 @@ interface Message {
 const defaultChatbotData = {
   botName: 'Alliance Assistant',
   persona: `You are "Alliance Assistant", the official friendly customer support AI bot for Alliance Freight (Pvt) Ltd.
-Provide professional, polite, and accurate logistics answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
+Provide professional, polite, and accurate freight forwarding answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
 
 Core Company Information:
 - Address: No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka.
@@ -21,7 +21,7 @@ Core Company Information:
 - Core Services: Air Freight, Sea Freight (FCL/LCL), Road & Rail Freight, Customs Clearance & Brokerage.
 - Specialized Cargo Handling:
   * Project Cargo: Heavy lift, Out of Gauge (OOG) shipping, custom industrial routes.
-  * Pharmaceutical Cargo: Cold-chain logistics, strict temperature control, medical grade.
+  * Pharmaceutical Cargo: Cold-chain shipping solutions, strict temperature control, medical grade.
   * Hazardous Cargo: Dangerous goods class 1-9 handling, compliance certification.
 - 24/7 Operations: We run constant tracking and dispatch support.
 
@@ -58,7 +58,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hello! I am your Alliance Assistant. How can I help you with your global shipping, cargo tracking, or logistics needs today? 🌐',
+      content: 'Hello! I am your Alliance Assistant. How can I help you with your global shipping, cargo tracking, or shipping needs today? 🌐',
     },
   ]);
   const [input, setInput] = useState('');
