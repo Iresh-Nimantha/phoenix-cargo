@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Mail, MapPin, Phone, Clock, Facebook, Linkedin, Instagram, Twitter } from 'lucide-react';
-import { useState } from 'react';
+import { useState, memo, useMemo } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import toast from 'react-hot-toast';
@@ -32,16 +32,15 @@ const defaultContactData = {
   email: 'imports@alliancefreightcmb.com',
 };
 
-export default function Footer() {
+export default memo(function Footer() {
   const [email, setEmail] = useState('');
   const [subLoading, setSubLoading] = useState(false);
   const { logoUrl } = useSettings();
 
   const { content: footerContent } = useContent('footer', defaultFooterData);
-  const footer = { ...defaultFooterData, ...footerContent };
-
   const { content: contactContent } = useContent('contact', defaultContactData);
-  const contact = { ...defaultContactData, ...contactContent };
+  const mergedFooter = useMemo(() => ({ ...defaultFooterData, ...footerContent }), [footerContent]);
+  const mergedContact = useMemo(() => ({ ...defaultContactData, ...contactContent }), [contactContent]);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,12 +60,12 @@ export default function Footer() {
     }
   };
 
-  const socialLinks = [
-    { icon: Facebook, url: footer.facebookUrl },
-    { icon: Linkedin, url: footer.linkedinUrl },
-    { icon: Twitter, url: footer.twitterUrl },
-    { icon: Instagram, url: footer.instagramUrl },
-  ];
+  const socialLinks = useMemo(() => [
+    { icon: Facebook, url: mergedFooter.facebookUrl },
+    { icon: Linkedin, url: mergedFooter.linkedinUrl },
+    { icon: Twitter, url: mergedFooter.twitterUrl },
+    { icon: Instagram, url: mergedFooter.instagramUrl },
+  ], [mergedFooter.facebookUrl, mergedFooter.linkedinUrl, mergedFooter.twitterUrl, mergedFooter.instagramUrl]);
 
   return (
     <motion.footer
@@ -99,17 +98,16 @@ export default function Footer() {
             alt="Alliance Freight"
             className="h-20 w-auto"
           />
-          <h2 className="text-xl font-black text-white uppercase tracking-tight">
-            ALLIANCE FREIGHT PVT LTD <span className="text-[#FF7A1A]"></span>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white uppercase tracking-tight break-words max-w-full px-2 lg:px-0 whitespace-normal"> ALLIANCE FREIGHT PVT LTD <span className="text-[#FF7A1A]"></span>
           </h2>
           <p className="text-sm leading-relaxed">
-            {footer.brandDescription}
+            {mergedFooter.brandDescription}
           </p>
         </motion.div>
 
         {/* Quick Links */}
         <motion.div variants={fadeSlideUp} className="space-y-4">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.quickLinksTitle}</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{mergedFooter.quickLinksTitle}</h3>
           <ul className="space-y-2 text-sm">
             {['About Us', 'Our Services', 'Air Freight', 'Ocean Freight', 'Land Transport', 'Track Shipment', 'Request a Quote', 'Contact Us'].map((link) => (
               <motion.li
@@ -125,53 +123,53 @@ export default function Footer() {
 
         {/* Contact */}
         <motion.div variants={fadeSlideUp} className="space-y-4">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.contactInfoTitle}</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{mergedFooter.contactInfoTitle}</h3>
           <div className="space-y-3 text-sm">
             <div className="flex gap-3">
               <MapPin className="w-5 h-5 text-[#FF7A1A] shrink-0" />
-              <p>{contact.address}</p>
+              <p>{mergedContact.address}</p>
             </div>
             <div className="flex gap-3">
               <Phone className="w-5 h-5 text-[#FF7A1A] shrink-0" />
-              <p>{contact.phone1} {contact.phone2 ? `/ ${contact.phone2}` : ''}</p>
+              <p>{mergedContact.phone1} {mergedContact.phone2 ? `/ ${mergedContact.phone2}` : ''}</p>
             </div>
             <div className="flex gap-3">
               <Mail className="w-5 h-5 text-[#FF7A1A] shrink-0" />
-              <p className="break-all">{contact.email}</p>
+              <p className="break-all">{mergedContact.email}</p>
             </div>
             <div className="flex gap-3 font-bold text-white">
               <Clock className="w-5 h-5 text-[#FF7A1A] shrink-0" />
-              <p>{footer.supportHoursText}</p>
+              <p>{mergedFooter.supportHoursText}</p>
             </div>
           </div>
         </motion.div>
 
         {/* Connect */}
         <motion.div variants={fadeSlideUp} className="space-y-6">
-          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{footer.connectTitle}</h3>
+          <h3 className="text-lg font-bold tracking-wide uppercase text-[#FF7A1A]">{mergedFooter.connectTitle}</h3>
           <div className="flex gap-3">
-            {socialLinks.map((item, i) => (
-              <motion.a
-                key={i}
-                href={item.url || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.15, backgroundColor: '#FF7A1A', borderColor: '#FF7A1A' }}
-                whileTap={{ scale: 0.9 }}
-                className="p-2.5 border border-white/20 rounded-full text-white transition-colors"
-              >
-                <item.icon className="w-4 h-4" />
-              </motion.a>
-            ))}
+          {socialLinks.map((item, i) => (
+            <motion.a
+              key={i}
+              href={item.url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.15, backgroundColor: '#FF7A1A', borderColor: '#FF7A1A' }}
+              whileTap={{ scale: 0.9 }}
+              className="p-2.5 border border-white/20 rounded-full text-white transition-colors"
+            >
+              <item.icon className="w-4 h-4" />
+            </motion.a>
+          ))}
           </div>
 
           <form onSubmit={handleSubscribe} className="space-y-2">
-            <h4 className="font-bold text-white uppercase text-sm">{footer.newsletterTitle}</h4>
+            <h4 className="font-bold text-white uppercase text-sm">{mergedFooter.newsletterTitle}</h4>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={footer.newsletterPlaceholder}
+              placeholder={mergedFooter.newsletterPlaceholder}
               className="w-full p-3 bg-transparent border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-[#FF7A1A] outline-none transition-colors"
             />
             <motion.button
@@ -180,7 +178,7 @@ export default function Footer() {
               whileTap={{ scale: 0.97 }}
               className="w-full bg-[#FF7A1A] hover:bg-[#ff8c3a] text-white font-black py-3 rounded-lg text-sm uppercase transition-colors tracking-wider disabled:opacity-60"
             >
-              {subLoading ? footer.newsletterSubscribingText : footer.newsletterButtonText}
+              {subLoading ? mergedFooter.newsletterSubscribingText : mergedFooter.newsletterButtonText}
             </motion.button>
           </form>
         </motion.div>
@@ -188,7 +186,7 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="relative z-10 max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-        <p>&copy; {footer.copyright}</p>
+        <p>&copy; {mergedFooter.copyright}</p>
         <div className="flex gap-4 mt-2 md:mt-0">
           {['Privacy Policy', 'Terms of Service', 'Sitemap'].map((item) => (
             <motion.span
@@ -203,4 +201,4 @@ export default function Footer() {
       </div>
     </motion.footer>
   );
-}
+});
