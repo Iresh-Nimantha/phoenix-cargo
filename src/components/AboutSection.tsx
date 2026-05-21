@@ -97,7 +97,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="w-full text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words px-4 text-[#0B2545] whitespace-normal"
+          className="w-full text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tighter uppercase text-center leading-tight break-words px-4 text-[#0B2545] whitespace-pre-wrap"
         >
           {data.sectionTitle}
         </motion.h2>
@@ -141,7 +141,7 @@ export default function AboutSection() {
           {/* Description */}
           <motion.div
             variants={fadeSlideUp}
-            className="space-y-3 text-gray-700 text-xs xl:text-sm leading-relaxed font-medium"
+            className="space-y-3 text-gray-700 text-xs xl:text-sm leading-relaxed font-medium whitespace-pre-wrap"
           >
             <p>{data.description1}</p>
             <p>{data.description2}</p>

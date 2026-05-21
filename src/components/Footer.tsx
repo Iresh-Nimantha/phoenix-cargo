@@ -98,9 +98,9 @@ export default memo(function Footer() {
             alt="Alliance Freight"
             className="h-20 w-auto"
           />
-          <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white uppercase tracking-tight break-words max-w-full px-2 lg:px-0 whitespace-normal"> ALLIANCE FREIGHT PVT LTD <span className="text-[#FF7A1A]"></span>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white uppercase tracking-tight break-words max-w-full px-2 lg:px-0 whitespace-pre-wrap"> ALLIANCE FREIGHT (PVT) LTD <span className="text-[#FF7A1A]"></span>
           </h2>
-          <p className="text-sm leading-relaxed">
+          <p className="text-sm leading-relaxed whitespace-pre-wrap">
             {mergedFooter.brandDescription}
           </p>
         </motion.div>

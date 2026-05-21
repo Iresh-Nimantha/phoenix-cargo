@@ -246,7 +246,7 @@ export default function IndustriesSection() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
             className="mb-10 text-center lg:text-left px-2 sm:px-4"
           >
-            <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-center lg:text-left leading-tight break-words px-4 lg:px-0 text-[#0B2545] whitespace-normal">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-center lg:text-left leading-tight break-words px-4 lg:px-0 text-[#0B2545] whitespace-pre-wrap">
               {data.sectionTitle}
             </h2>
             <p className="text-gray-600 text-base max-w-xl mx-auto lg:mx-0 font-semibold">

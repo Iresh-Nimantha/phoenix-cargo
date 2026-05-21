@@ -130,7 +130,7 @@ export default function OurServices() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-tight break-words px-4 text-center whitespace-normal">
+          <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 leading-tight break-words px-4 text-center whitespace-pre-wrap">
             {data.sectionTitle}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto font-semibold">

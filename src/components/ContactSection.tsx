@@ -113,7 +113,7 @@ export default function ContactSection() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="text-center mb-16 px-4"
         >
-          <h2 className="text-xl sm:text-3xl xl:text-4xl font-black uppercase mb-4 leading-tight break-words text-[#0B2545] text-center whitespace-normal">
+          <h2 className="text-xl sm:text-3xl xl:text-4xl font-black uppercase mb-4 leading-tight break-words text-[#0B2545] text-center whitespace-pre-wrap">
             {data.sectionTitle}
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto font-medium">
