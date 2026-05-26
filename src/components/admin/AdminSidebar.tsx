@@ -10,6 +10,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  Truck,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
@@ -22,6 +23,7 @@ const tabs = [
   { id: 'quotes', label: 'Quote Requests', icon: FileText },
   { id: 'messages', label: 'Messages', icon: MessageSquare },
   { id: 'content', label: 'Content Editor', icon: Settings },
+  { id: 'couriers', label: 'Couriers', icon: Truck },
   { id: 'media', label: 'Media Manager', icon: Upload },
 ];
 

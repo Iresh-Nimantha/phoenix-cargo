@@ -6,6 +6,7 @@ import QuoteRequestsManager from '../../components/admin/QuoteRequestsManager';
 import ContactMessagesManager from '../../components/admin/ContactMessagesManager';
 import ContentEditor from '../../components/admin/ContentEditor';
 import MediaManager from '../../components/admin/MediaManager';
+import CouriersManager from '../../components/admin/CouriersManager';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings } from '../../context/SettingsContext';
 import {
@@ -494,6 +495,8 @@ export default function AdminDashboard() {
         );
       case 'media':
         return <MediaManager />;
+      case 'couriers':
+        return <CouriersManager />;
       default:
         return <AnalyticsDashboard />;
     }

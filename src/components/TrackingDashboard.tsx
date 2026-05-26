@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, Check, ArrowLeft, Loader2, Search, Compass, Truck, Ship, Calendar, MapPin, AlertCircle, ShieldAlert, ExternalLink } from 'lucide-react';
 import TiltCard from '../animations/TiltCard';
 import toast from 'react-hot-toast';
+import { useContent } from '../hooks/useContent';
 
 // Available AfterShip Couriers & Direct Portals
-const couriers = [
+const defaultCouriers = [
   { slug: 'dhl', name: 'DHL Express', portal: 'https://www.dhl.com/en/express/tracking.html?AWB=' },
   { slug: 'fedex', name: 'FedEx', portal: 'https://www.fedex.com/fedextrack/?trknbr=' },
   { slug: 'ups', name: 'UPS', portal: 'https://www.ups.com/track?loc=en_US&requester=ST&trackNums=' },
@@ -19,6 +20,8 @@ const couriers = [
 ];
 
 export default function TrackingDashboard() {
+  const { content } = useContent('couriers', { list: defaultCouriers });
+  const couriers = Array.isArray(content?.list) ? content.list : defaultCouriers;
   const [slug, setSlug] = useState('dhl');
   const [trackingId, setTrackingId] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,8 +29,8 @@ export default function TrackingDashboard() {
   const [isDemo, setIsDemo] = useState(false);
   const navigate = useNavigate();
 
-  const activeCourier = couriers.find(c => c.slug === slug) || couriers[0];
-  const directTrackingUrl = activeCourier.portal + trackingId;
+  const activeCourier = couriers.find((c: any) => c.slug === slug) || couriers[0] || defaultCouriers[0];
+  const directTrackingUrl = (activeCourier?.portal || '') + trackingId;
 
   const handleTrack = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +44,7 @@ export default function TrackingDashboard() {
     setIsDemo(false);
 
     const apiKey = import.meta.env.VITE_AFTERSHIP_API_KEY;
-    
+
     try {
       if (apiKey) {
         // Try direct call first
@@ -214,10 +217,10 @@ export default function TrackingDashboard() {
 
       {/* Main Grid: Left is tracking consoles, Right is always Customer Support details */}
       <div className="relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start px-2 sm:px-6">
-        
+
         {/* Left Column: Consoles and Output Results */}
         <div className="lg:col-span-8 space-y-8 w-full">
-          
+
           {/* Tracking Input Console */}
           <motion.div
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
@@ -269,17 +272,12 @@ export default function TrackingDashboard() {
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <motion.button
                   type="submit"
-                  disabled={loading}
-                  whileTap={{ scale: 0.97 }}
-                  className="flex-1 bg-gradient-to-r from-[#0B2545] to-blue-800 text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-cyan-500/10 flex items-center justify-center gap-2 transition-all disabled:opacity-60 text-xs sm:text-sm"
+                  disabled={true}
+                  whileTap={{ scale: 1 }}
+                  className="flex-1 bg-gray-400/50 cursor-not-allowed text-white/80 font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all text-[11px] sm:text-xs"
+                  title="Initialize Tracking is currently under construction"
                 >
-                  {loading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    <>
-                      INITIALIZE TRACKING <Search className="w-4 h-4" />
-                    </>
-                  )}
+                  INITIALIZE TRACKING (UNDER CONSTRUCTION) <Search className="w-4 h-4" />
                 </motion.button>
 
                 <motion.button
@@ -378,9 +376,8 @@ export default function TrackingDashboard() {
                                 transition={{ delay: i * 0.1 }}
                                 className="relative"
                               >
-                                <span className={`absolute -left-[22px] top-1 w-3.5 h-3.5 rounded-full border-2 border-white shadow-md ${
-                                  i === 0 ? 'bg-cyan-500 animate-pulse' : 'bg-gray-400'
-                                }`} />
+                                <span className={`absolute -left-[22px] top-1 w-3.5 h-3.5 rounded-full border-2 border-white shadow-md ${i === 0 ? 'bg-cyan-500 animate-pulse' : 'bg-gray-400'
+                                  }`} />
                                 <div>
                                   <div className="flex flex-wrap items-center gap-2">
                                     <h5 className="font-extrabold text-sm text-[#0B2545]">{checkpoint.location || 'Depot'}</h5>

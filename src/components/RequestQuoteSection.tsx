@@ -313,7 +313,13 @@ export default function RequestQuoteSection() {
 
                 <div className="flex flex-col text-left">
                   <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Preferred Shipping Date</label>
-                  <input type="date" value={form.date} onChange={(e) => update('date', e.target.value)} className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-700 bg-white/60 h-[54px]" />
+                  <input
+                    type="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    value={form.date}
+                    onChange={(e) => update('date', e.target.value)}
+                    className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-500 outline-none transition-all text-sm text-gray-700 bg-white/60 h-[54px]"
+                  />
                 </div>
 
                 <motion.button
