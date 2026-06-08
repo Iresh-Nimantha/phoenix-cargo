@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-export const DEFAULT_LOGO = "https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png";
+export const DEFAULT_LOGO = "/logo.png";
 
 interface SettingsContextType {
   logoUrl: string;
@@ -21,12 +21,19 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
     const unsub = onSnapshot(doc(db, 'content', 'settings'), (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        if (data.logoUrl) setLogoUrl(data.logoUrl);
+        if (data.logoUrl && !data.logoUrl.includes('Alliance%20Freigh') && !data.logoUrl.includes('logonogb.png')) {
+          setLogoUrl(data.logoUrl);
+        } else {
+          setLogoUrl('/logo.png');
+        }
         if (data.activeSeasonalEffect) setActiveSeasonalEffect(data.activeSeasonalEffect);
+      } else {
+        setLogoUrl('/logo.png');
       }
       setLoading(false);
     }, (error) => {
       console.error("Failed to load settings:", error);
+      setLogoUrl('/logo.png');
       setLoading(false);
     });
     return () => unsub();

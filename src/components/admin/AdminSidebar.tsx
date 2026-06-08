@@ -41,7 +41,7 @@ export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarPro
     <motion.nav
       animate={{ width: collapsed ? 72 : 260 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-[#0B2545] text-white flex flex-col h-screen relative shrink-0"
+      className="bg-[#800C30] text-white flex flex-col h-screen relative shrink-0"
     >
       {/* Header */}
       <div className="p-4 border-b border-white/10">
@@ -61,7 +61,7 @@ export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarPro
       {/* Collapse toggle */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3 top-16 w-6 h-6 bg-[#0B2545] border border-white/20 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-cyan-600 transition-colors z-50"
+        className="absolute -right-3 top-16 w-6 h-6 bg-[#800C30] border border-white/20 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-cyan-600 transition-colors z-50"
       >
         {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
       </button>

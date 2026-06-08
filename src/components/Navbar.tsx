@@ -52,7 +52,7 @@ export default function Navbar() {
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#0B2545]/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10'
+          ? 'bg-[#800C30]/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10'
           : 'bg-transparent border-b border-white/10'
       }`}
     >
@@ -61,7 +61,7 @@ export default function Navbar() {
         <Link to="/" className="flex items-center">
           <motion.img
             src={logoUrl}
-            alt="Alliance Freight Logo"
+            alt="Phoenix Cargo Logo"
             className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-sm transition-all"
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300 }}

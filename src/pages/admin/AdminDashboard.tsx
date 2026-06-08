@@ -52,7 +52,7 @@ const contentSections: ContentSection[] = [
     },
     initial: {
       title: 'PRECISION DELIVERY',
-      subtitle: 'Your trusted partner in global freight forwarding and Alliance Freight (Pvt) Ltd solutions.',
+      subtitle: 'Your Cargo, Our Commitment',
       ctaText: 'Get a Quote',
       trackText: 'Track Shipment',
       scrollText: 'Scroll',
@@ -67,7 +67,7 @@ const contentSections: ContentSection[] = [
   {
     name: 'About',
     icon: Info,
-    description: 'About Alliance Freight — company description, stats, images',
+    description: 'About Phoenix Cargo — company description, stats, images',
     schema: {
       sectionTitle: 'string',
       description1: 'text',
@@ -88,9 +88,9 @@ const contentSections: ContentSection[] = [
       backgroundImageUrl: 'url',
     },
     initial: {
-      sectionTitle: 'ABOUT ALLIANCE FREIGHT',
-      description1: 'Alliance Freight (Pvt) Ltd is a professional freight forwarding company that provides unique shipping and cargo solutions.',
-      description2: 'Alliance Freight (Pvt) Ltd was built on a custom history of freight forwarding and shipping solutions. The strength of our expertise denies the professional freight clouds for any company, built with a strong shipping network and a system designed to ensure operations with local presence. We enhance a grand concentration on global networks and trading with professional empowerment.',
+      sectionTitle: 'ABOUT Phoenix Cargo',
+      description1: 'Phoenix Cargo (Pvt) Ltd is a professional freight forwarding company that provides unique shipping and cargo solutions.',
+      description2: 'Phoenix Cargo (Pvt) Ltd was built on a custom history of freight forwarding and shipping solutions. The strength of our expertise denies the professional freight clouds for any company, built with a strong shipping network and a system designed to ensure operations with local presence. We enhance a grand concentration on global networks and trading with professional empowerment.',
       stat1Label: 'Global Partners',
       stat1Value: '5000',
       stat2Label: 'Shipping Routes',
@@ -142,31 +142,31 @@ const contentSections: ContentSection[] = [
     },
     initial: {
       sectionTitle: 'OUR SERVICES',
-      sectionDescription: 'Alliance Freight (Pvt) Ltd offers a complete range of freight forwarding services designed to support global trade and supply chain efficiency.',
+      sectionDescription: 'Phoenix Cargo (Pvt) Ltd offers a complete range of freight forwarding services designed to support global trade and supply chain efficiency.',
       backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
-      service1Title: 'SEA FREIGHT (FCL / LCL)',
-      service1Items: 'FCL (Full Container Load)\nLCL (Less Than Container Load)\nPort-to-Port & Door-to-Door',
+      service1Title: 'CUSTOMS & CARGO CLEARANCE',
+      service1Items: 'Fast import/export clearance\nHS code classification & duties\nCustoms declarations & documentation\nRegulatory approvals & compliance\nDoor-to-door delivery',
       service1Image: '',
-      service2Title: 'AIR FREIGHT',
-      service2Items: 'Express shipments\nHigh-value cargo handling\nGlobal delivery solutions',
+      service2Title: 'OWN TRANSPORT FLEET',
+      service2Items: 'Island-wide container transport\nPrime movers & multi-axle trailers\nGPS-enabled real-time tracking\nOn-time delivery commitment\nIn-house maintenance & safety',
       service2Image: '',
-      service3Title: 'ROAD & RAIL FREIGHT',
-      service3Items: 'Integrated Road & Rail\nFlexible Multi-Modal Routing\nEfficient Overland Transport',
+      service3Title: 'BOI CARGO CLEARANCE',
+      service3Items: 'BOI regulatory compliance\nDuty-free cargo processing\nSpecialized customs brokerage\nProject-specific approvals\nFast-track documentation',
       service3Image: '',
-      service4Title: 'CUSTOMS CLEARANCE',
-      service4Items: 'Customs Declarations\nHS Code Classification\nCompliance Coordination',
+      service4Title: 'DANGEROUS & HAZARDOUS CARGO',
+      service4Items: 'IMDG & IATA DGR compliant\nClass 1-9 dangerous goods handling\nSafety documentation & declarations\nSpecialized packaging & labeling\nCertified hazardous goods experts',
       service4Image: '',
-      service5Title: 'COURIER & EXPRESS CARGO',
-      service5Items: 'International Document Delivery\nUrgent Parcel Delivery\nFast, Door-to-Door Service',
+      service5Title: 'PROJECT CARGO LOGISTICS',
+      service5Items: 'Heavy lift & OOG (Out of Gauge) cargo\nRoute feasibility surveys\nEngineering & rigging supervision\nCustom transport equipment\nComprehensive site logistics',
       service5Image: '',
-      service6Title: 'PROJECT CARGO HANDLING',
-      service6Items: 'Heavy Lift & OOG Cargo\nCustom Freight Planning\nSite Inspection & Surveys\nEquipment Management\nEnd-to-End Tracking',
+      service6Title: 'MEDICAL & PHARMACEUTICAL LOGISTICS',
+      service6Items: 'GDP compliant cold chain logistics\nStrict temperature control monitoring\nTime-critical medical shipments\nSpecialized sanitization protocols\nPharma clearance & compliance',
       service6Image: '',
-      service7Title: 'PHARMACEUTICAL CARGO HANDLING',
-      service7Items: 'Strict Temperature Controls\nCompliant with Standards\nSpecialized Handling Protocols\nPharma Facility Access',
+      service7Title: 'SEA FREIGHT (FCL / LCL)',
+      service7Items: 'Global ocean freight network\nFCL & LCL cargo consolidation\nMulti-carrier shipping options\nPort-to-port & door-to-door\nOcean customs clearance',
       service7Image: '',
-      service8Title: 'HAZARDOUS CARGO HANDLING',
-      service8Items: 'Safe & Compliant Handling\nRegulations Adherence (IMDG, IATA)\nHazard Containerization\nDocumentation & Declarations',
+      service8Title: 'AIR FREIGHT & COURIER',
+      service8Items: 'Next-flight-out express courier\nGlobal air cargo booking\nHigh-value cargo security\nFast airport clearance\nDoorstep cargo delivery',
       service8Image: '',
     },
   },
@@ -185,7 +185,7 @@ const contentSections: ContentSection[] = [
     },
     initial: {
       sectionTitle: 'INDUSTRIES WE SERVE',
-      sectionDescription: 'Alliance Freight (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
+      sectionDescription: 'Phoenix Cargo (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
       industries: 'Importers & Exporters\nApparel & Textile Industry\nManufacturing & Industrial Suppliers\nConstruction & Engineering Projects\nFMCG & Food Products\nPharmaceutical & Healthcare\nE-commerce & Retail Businesses',
       footerNote: 'Our flexible freight solutions allow businesses to expand their global trade operations with confidence.',
       backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
@@ -196,7 +196,7 @@ const contentSections: ContentSection[] = [
   {
     name: 'WhyChoose',
     icon: ShieldCheck,
-    description: 'Why Choose Alliance Freight — strengths, background',
+    description: 'Why Choose Phoenix Cargo — strengths, background',
     schema: {
       sectionTitle: 'string',
       sectionDescription: 'text',
@@ -212,9 +212,9 @@ const contentSections: ContentSection[] = [
       strength8: 'string',
     },
     initial: {
-      sectionTitle: 'WHY CHOOSE ALLIANCE FREIGHT',
-      sectionDescription: 'In freight forwarding, performance matters. Alliance Freight (Pvt) Ltd is committed to delivering professional shipping and cargo solutions.',
-      ctaMessage: 'Alliance Freight (Pvt) Ltd is not just a service provider — we are your long-term shipping and freight forwarding partner.',
+      sectionTitle: 'WHY CHOOSE Phoenix Cargo',
+      sectionDescription: 'In freight forwarding, performance matters. Phoenix Cargo (Pvt) Ltd is committed to delivering professional shipping and cargo solutions.',
+      ctaMessage: 'Phoenix Cargo (Pvt) Ltd is not just a service provider — we are your long-term shipping and freight forwarding partner.',
       backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
       strength1: 'Export, Import & Cross Trading Expertise',
       strength2: 'Sea Freight, Air Freight, Courier, Road & Rail Options',
@@ -283,12 +283,12 @@ const contentSections: ContentSection[] = [
       successButtonText: 'string',
     },
     initial: {
-      sectionTitle: 'Get in touch with Alliance Freight',
+      sectionTitle: 'Get in touch with Phoenix Cargo',
       sectionDescription: 'Our dedicated team is ready to assist you with professional freight forwarding and shipping solutions worldwide.',
       address: 'No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka',
       phone1: '070 644 0992',
       phone2: '076 736 7280',
-      email: 'imports@alliancefreightcmb.com',
+      email: 'imports@phoenixcargo.com',
       supportHours: '24/7',
       mapEmbedUrl: '',
       googleMapsLink: '',
@@ -331,8 +331,8 @@ const contentSections: ContentSection[] = [
       newsletterSubscribingText: 'string',
     },
     initial: {
-      brandDescription: 'Alliance Freight (Pvt) Ltd delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
-      copyright: '2026 Alliance Freight (Pvt) Ltd. All rights reserved.',
+      brandDescription: 'Phoenix Cargo (Pvt) Ltd delivers end-to-end supply chain solutions, specializing in ocean freight, air cargo, road transport, and warehousing across the globe.',
+      copyright: '2026 Phoenix Cargo (Pvt) Ltd. All rights reserved.',
       facebookUrl: '',
       linkedinUrl: '',
       twitterUrl: '',
@@ -356,14 +356,14 @@ const contentSections: ContentSection[] = [
       persona: 'text',
     },
     initial: {
-      botName: 'Alliance Assistant',
-      persona: `You are "Alliance Assistant", the official friendly customer support AI bot for Alliance Freight (Pvt) Ltd.
+      botName: 'Phoenix Assistant',
+      persona: `You are "Phoenix Assistant", the official friendly customer support AI bot for Phoenix Cargo (Pvt) Ltd.
 Provide professional, polite, and accurate freight forwarding answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
 
 Core Company Information:
 - Address: No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka.
 - Phone Support: 070 644 0992 | 076 736 7280.
-- Email Support: imports@alliancefreightcmb.com.
+- Email Support: imports@phoenixcargo.com.
 - Core Services: Air Freight, Sea Freight (FCL/LCL), Road & Rail Freight, Customs Clearance & Brokerage.
 - Specialized Cargo Handling:
   * Project Cargo: Heavy lift, Out of Gauge (OOG) shipping, custom industrial routes.
@@ -385,7 +385,7 @@ Do not invent facts or promise exact delivery rates without verification. Always
       activeSeasonalEffect: 'string',
     },
     initial: {
-      logoUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/logonogb.png',
+      logoUrl: '/logo.png',
       activeSeasonalEffect: 'none',
     },
   },
@@ -416,7 +416,7 @@ export default function AdminDashboard() {
 
             {/* Responsive section selector */}
             <div className="block md:hidden mb-6">
-              <label className="block text-xs font-black uppercase text-[#0B2545]/60 tracking-widest mb-2">
+              <label className="block text-xs font-black uppercase text-[#800C30]/60 tracking-widest mb-2">
                 Active Section
               </label>
               <select
@@ -445,7 +445,7 @@ export default function AdminDashboard() {
                     onClick={() => setActiveContentSection(i)}
                     className={`p-4 rounded-xl border text-left transition-all ${
                       isActive
-                        ? 'bg-[#0B2545] text-white border-[#0B2545] shadow-lg shadow-[#0B2545]/20'
+                        ? 'bg-[#800C30] text-white border-[#800C30] shadow-lg shadow-[#800C30]/20'
                         : 'bg-white text-gray-700 border-gray-100 hover:border-cyan-200 hover:shadow-md'
                     }`}
                   >

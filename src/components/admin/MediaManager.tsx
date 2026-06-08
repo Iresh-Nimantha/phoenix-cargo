@@ -91,7 +91,7 @@ export default function MediaManager() {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#0B2545] text-white font-semibold rounded-lg hover:bg-[#0B2545]/90 transition disabled:opacity-60 w-full sm:w-auto"
+          className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#800C30] text-white font-semibold rounded-lg hover:bg-[#800C30]/90 transition disabled:opacity-60 w-full sm:w-auto"
         >
           {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
           {uploading ? `Uploading ${progress}%` : 'Upload Files'}

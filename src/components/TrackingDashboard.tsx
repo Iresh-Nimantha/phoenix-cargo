@@ -123,7 +123,7 @@ export default function TrackingDashboard() {
           active: true,
           status: 'In Transit',
           subtag: 'InTransit_001',
-          source: 'Alliance Freight Systems',
+          source: 'Phoenix Cargo Systems',
           destination_country_iso3: 'LKA',
           origin_country_iso3: 'CHN',
           shipment_type: 'Global Freight',
@@ -143,7 +143,7 @@ export default function TrackingDashboard() {
             },
             {
               time: new Date(Date.now() - 86400000 * 4).toISOString(),
-              location: 'Alliance Freight Facility',
+              location: 'Phoenix Cargo Facility',
               message: 'Cargo scanned, grouped, and packed successfully.',
               status: 'InfoReceived',
             }
@@ -160,7 +160,7 @@ export default function TrackingDashboard() {
         active: true,
         status: 'In Transit',
         subtag: 'InTransit_001',
-        source: 'Alliance Freight Systems',
+        source: 'Phoenix Cargo Systems',
         destination_country_iso3: 'LKA',
         origin_country_iso3: 'CHN',
         shipment_type: 'Global Freight',
@@ -210,7 +210,7 @@ export default function TrackingDashboard() {
         onClick={() => navigate('/')}
         whileHover={{ x: -3 }}
         whileTap={{ scale: 0.95 }}
-        className="absolute top-8 left-8 z-50 flex items-center gap-2 text-[#0B2545] font-bold hover:text-cyan-600 transition-colors"
+        className="absolute top-8 left-8 z-50 flex items-center gap-2 text-[#800C30] font-bold hover:text-cyan-600 transition-colors"
       >
         <ArrowLeft className="w-5 h-5" /> Back
       </motion.button>
@@ -229,11 +229,11 @@ export default function TrackingDashboard() {
             className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/50"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-[#0B2545] text-white rounded-2xl">
+              <div className="p-3 bg-[#800C30] text-white rounded-2xl">
                 <Compass className="w-6 h-6 animate-spin" style={{ animationDuration: '8s' }} />
               </div>
               <div>
-                <h2 className="text-xl sm:text-2xl font-black uppercase text-[#0B2545] leading-tight">
+                <h2 className="text-xl sm:text-2xl font-black uppercase text-[#800C30] leading-tight">
                   TRACKING CONSOLE
                 </h2>
                 <p className="text-[10px] text-gray-500 font-bold tracking-wider">LIVE COURIER & CARRIER ACCESS</p>
@@ -243,11 +243,11 @@ export default function TrackingDashboard() {
             <form onSubmit={handleTrack} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-[#0B2545] mb-1.5 ml-1">Select Courier</label>
+                  <label className="block text-xs font-bold uppercase text-[#800C30] mb-1.5 ml-1">Select Courier</label>
                   <select
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
-                    className="w-full p-4 border border-gray-200 bg-white/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500 font-semibold text-[#0B2545] transition-all"
+                    className="w-full p-4 border border-gray-200 bg-white/60 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-500 font-semibold text-[#800C30] transition-all"
                   >
                     {couriers.map((courier) => (
                       <option key={courier.slug} value={courier.slug}>
@@ -258,7 +258,7 @@ export default function TrackingDashboard() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase text-[#0B2545] mb-1.5 ml-1">Tracking ID / Waybill</label>
+                  <label className="block text-xs font-bold uppercase text-[#800C30] mb-1.5 ml-1">Tracking ID / Waybill</label>
                   <input
                     type="text"
                     value={trackingId}
@@ -327,11 +327,11 @@ export default function TrackingDashboard() {
                         <div className="flex flex-wrap justify-between items-center border-b border-gray-200/50 pb-4 mb-6 gap-4">
                           <div>
                             <p className="text-xs font-black uppercase text-cyan-600">Active Shipment Status</p>
-                            <h3 className="text-2xl sm:text-3xl font-black text-[#0B2545] uppercase tracking-tight">
+                            <h3 className="text-2xl sm:text-3xl font-black text-[#800C30] uppercase tracking-tight">
                               {trackingData.status || 'IN TRANSIT'}
                             </h3>
                           </div>
-                          <div className="bg-[#0B2545] text-white px-4 py-2 rounded-2xl text-center shadow-md">
+                          <div className="bg-[#800C30] text-white px-4 py-2 rounded-2xl text-center shadow-md">
                             <p className="text-[9px] font-bold uppercase tracking-wider opacity-60">Courier Service</p>
                             <p className="text-sm font-extrabold uppercase">{activeCourier.name}</p>
                           </div>
@@ -344,21 +344,21 @@ export default function TrackingDashboard() {
                               <Truck className="w-4 h-4" />
                               <span className="text-[10px] font-bold uppercase">Tracking No</span>
                             </div>
-                            <p className="text-sm font-extrabold text-[#0B2545] break-all">{trackingData.tracking_number}</p>
+                            <p className="text-sm font-extrabold text-[#800C30] break-all">{trackingData.tracking_number}</p>
                           </div>
                           <div className="bg-white/50 p-4 rounded-2xl border border-white">
                             <div className="flex items-center gap-2 text-cyan-600 mb-1">
                               <Calendar className="w-4 h-4" />
                               <span className="text-[10px] font-bold uppercase">Est. Delivery</span>
                             </div>
-                            <p className="text-sm font-extrabold text-[#0B2545]">{trackingData.expected_delivery || 'N/A'}</p>
+                            <p className="text-sm font-extrabold text-[#800C30]">{trackingData.expected_delivery || 'N/A'}</p>
                           </div>
                           <div className="bg-white/50 p-4 rounded-2xl border border-white">
                             <div className="flex items-center gap-2 text-cyan-600 mb-1">
                               <MapPin className="w-4 h-4" />
                               <span className="text-[10px] font-bold uppercase">Origin-Destination</span>
                             </div>
-                            <p className="text-sm font-extrabold text-[#0B2545]">
+                            <p className="text-sm font-extrabold text-[#800C30]">
                               {trackingData.origin_country_iso3 || 'CN'} ➔ {trackingData.destination_country_iso3 || 'LK'}
                             </p>
                           </div>
@@ -380,7 +380,7 @@ export default function TrackingDashboard() {
                                   }`} />
                                 <div>
                                   <div className="flex flex-wrap items-center gap-2">
-                                    <h5 className="font-extrabold text-sm text-[#0B2545]">{checkpoint.location || 'Depot'}</h5>
+                                    <h5 className="font-extrabold text-sm text-[#800C30]">{checkpoint.location || 'Depot'}</h5>
                                     <span className="text-[10px] font-bold text-gray-400">
                                       {checkpoint.time ? new Date(checkpoint.time).toLocaleString() : ''}
                                     </span>
@@ -407,10 +407,10 @@ export default function TrackingDashboard() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="bg-white/40 border border-white/60 backdrop-blur-md rounded-3xl p-8 sm:p-12 text-center shadow-lg min-h-[300px] flex flex-col items-center justify-center"
                 >
-                  <div className="w-16 h-16 bg-[#0B2545]/10 rounded-full flex items-center justify-center mb-4">
-                    <Ship className="w-8 h-8 text-[#0B2545]" />
+                  <div className="w-16 h-16 bg-[#800C30]/10 rounded-full flex items-center justify-center mb-4">
+                    <Ship className="w-8 h-8 text-[#800C30]" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-black text-[#0B2545] uppercase tracking-tight mb-2">Initialize Tracking</h3>
+                  <h3 className="text-lg sm:text-xl font-black text-[#800C30] uppercase tracking-tight mb-2">Initialize Tracking</h3>
                   <p className="text-gray-600 max-w-sm mx-auto text-xs font-semibold px-4">
                     Enter your tracking number and select your courier above to query real-time transit details or access direct portals.
                   </p>
@@ -428,7 +428,7 @@ export default function TrackingDashboard() {
           className="lg:col-span-4 bg-white/70 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/50 space-y-6 w-full"
         >
           <div>
-            <h2 className="text-xl sm:text-2xl font-black uppercase mb-1 text-[#0B2545] leading-tight">
+            <h2 className="text-xl sm:text-2xl font-black uppercase mb-1 text-[#800C30] leading-tight">
               24/7 SUPPORT 🕒
             </h2>
             <p className="text-xs text-gray-500 font-semibold leading-relaxed">Our professional cargo team is always available to assist you</p>
@@ -439,7 +439,7 @@ export default function TrackingDashboard() {
               whileHover={{ scale: 1.01 }}
               className="border border-cyan-100 bg-white/40 p-4 sm:p-5 rounded-2xl transition-all"
             >
-              <div className="font-bold text-xs sm:text-sm mb-1 flex items-center gap-2 text-[#0B2545]">
+              <div className="font-bold text-xs sm:text-sm mb-1 flex items-center gap-2 text-[#800C30]">
                 <Phone className="w-4 h-4 text-cyan-600 shrink-0" /> Phone Support
               </div>
               <p className="font-extrabold text-sm sm:text-base">070 644 0992</p>
@@ -451,10 +451,10 @@ export default function TrackingDashboard() {
               whileHover={{ scale: 1.01 }}
               className="border border-cyan-100 bg-white/40 p-4 sm:p-5 rounded-2xl transition-all"
             >
-              <div className="font-bold text-xs sm:text-sm mb-1 flex items-center gap-2 text-[#0B2545]">
+              <div className="font-bold text-xs sm:text-sm mb-1 flex items-center gap-2 text-[#800C30]">
                 <Mail className="w-4 h-4 text-cyan-600 shrink-0" /> Email Support
               </div>
-              <p className="font-extrabold text-xs sm:text-sm md:text-base break-all">imports@alliancefreightcmb.com</p>
+              <p className="font-extrabold text-xs sm:text-sm md:text-base break-all">imports@phoenixcargo.com</p>
               <p className="text-[10px] text-gray-400 mt-1 font-semibold">Response time: Within 4 business hours</p>
             </motion.div>
           </div>
@@ -462,7 +462,7 @@ export default function TrackingDashboard() {
           <div className="border-t border-gray-200/50 pt-6 flex gap-4 items-center">
             <div className="w-14 h-14 rounded-full bg-cyan-50 border border-cyan-100 flex flex-col items-center justify-center shrink-0">
               <span className="text-base font-black text-cyan-600">2h</span>
-              <span className="text-[8px] text-center font-bold text-[#0B2545] leading-none uppercase">Response</span>
+              <span className="text-[8px] text-center font-bold text-[#800C30] leading-none uppercase">Response</span>
             </div>
             <div className="space-y-1">
               {['Real-Time Status', 'Courier Updates', 'Optimization Terms'].map(

@@ -14,7 +14,7 @@ const defaultIndustries = [
 
 const defaultData = {
   sectionTitle: 'INDUSTRIES WE SERVE',
-  sectionDescription: 'Alliance Freight (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
+  sectionDescription: 'Phoenix Cargo (Pvt) Ltd supports a wide range of industries with customized shipping and freight forwarding solutions.',
   industries: 'Importers & Exporters\nApparel & Textile Industry\nManufacturing & Industrial Suppliers\nConstruction & Engineering Projects\nFMCG & Food Products\nPharmaceutical & Healthcare\nE-commerce & Retail Businesses',
   footerNote: 'Our flexible freight solutions allow businesses to expand their global trade operations with confidence.',
   backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
@@ -212,7 +212,7 @@ export default function IndustriesSection() {
     <section
       ref={sectionRef}
       id="industries"
-      className="relative w-full text-[#0B2545] overflow-hidden py-12 md:py-16"
+      className="relative w-full text-[#800C30] overflow-hidden py-12 md:py-16"
     >
       {/* Parallax Background */}
       <motion.div
@@ -246,7 +246,7 @@ export default function IndustriesSection() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
             className="mb-10 text-center lg:text-left px-2 sm:px-4"
           >
-            <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-center lg:text-left leading-tight break-words px-4 lg:px-0 text-[#0B2545] whitespace-pre-wrap">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-center lg:text-left leading-tight break-words px-4 lg:px-0 text-[#800C30] whitespace-pre-wrap">
               {data.sectionTitle}
             </h2>
             <p className="text-gray-600 text-base max-w-xl mx-auto lg:mx-0 font-semibold">
@@ -276,7 +276,7 @@ export default function IndustriesSection() {
                 style={{ perspective: '600px', transformStyle: 'preserve-3d' }}
               >
                 <motion.span
-                  className="w-2.5 h-2.5 bg-gradient-to-br from-cyan-500 to-[#0B2545] rounded-full shrink-0"
+                  className="w-2.5 h-2.5 bg-gradient-to-br from-cyan-500 to-[#800C30] rounded-full shrink-0"
                   whileHover={{ scale: 1.6, rotate: 180 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 />

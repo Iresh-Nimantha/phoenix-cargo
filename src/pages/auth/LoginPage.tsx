@@ -49,7 +49,7 @@ export default function LoginPage() {
             "url('https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg')",
         }}
       />
-      <div className="absolute inset-0 bg-[#0B2545]/90 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[#800C30]/90 backdrop-blur-sm" />
 
       <motion.div
         initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
@@ -62,7 +62,7 @@ export default function LoginPage() {
           <Link to="/">
             <img
               src={logoUrl}
-              alt="Alliance Freight"
+              alt="Phoenix Cargo"
               className="h-12 w-auto mx-auto mb-4"
             />
           </Link>

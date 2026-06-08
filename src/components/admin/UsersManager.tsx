@@ -136,7 +136,7 @@ export default function UsersManager() {
           </select>
           <button
             onClick={handleUpdateRole}
-            className="w-full py-3 bg-[#0B2545] text-white font-bold rounded-lg hover:bg-[#0B2545]/90 transition"
+            className="w-full py-3 bg-[#800C30] text-white font-bold rounded-lg hover:bg-[#800C30]/90 transition"
           >
             Save Changes
           </button>

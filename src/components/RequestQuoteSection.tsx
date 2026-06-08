@@ -87,12 +87,12 @@ export default function RequestQuoteSection() {
   };
 
   return (
-    <section className="relative min-h-screen w-full text-[#0B2545] px-6 py-24 flex items-center justify-center overflow-hidden pt-12">
+    <section className="relative min-h-screen w-full text-[#800C30] px-6 py-24 flex items-center justify-center overflow-hidden pt-12">
       <motion.button
         onClick={() => navigate('/')}
         whileHover={{ x: -3 }}
         whileTap={{ scale: 0.95 }}
-        className="absolute top-8 left-8 z-50 flex items-center gap-2 text-[#0B2545] font-bold hover:text-cyan-600 transition-colors"
+        className="absolute top-8 left-8 z-50 flex items-center gap-2 text-[#800C30] font-bold hover:text-cyan-600 transition-colors"
       >
         <ArrowLeft className="w-5 h-5" /> Back
       </motion.button>
@@ -132,7 +132,7 @@ export default function RequestQuoteSection() {
             >
               <CheckCircle className="w-24 h-24 text-green-500 mx-auto mb-6" />
             </motion.div>
-            <h3 className="text-2xl font-black text-[#0B2545] mb-2">Quote Request Submitted!</h3>
+            <h3 className="text-2xl font-black text-[#800C30] mb-2">Quote Request Submitted!</h3>
             <p className="text-gray-600 mb-8">Our team will respond with a custom quotation within 4 business hours.</p>
             <button
               onClick={() => navigate('/')}
@@ -176,10 +176,10 @@ export default function RequestQuoteSection() {
               </div>
 
               <div className="bg-white/60 p-6 rounded-2xl shadow-sm border border-white/60 backdrop-blur-md">
-                <h4 className="font-bold text-lg mb-4 text-[#0B2545]">QUICK CONTACT</h4>
+                <h4 className="font-bold text-lg mb-4 text-[#800C30]">QUICK CONTACT</h4>
                 <div className="space-y-3 text-gray-700">
-                  <a href="mailto:imports@alliancefreightcmb.com" className="flex items-center gap-2 hover:text-cyan-600 font-semibold transition-colors">
-                    <Mail className="w-5 h-5 text-cyan-600" /> imports@alliancefreightcmb.com
+                  <a href="mailto:imports@phoenixcargo.com" className="flex items-center gap-2 hover:text-cyan-600 font-semibold transition-colors">
+                    <Mail className="w-5 h-5 text-cyan-600" /> imports@phoenixcargo.com
                   </a>
                   <div className="flex items-center gap-2 font-semibold">
                     <Phone className="w-5 h-5 text-cyan-600" /> 070 644 0992
@@ -199,7 +199,7 @@ export default function RequestQuoteSection() {
               className="bg-white/70 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/40"
             >
               <form className="space-y-4" onSubmit={handleSubmit}>
-                <h3 className="text-xl font-black uppercase text-[#0B2545] border-b border-gray-200/50 pb-2 mb-4">Customer Details</h3>
+                <h3 className="text-xl font-black uppercase text-[#800C30] border-b border-gray-200/50 pb-2 mb-4">Customer Details</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col text-left">
@@ -238,7 +238,7 @@ export default function RequestQuoteSection() {
                   {errors.phone && <p className="text-red-500 text-xs mt-1 ml-1">{errors.phone}</p>}
                 </div>
 
-                <h3 className="text-xl font-black uppercase text-[#0B2545] border-b border-gray-200/50 pb-2 pt-2 mb-4">Cargo & Route Details</h3>
+                <h3 className="text-xl font-black uppercase text-[#800C30] border-b border-gray-200/50 pb-2 pt-2 mb-4">Cargo & Route Details</h3>
 
                 <div className="flex flex-col text-left">
                   <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Cargo Description *</label>

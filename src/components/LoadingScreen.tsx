@@ -6,11 +6,11 @@ export default function LoadingScreen() {
   const { logoUrl } = useSettings();
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-[#0B2545] flex flex-col items-center justify-center">
+    <div className="fixed inset-0 z-[9999] bg-[#800C30] flex flex-col items-center justify-center">
       {/* Logo */}
       <motion.img
         src={logoUrl}
-        alt="Alliance Freight"
+        alt="Phoenix Cargo"
         className="h-16 w-auto mb-10"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

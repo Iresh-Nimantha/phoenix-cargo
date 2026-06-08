@@ -190,7 +190,7 @@ export default function QuoteRequestsManager() {
                     />
                     <button
                       onClick={() => handleAddNote(q.id)}
-                      className="px-4 py-2 bg-[#0B2545] text-white text-sm font-semibold rounded-lg hover:bg-[#0B2545]/90 transition"
+                      className="px-4 py-2 bg-[#800C30] text-white text-sm font-semibold rounded-lg hover:bg-[#800C30]/90 transition"
                     >
                       Save
                     </button>

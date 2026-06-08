@@ -66,7 +66,7 @@ export default function TrackingSection() {
         transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
         style={{
           backgroundImage:
-            'linear-gradient(to right, #0B2545 1px, transparent 1px), linear-gradient(to bottom, #0B2545 1px, transparent 1px)',
+            'linear-gradient(to right, #800C30 1px, transparent 1px), linear-gradient(to bottom, #800C30 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
@@ -80,10 +80,10 @@ export default function TrackingSection() {
             <div className="absolute -top-16 -right-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-colors" />
             <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
 
-            <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase text-[#0B2545] tracking-tighter mb-4 relative z-10 leading-tight break-words px-4 text-center whitespace-pre-wrap">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase text-[#800C30] tracking-tighter mb-4 relative z-10 leading-tight break-words px-4 text-center whitespace-pre-wrap">
               {data.sectionTitle}
             </h2>
-            <p className="text-[#0B2545]/80 mb-8 text-lg font-bold relative z-10">
+            <p className="text-[#800C30]/80 mb-8 text-lg font-bold relative z-10">
               {data.sectionDescription}
             </p>
 
@@ -96,7 +96,7 @@ export default function TrackingSection() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 + i * 0.1 }}
                   whileHover={{ scale: 1.05, y: -2 }}
-                  className="flex items-center gap-2 bg-[#0B2545]/10 text-[#0B2545] px-4 py-2 rounded-full text-sm font-extrabold backdrop-blur-sm"
+                  className="flex items-center gap-2 bg-[#800C30]/10 text-[#800C30] px-4 py-2 rounded-full text-sm font-extrabold backdrop-blur-sm"
                 >
                   <item.icon className="w-4 h-4" />
                   <span>{item.label}</span>
@@ -117,7 +117,7 @@ export default function TrackingSection() {
 
       {/* Footer */}
       <motion.div
-        className="absolute bottom-6 w-full text-center text-sm font-bold text-[#0B2545]/80 z-20"
+        className="absolute bottom-6 w-full text-center text-sm font-bold text-[#800C30]/80 z-20"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

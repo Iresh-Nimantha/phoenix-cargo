@@ -123,7 +123,7 @@ export default function QuoteModal() {
                   >
                     <CheckCircle className="w-20 h-20 text-green-500 mb-4" />
                   </motion.div>
-                  <h3 className="text-2xl font-black text-[#0B2545] mb-2">Thank You!</h3>
+                  <h3 className="text-2xl font-black text-[#800C30] mb-2">Thank You!</h3>
                   <p className="text-gray-600 text-sm mb-6">
                     Your quote request has been submitted. Our team will contact you shortly.
                   </p>
@@ -136,7 +136,7 @@ export default function QuoteModal() {
                 </motion.div>
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  <h2 className="text-2xl font-black uppercase text-[#0B2545] mb-1">Request a Quote</h2>
+                  <h2 className="text-2xl font-black uppercase text-[#800C30] mb-1">Request a Quote</h2>
                   <p className="text-gray-500 text-sm mb-6">Get competitive freight rates with expert support</p>
 
                   <form onSubmit={handleSubmit} className="space-y-3">

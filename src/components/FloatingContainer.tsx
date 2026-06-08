@@ -31,7 +31,7 @@ export default function FloatingContainer() {
       >
         <img
           src="https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/container.png"
-          alt="Alliance Freight Container"
+          alt="Phoenix Cargo Container"
           className="w-full h-auto object-contain drop-shadow-2xl"
           referrerPolicy="no-referrer"
         />

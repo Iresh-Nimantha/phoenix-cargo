@@ -86,7 +86,7 @@ export default function ContactMessagesManager() {
                 </button>
               </div>
             </div>
-            <p className="font-medium text-sm text-[#0B2545] mb-1">{msg.subject}</p>
+            <p className="font-medium text-sm text-[#800C30] mb-1">{msg.subject}</p>
             <p className="text-sm text-gray-600 leading-relaxed">{msg.message}</p>
           </motion.div>
         ))}

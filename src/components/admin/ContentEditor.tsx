@@ -40,7 +40,7 @@ export default function ContentEditor({ sectionId, schema, initialData }: Conten
     <form onSubmit={handleSubmit} className="space-y-5">
       {Object.entries(schema).map(([key, type]) => (
         <div key={key}>
-          <label className="block text-sm font-bold text-[#0B2545] uppercase tracking-wider mb-2">
+          <label className="block text-sm font-bold text-[#800C30] uppercase tracking-wider mb-2">
             {key.replace(/([A-Z])/g, ' $1').trim()}
           </label>
 
@@ -140,7 +140,7 @@ export default function ContentEditor({ sectionId, schema, initialData }: Conten
       <button
         type="submit"
         disabled={saving}
-        className="flex items-center gap-2 px-8 py-3 bg-[#0B2545] text-white font-bold rounded-xl hover:bg-[#0B2545]/90 transition disabled:opacity-60 text-xs uppercase tracking-widest shadow-lg"
+        className="flex items-center gap-2 px-8 py-3 bg-[#800C30] text-white font-bold rounded-xl hover:bg-[#800C30]/90 transition disabled:opacity-60 text-xs uppercase tracking-widest shadow-lg"
       >
         {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
         {saving ? 'Saving...' : 'Save Changes'}

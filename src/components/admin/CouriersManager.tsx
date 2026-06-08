@@ -165,7 +165,7 @@ export default function CouriersManager() {
         
         <button
           onClick={handleOpenAdd}
-          className="px-5 py-3 bg-[#0B2545] hover:bg-[#0B2545]/90 text-white rounded-xl transition text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-[#0B2545]/10 shrink-0 self-start sm:self-center"
+          className="px-5 py-3 bg-[#800C30] hover:bg-[#800C30]/90 text-white rounded-xl transition text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-[#800C30]/10 shrink-0 self-start sm:self-center"
         >
           <Plus className="w-4 h-4" /> Add Courier
         </button>
@@ -263,7 +263,7 @@ export default function CouriersManager() {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-black uppercase text-[#0B2545]/70 tracking-widest mb-1.5 ml-1">
+            <label className="block text-xs font-black uppercase text-[#800C30]/70 tracking-widest mb-1.5 ml-1">
               Courier Name *
             </label>
             <input
@@ -276,7 +276,7 @@ export default function CouriersManager() {
           </div>
 
           <div>
-            <label className="block text-xs font-black uppercase text-[#0B2545]/70 tracking-widest mb-1.5 ml-1">
+            <label className="block text-xs font-black uppercase text-[#800C30]/70 tracking-widest mb-1.5 ml-1">
               Slug ID (System / API Key match) *
             </label>
             <input
@@ -295,7 +295,7 @@ export default function CouriersManager() {
           </div>
 
           <div>
-            <label className="block text-xs font-black uppercase text-[#0B2545]/70 tracking-widest mb-1.5 ml-1">
+            <label className="block text-xs font-black uppercase text-[#800C30]/70 tracking-widest mb-1.5 ml-1">
               Direct Portal URL *
             </label>
             <input
@@ -320,7 +320,7 @@ export default function CouriersManager() {
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-[#0B2545] hover:bg-[#0B2545]/90 text-white rounded-xl transition text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#0B2545]/10"
+              className="px-6 py-2.5 bg-[#800C30] hover:bg-[#800C30]/90 text-white rounded-xl transition text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#800C30]/10"
             >
               {editingIndex !== null ? 'Save Changes' : 'Create Courier'}
             </button>

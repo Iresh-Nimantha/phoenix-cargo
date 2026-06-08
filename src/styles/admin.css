@@ -1,0 +1,94 @@
+/* ── Admin Dashboard Styling ── */
+
+/* Labels */
+.admin-label {
+  display: block;
+  font-family: var(--font-cond);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--clr-ash-400);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Inputs */
+.admin-input {
+  width: 100%;
+  background: var(--clr-ash-700);
+  border: 1px solid var(--clr-ash-600);
+  color: var(--clr-ash-100);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 3px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-input:focus {
+  border-color: var(--clr-fire-orange);
+  box-shadow: 0 0 0 2px rgba(232, 97, 10, 0.25);
+}
+
+.admin-input::placeholder {
+  color: var(--clr-ash-400);
+  font-style: italic;
+}
+
+/* Textareas */
+.admin-textarea {
+  width: 100%;
+  background: var(--clr-ash-700);
+  border: 1px solid var(--clr-ash-600);
+  color: var(--clr-ash-100);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 3px;
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-textarea:focus {
+  border-color: var(--clr-fire-orange);
+  box-shadow: 0 0 0 2px rgba(232, 97, 10, 0.25);
+}
+
+.admin-textarea::placeholder {
+  color: var(--clr-ash-400);
+  font-style: italic;
+}
+
+/* Field groups */
+.admin-field-group {
+  margin-bottom: 20px;
+}
+
+/* Space hint */
+.space-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--clr-ash-400);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Admin layout responsive */
+@media (max-width: 1024px) {
+  .admin-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-sidebar {
+    display: none;
+  }
+}
+
+/* Mobile-first admin stacking */
+@media (max-width: 768px) {
+  .admin-layout {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,168 +1,83 @@
-import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import {
-  Globe,
-  Ship,
-  Network,
-  TrendingDown,
-  PackageCheck,
-  ShieldCheck,
-  Users,
-  Clock,
-} from 'lucide-react';
-import TiltCard from '../animations/TiltCard';
-import { staggerContainer } from '../animations/variants';
-import { useContent } from '../hooks/useContent';
+import { useContent } from '../context/ContentContext';
+import { motion, useInView } from 'motion/react';
+import { Shield, Sparkles, Zap, Award, Compass, HeartHandshake } from 'lucide-react';
 
-const icons = [
-  Globe,
-  Ship,
-  Network,
-  TrendingDown,
-  PackageCheck,
-  ShieldCheck,
-  Users,
-  Clock,
-];
-
-const colors = [
-  'from-blue-500 to-cyan-500',
-  'from-purple-500 to-indigo-500',
-  'from-green-500 to-emerald-500',
-  'from-orange-500 to-amber-500',
-  'from-red-500 to-pink-500',
-  'from-teal-500 to-cyan-500',
-  'from-indigo-500 to-blue-500',
-  'from-yellow-500 to-orange-500',
-];
-
-const defaultData = {
-  sectionTitle: 'WHY CHOOSE ALLIANCE FREIGHT',
-  sectionDescription: 'In freight forwarding, performance matters. Alliance Freight (Pvt) Ltd is committed to delivering professional shipping and cargo solutions.',
-  ctaMessage: 'Alliance Freight (Pvt) Ltd is not just a service provider — we are your long-term shipping and freight forwarding partner.',
-  backgroundImageUrl: 'https://raw.githubusercontent.com/Iresh-Nimantha/test-img-upload/refs/heads/main/Alliance%20Freigh/bg.jpg',
-  strength1: 'Export, Import & Cross Trading Expertise',
-  strength2: 'Sea Freight, Air Freight, Courier, Road & Rail Options',
-  strength3: 'Strong Worldwide Agent Network',
-  strength4: 'Competitive Freight Rates & Reliable Carriers',
-  strength5: 'Specialized Handling (Project / Pharmaceutical / Hazardous Cargo)',
-  strength6: 'Fast Import & Export Customs Clearance',
-  strength7: 'Well-Educated, Experienced Operations Team',
-  strength8: '24 Hours Customer Service & Shipment Updates',
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: 30, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    x: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
+const icons = [Shield, Sparkles, Zap, Award, Compass, HeartHandshake];
 
 export default function WhyChooseSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { content } = useContent('whychoose', defaultData);
-  const data = { ...defaultData, ...content };
+  const { content } = useContent();
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
-  const leftXVal = useTransform(scrollYProgress, [0, 0.5], [-30, 0]);
-  const rightXVal = useTransform(scrollYProgress, [0, 0.5], [30, 0]);
-  const leftX = isMobile ? 0 : leftXVal;
-  const rightX = isMobile ? 0 : rightXVal;
-
-  // Build dynamic strength cards
-  const strengths = Array.from({ length: 8 }).map((_, idx) => {
-    const key = `strength${idx + 1}` as keyof typeof data;
-    return {
-      icon: icons[idx],
-      title: data[key],
-      color: colors[idx],
-    };
-  });
+  // Map icons dynamically to whyUs items
+  const items = content.whyUs.items.map((item, idx) => ({
+    ...item,
+    Icon: icons[idx % icons.length],
+  }));
 
   return (
     <section
-      ref={sectionRef}
-      className="relative w-full px-4 md:px-16 flex items-center justify-center overflow-hidden select-none text-[#0B2545] py-12 md:py-16"
+      ref={ref}
+      id="why"
+      className="relative py-24 lg:py-32 px-[5vw] overflow-hidden"
+      style={{ background: 'var(--clr-ash-800)' }}
     >
-      {/* Parallax Background */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('${data.backgroundImageUrl}')`,
-          y: bgY,
-        }}
-      />
-      <div className="absolute inset-0 bg-[#EBEBEB]/90 backdrop-blur-[2px]" />
+      {/* Background subtle glowing lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-fire-orange/5 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/10 w-96 h-96 rounded-full bg-fire-gold/5 blur-[120px]" />
+      </div>
 
-      <div className="relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left - with parallax slide */}
+      <div className="relative z-10 max-w-[1200px] mx-auto">
+        {/* Section Header */}
         <motion.div
-          style={{ x: leftX }}
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="space-y-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
         >
-          <h2 className="text-xl sm:text-3xl lg:text-5xl font-black uppercase tracking-tighter leading-tight break-words text-center lg:text-left px-4 lg:px-0 text-[#0B2545] whitespace-pre-wrap">
-            {data.sectionTitle}
+          <span className="font-cond text-xs tracking-[3px] uppercase text-fire-orange font-bold block mb-3">
+            {content.whyUs.eyebrow}
+          </span>
+          <h2
+            className="font-display font-bold uppercase mb-4"
+            style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
+          >
+            {content.whyUs.title}{' '}
+            <span className="text-fire-orange">{content.whyUs.titleHighlight}</span>
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed font-semibold text-center lg:text-left px-2 sm:px-4 lg:px-0">
-            {data.sectionDescription}
-          </p>
-
-          {/* 3D CTA Card */}
-          <div className="px-4 sm:px-0">
-            <TiltCard className="group animate-glow" maxTilt={6} glare={true}>
-              <div className="bg-[#0B2545] text-white p-6 rounded-2xl shadow-lg relative overflow-hidden group-hover:shadow-2xl group-hover:shadow-[#0B2545]/30 transition-shadow duration-300">
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/15 rounded-full blur-3xl group-hover:bg-cyan-500/25 transition-colors" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors" />
-                <p className="text-lg font-semibold relative z-10 text-center lg:text-left">
-                  {data.ctaMessage}
-                </p>
-              </div>
-            </TiltCard>
-          </div>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-fire-orange to-fire-gold mx-auto" />
         </motion.div>
 
-        {/* Right - with parallax slide */}
-        <motion.div
-          style={{ x: rightX }}
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="space-y-3"
-        >
-          {strengths.map((strength, index) => (
+        {/* Features Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((item, idx) => (
             <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ x: 8, backgroundColor: 'rgba(255,255,255,0.95)', scale: 1.01 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="group bg-white/70 backdrop-blur-sm border border-white/60 p-4 rounded-xl shadow-sm hover:border-cyan-300/50 hover:shadow-lg flex items-center gap-4 transition-all cursor-default"
-              style={{ transformStyle: 'preserve-3d' }}
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: idx * 0.08, duration: 0.5 }}
+              className="group relative bg-ash-900 border border-white/[0.03] hover:border-fire-orange/20 p-8 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
             >
-              <motion.div
-                className={`p-2.5 bg-gradient-to-br ${strength.color} bg-opacity-10 rounded-lg text-white shadow-sm`}
-                whileHover={{ rotate: 10, scale: 1.15 }}
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                <strength.icon className="w-5 h-5 stroke-[1.5]" />
-              </motion.div>
-              <span className="font-bold text-[#0B2545] text-sm">{strength.title}</span>
+              {/* Card top border accent */}
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-fire-orange to-fire-gold scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+
+              {/* Icon Wrap */}
+              <div className="w-12 h-12 rounded bg-fire-orange/[0.04] border border-fire-orange/10 group-hover:bg-fire-orange/10 group-hover:border-fire-orange/25 flex items-center justify-center text-fire-orange mb-6 transition-all duration-300">
+                <item.Icon size={22} className="group-hover:scale-110 transition-transform duration-300" />
+              </div>
+
+              {/* Text content */}
+              <h3 className="font-cond text-lg tracking-[1px] uppercase font-bold text-white mb-3 group-hover:text-fire-gold transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-sm text-ash-400 font-light leading-relaxed">
+                {item.description}
+              </p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -10,14 +10,14 @@ interface Message {
 }
 
 const defaultChatbotData = {
-  botName: 'Alliance Assistant',
-  persona: `You are "Alliance Assistant", the official friendly customer support AI bot for Alliance Freight (Pvt) Ltd.
+  botName: 'Phoenix Assistant',
+  persona: `You are "Phoenix Assistant", the official friendly customer support AI bot for Phoenix Cargo (Pvt) Ltd.
 Provide professional, polite, and accurate freight forwarding answers. Keep answers brief (1-3 sentences max) to fit inside a small chat window.
 
 Core Company Information:
 - Address: No. 77, Sri Medhananda Mawatha, Moratuwa, Sri Lanka.
 - Phone Support: 070 644 0992 | 076 736 7280.
-- Email Support: imports@alliancefreightcmb.com.
+- Email Support: imports@phoenixcargo.com.
 - Core Services: Air Freight, Sea Freight (FCL/LCL), Road & Rail Freight, Customs Clearance & Brokerage.
 - Specialized Cargo Handling:
   * Project Cargo: Heavy lift, Out of Gauge (OOG) shipping, custom industrial routes.
@@ -58,7 +58,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hello! I am your Alliance Assistant. How can I help you with your global shipping, cargo tracking, or shipping needs today? 🌐',
+      content: 'Hello! I am your Phoenix Assistant. How can I help you with your global shipping, cargo tracking, or shipping needs today? 🌐',
     },
   ]);
   const [input, setInput] = useState('');
@@ -108,7 +108,7 @@ export default function Chatbot() {
 
     if (!apiKey) {
       setTimeout(() => {
-        let reply = "I'd be glad to assist you! For quick help, you can track packages on our /tracking page or get a quote. You can also reach our team directly at imports@alliancefreightcmb.com or 070 644 0992.";
+        let reply = "I'd be glad to assist you! For quick help, you can track packages on our /tracking page or get a quote. You can also reach our team directly at imports@phoenixcargo.com or 070 644 0992.";
         const lowered = userMessage.toLowerCase();
         if (lowered.includes('track') || lowered.includes('where') || lowered.includes('status')) {
           reply = "You can track your shipment live using our online Tracking Page! Just select your courier (DHL, FedEx, UPS, etc.) and enter your tracking number there.";
@@ -154,7 +154,7 @@ export default function Chatbot() {
         ...prev,
         {
           role: 'assistant',
-          content: "I'm having a brief connection issue, but you can reach our 24/7 hotline at 070 644 0992 or email imports@alliancefreightcmb.com for instant cargo support!",
+          content: "I'm having a brief connection issue, but you can reach our 24/7 hotline at 070 644 0992 or email imports@phoenixcargo.com for instant cargo support!",
         },
       ]);
     } finally {
@@ -185,7 +185,7 @@ export default function Chatbot() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="fixed sm:absolute bottom-[92px] sm:bottom-18 left-4 right-4 sm:left-auto sm:right-0 w-auto sm:w-[380px] h-[480px] sm:h-[500px] max-w-[calc(100vw-32px)] sm:max-w-none bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/60 overflow-hidden flex flex-col z-[1000] sm:z-auto"
           >
-            <div className="bg-[#0B2545] p-5 text-white flex items-center justify-between border-b border-white/10 relative overflow-hidden shrink-0">
+            <div className="bg-[#800C30] p-5 text-white flex items-center justify-between border-b border-white/10 relative overflow-hidden shrink-0">
               <div className="absolute -top-16 -right-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl" />
               <div className="flex items-center gap-3 relative z-10">
                 <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 flex items-center justify-center border border-cyan-400/30">
@@ -216,7 +216,7 @@ export default function Chatbot() {
                 <Phone className="w-3.5 h-3.5 text-cyan-600" /> 070 644 0992
               </div>
               <div className="flex items-center gap-1 font-sans">
-                <Send className="w-3 h-3 text-cyan-600" /> imports@alliancefreightcmb.com
+                <Send className="w-3 h-3 text-cyan-600" /> imports@phoenixcargo.com
               </div>
             </div>
 
@@ -224,11 +224,11 @@ export default function Chatbot() {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex items-start gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role !== 'user' && (
-                    <div className="w-7 h-7 rounded-lg bg-[#0B2545] text-white flex items-center justify-center shrink-0 shadow-sm border border-cyan-500/20">
+                    <div className="w-7 h-7 rounded-lg bg-[#800C30] text-white flex items-center justify-center shrink-0 shadow-sm border border-cyan-500/20">
                       <Bot className="w-3.5 h-3.5 text-cyan-400" />
                     </div>
                   )}
-                  <div className={`max-w-[75%] p-3.5 rounded-2xl text-xs font-semibold leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#0B2545] text-white rounded-tr-none' : 'bg-white text-[#0B2545] border border-gray-200/50 rounded-tl-none'}`}>
+                  <div className={`max-w-[75%] p-3.5 rounded-2xl text-xs font-semibold leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-[#800C30] text-white rounded-tr-none' : 'bg-white text-[#800C30] border border-gray-200/50 rounded-tl-none'}`}>
                     {msg.content}
                   </div>
                   {msg.role === 'user' && (
@@ -240,7 +240,7 @@ export default function Chatbot() {
               ))}
               {loading && (
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#0B2545] text-white flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-[#800C30] text-white flex items-center justify-center shrink-0">
                     <Bot className="w-3.5 h-3.5 text-cyan-400" />
                   </div>
                   <div className="bg-white border border-gray-200/50 p-3.5 rounded-2xl rounded-tl-none flex items-center gap-2">
@@ -258,12 +258,12 @@ export default function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about shipping, tracking, or services..."
-                className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold text-[#0B2545] focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:font-normal placeholder:text-gray-400"
+                className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold text-[#800C30] focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all placeholder:font-normal placeholder:text-gray-400"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || loading}
-                className="w-10 h-10 bg-[#0B2545] hover:bg-cyan-600 text-white rounded-xl flex items-center justify-center transition-colors disabled:opacity-50"
+                className="w-10 h-10 bg-[#800C30] hover:bg-cyan-600 text-white rounded-xl flex items-center justify-center transition-colors disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
               </button>

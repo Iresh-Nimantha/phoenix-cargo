@@ -1,0 +1,102 @@
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.reveal.visible { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.20s; }
+.reveal-delay-3 { transition-delay: 0.30s; }
+.reveal-delay-4 { transition-delay: 0.40s; }
+.reveal-delay-5 { transition-delay: 0.50s; }
+
+/* Ticker */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 25s linear infinite;
+  will-change: transform;
+}
+
+/* Gradient text pulse (hero h1 highlight) */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* Nav link underline slide */
+.nav-link-underline {
+  display: block;
+  height: 1px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+a:hover .nav-link-underline { 
+  transform: scaleX(1); 
+}
+
+/* Button lift */
+.btn-primary {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232, 97, 10, 0.45);
+}
+
+/* Service card top border reveal */
+.service-card-top-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-fire-orange), var(--clr-fire-gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.service-card:hover .service-card-top-border { 
+  transform: scaleX(1); 
+}
+
+/* Why us icon scale */
+.why-icon-wrap { 
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; 
+}
+.why-item:hover .why-icon-wrap { 
+  transform: scale(1.08); 
+  background: rgba(232, 97, 10, 0.16);
+  border-color: rgba(232, 97, 10, 0.4);
+}
+
+/* Spinner */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Scrollbar-none utility for mobile nav */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Floating animation for static image */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

@@ -1,6 +1,6 @@
-# Alliance Freight — Premium Enhancement Implementation Plan
+# Phoenix Cargo — Premium Enhancement Implementation Plan
 
-Transform the existing Alliance Freight system into a polished, interactive, animated, premium SaaS-grade application.
+Transform the existing Phoenix Cargo system into a polished, interactive, animated, premium SaaS-grade application.
 
 ## Current State Summary
 
@@ -296,7 +296,7 @@ Every existing component will be enhanced in-place. Key changes:
 
 #### [NEW] [src/components/LoadingScreen.tsx](file:///c:/Users/user/Downloads/alliance-freight/src/components/LoadingScreen.tsx)
 - Full-screen animated loading screen for Suspense fallback
-- Alliance Freight logo + animated spinner
+- Phoenix Cargo logo + animated spinner
 
 #### [NEW] [src/utils/emailjs.ts](file:///c:/Users/user/Downloads/alliance-freight/src/utils/emailjs.ts)
 - EmailJS configuration and send helpers
