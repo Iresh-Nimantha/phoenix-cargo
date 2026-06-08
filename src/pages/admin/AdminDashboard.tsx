@@ -535,7 +535,7 @@ export default function AdminDashboard() {
             <img
               src={logoUrl}
               alt="Logo"
-              className="h-7 w-auto"
+              className="h-7 w-auto bg-white p-0.5 rounded object-contain"
             />
             <span className="text-xs font-black text-gray-900 uppercase tracking-widest">Admin</span>
           </div>

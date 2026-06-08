@@ -62,7 +62,7 @@ export default function Navbar() {
           <motion.img
             src={logoUrl}
             alt="Phoenix Cargo Logo"
-            className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-sm transition-all"
+            className="h-12 sm:h-14 md:h-16 w-auto object-contain bg-white p-1 rounded-xl shadow-sm transition-all"
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300 }}
           />

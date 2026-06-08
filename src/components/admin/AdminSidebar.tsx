@@ -52,7 +52,7 @@ export default function AdminSidebar({ activeTab, onTabChange }: AdminSidebarPro
           <img
             src={logoUrl}
             alt="Logo"
-            className="h-8 w-auto"
+            className="h-8 w-auto bg-white p-0.5 rounded object-contain"
           />
           {!collapsed && <span className="text-lg font-bold tracking-tight">Admin</span>}
         </motion.div>

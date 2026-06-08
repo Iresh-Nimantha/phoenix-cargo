@@ -21,7 +21,7 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
     const unsub = onSnapshot(doc(db, 'content', 'settings'), (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        if (data.logoUrl && !data.logoUrl.includes('Alliance%20Freigh') && !data.logoUrl.includes('logonogb.png')) {
+        if (data.logoUrl && !data.logoUrl.includes('Alliance%20Freigh')) {
           setLogoUrl(data.logoUrl);
         } else {
           setLogoUrl('/logo.png');
