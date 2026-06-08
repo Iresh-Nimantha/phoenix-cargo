@@ -20,7 +20,7 @@ type SectionType =
   | 'password';
 
 export default function Admin() {
-  const { content, updateContent, isDirty, save } = useContent();
+  const { content, updateContent, isDirty, isSaving, save } = useContent();
   const { user, loading: authLoading, login, logout, resetPassword } = useAuth();
 
   // Auth States
@@ -66,9 +66,14 @@ export default function Admin() {
     }
   };
 
-  const handleSaveChanges = () => {
-    save();
-    toast.success('All changes saved to system!');
+  const handleSaveChanges = async () => {
+    try {
+      await save();
+      toast.success('All changes saved to Firestore!');
+    } catch (err: any) {
+      toast.error('Firestore save failed. Changes saved locally only.');
+      console.error('[Admin] save error:', err);
+    }
   };
 
   // Helper space preservation hint
@@ -263,19 +268,8 @@ export default function Admin() {
       {/* RIGHT EDITING WORKSPACE */}
       <main className="flex flex-col min-h-0 lg:h-screen lg:overflow-hidden">
         {/* TOP STATUS CONTROL BAR */}
-        <div
-          style={{
-            height: '72px',
-            background: 'var(--clr-ash-800)',
-            borderBottom: '1px solid var(--clr-border)',
-            padding: '0 40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexShrink: 0
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="admin-top-bar">
+          <div className="admin-top-bar-title">
             <h1 style={{ margin: 0, fontFamily: 'var(--font-cond)', fontSize: '18px', textTransform: 'uppercase', letterSpacing: '2px' }}>
               Content Administration
             </h1>
@@ -293,7 +287,7 @@ export default function Admin() {
             )}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="admin-top-bar-actions">
             <a
               href="/"
               target="_blank"
@@ -336,6 +330,7 @@ export default function Admin() {
 
             <button
               onClick={handleSaveChanges}
+              disabled={isSaving}
               style={{
                 background: 'var(--clr-fire-orange)',
                 border: 'none',
@@ -347,19 +342,20 @@ export default function Admin() {
                 letterSpacing: '1px',
                 fontWeight: 700,
                 borderRadius: '2px',
-                cursor: 'pointer',
+                cursor: isSaving ? 'not-allowed' : 'pointer',
+                opacity: isSaving ? 0.7 : 1,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px'
               }}
             >
-              <Save size={14} /> Save Changes
+              <Save size={14} /> {isSaving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         </div>
 
         {/* WORKSPACE CONTENT AREA */}
-        <div style={{ flexGrow: 1, padding: '40px', overflowY: 'auto' }}>
+        <div className="admin-workspace">
           {/* A. GENERAL / META SECTION */}
           {activeSection === 'general' && (
             <div className="reveal visible">
@@ -513,7 +509,7 @@ export default function Admin() {
                 </button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="admin-grid-2">
                 <div className="admin-field-group">
                   <label className="admin-label" style={{ display: 'block', fontFamily: 'var(--font-cond)', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--clr-ash-400)', marginBottom: '8px' }}>Action Button Label</label>
                   <input
@@ -556,7 +552,7 @@ export default function Admin() {
                 <SpaceHint />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-3" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label" style={{ display: 'block', fontFamily: 'var(--font-cond)', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--clr-ash-400)', marginBottom: '8px' }}>Heading Line 1 (Standard)</label>
                   <input
@@ -614,7 +610,7 @@ export default function Admin() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label" style={{ display: 'block', fontFamily: 'var(--font-cond)', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--clr-ash-400)', marginBottom: '8px' }}>Primary Action Button text</label>
                   <input
@@ -637,7 +633,7 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label" style={{ display: 'block', fontFamily: 'var(--font-cond)', fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--clr-ash-400)', marginBottom: '8px' }}>Secondary Action Button text</label>
                   <input
@@ -769,7 +765,7 @@ export default function Admin() {
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', textTransform: 'uppercase', borderBottom: '1px solid rgba(232,97,10,0.1)', paddingBottom: '12px', marginBottom: '24px' }}>
                 Services Grid Management
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '32px' }}>
+              <div className="admin-grid-3" style={{ marginBottom: '32px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Section Eyebrow</label>
                   <input
@@ -971,7 +967,7 @@ export default function Admin() {
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', textTransform: 'uppercase', borderBottom: '1px solid rgba(232,97,10,0.1)', paddingBottom: '12px', marginBottom: '24px' }}>
                 About Us Section content
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">About Eyebrow</label>
                   <input
@@ -992,7 +988,7 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Heading Line 1</label>
                   <input
@@ -1108,7 +1104,7 @@ export default function Admin() {
                 </button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Action CTA Button Text</label>
                   <input
@@ -1190,7 +1186,7 @@ export default function Admin() {
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', textTransform: 'uppercase', borderBottom: '1px solid rgba(232,97,10,0.1)', paddingBottom: '12px', marginBottom: '24px' }}>
                 Why Choose Us Section
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-3" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Section Eyebrow</label>
                   <input
@@ -1298,7 +1294,7 @@ export default function Admin() {
                   className="admin-input"
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="admin-grid-2">
                 <div className="admin-field-group">
                   <label className="admin-label">Button Text Label</label>
                   <input
@@ -1327,7 +1323,7 @@ export default function Admin() {
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', textTransform: 'uppercase', borderBottom: '1px solid rgba(232,97,10,0.1)', paddingBottom: '12px', marginBottom: '24px' }}>
                 Contact Forms & Dual Office Addresses
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-3" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Contact Eyebrow</label>
                   <input
@@ -1367,7 +1363,7 @@ export default function Admin() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Office Operations Hotline Phone</label>
                   <input
@@ -1388,7 +1384,7 @@ export default function Admin() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', marginBottom: '32px' }}>
+              <div className="admin-grid-3" style={{ marginBottom: '32px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Company Email</label>
                   <input
@@ -1420,7 +1416,7 @@ export default function Admin() {
 
               {/* DUAL OFFICE ADDRESS CONFIGURATION */}
               <h3 style={{ fontFamily: 'var(--font-cond)', fontSize: '14px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--clr-white)', marginBottom: '16px' }}>Dual Offices Configuration</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+              <div className="admin-grid-offices">
                 {/* Office 1: Corporate */}
                 <div style={{ background: 'var(--clr-ash-800)', border: '1px solid var(--clr-primary)', padding: '24px', borderRadius: '4px' }}>
                   <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--clr-fire-orange)', fontWeight: 700 }}>Corporate Office Address (Accent Border)</span>
@@ -1650,7 +1646,7 @@ export default function Admin() {
                 </button>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+              <div className="admin-grid-2" style={{ marginBottom: '24px' }}>
                 <div className="admin-field-group">
                   <label className="admin-label">Copyright notice text</label>
                   <input
