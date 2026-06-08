@@ -29,38 +29,57 @@ export interface QuoteEmailData {
 
 export const sendContactEmail = async (data: ContactEmailData) => {
   if (!SERVICE_ID || !PUBLIC_KEY) {
-    console.warn('EmailJS not configured. Skipping email send.');
+    console.warn('EmailJS not configured or missing public key/service ID. Skipping email send.');
     return;
   }
-  return emailjs.send(
-    SERVICE_ID,
-    TEMPLATE_ID,
-    {
-      from_name: data.name,
-      from_email: data.email,
-      subject: data.subject,
-      message: data.message,
-    },
-    PUBLIC_KEY
-  );
+  console.log('Sending contact email via EmailJS...', { serviceId: SERVICE_ID, templateId: TEMPLATE_ID });
+  try {
+    const result = await emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      {
+        company_name: 'Phoenix Cargo',
+        from_name: data.name,
+        from_email: data.email,
+        inquiry_type: data.subject || 'General Inquiry',
+        submitted_at: new Date().toLocaleString(),
+        message: data.message,
+      },
+      PUBLIC_KEY
+    );
+    console.log('EmailJS success response:', result);
+    return result;
+  } catch (err) {
+    console.error('EmailJS error sending contact email:', err);
+    throw err;
+  }
 };
 
 export const sendQuoteEmail = async (data: QuoteEmailData) => {
   if (!SERVICE_ID || !PUBLIC_KEY) {
-    console.warn('EmailJS not configured. Skipping email send.');
+    console.warn('EmailJS not configured or missing public key/service ID. Skipping email send.');
     return;
   }
-  return emailjs.send(
-    SERVICE_ID,
-    QUOTE_TEMPLATE_ID || TEMPLATE_ID,
-    {
-      from_name: data.name,
-      from_email: data.email,
-      phone: data.phone,
-      company: data.company,
-      service: data.service,
-      message: data.message,
-    },
-    PUBLIC_KEY
-  );
+  const targetTemplateId = QUOTE_TEMPLATE_ID || TEMPLATE_ID;
+  console.log('Sending quote email via EmailJS...', { serviceId: SERVICE_ID, templateId: targetTemplateId });
+  try {
+    const result = await emailjs.send(
+      SERVICE_ID,
+      targetTemplateId,
+      {
+        company_name: 'Phoenix Cargo',
+        from_name: data.name,
+        from_email: data.email,
+        inquiry_type: `Quote Request: ${data.service || 'Logistics Service'}`,
+        submitted_at: new Date().toLocaleString(),
+        message: `Phone: ${data.phone}\nCompany: ${data.company || 'N/A'}\n\nDetails:\n${data.message}`,
+      },
+      PUBLIC_KEY
+    );
+    console.log('EmailJS success response:', result);
+    return result;
+  } catch (err) {
+    console.error('EmailJS error sending quote email:', err);
+    throw err;
+  }
 };

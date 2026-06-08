@@ -5,7 +5,7 @@ import { Phone, Mail, Clock, MapPin, Send, Loader2, Check } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { sendContactEmail } from '../utils/emailjs';
-import toast from 'react-hot-toast';
+import { toastSuccess, toastError } from '../utils/swal';
 
 export default function ContactSection() {
   const { content } = useContent();
@@ -32,18 +32,24 @@ export default function ContactSection() {
     if (!validate()) return;
     setLoading(true);
     try {
-      await addDoc(collection(db, 'contactMessages'), {
+      // 1. Try sending the email via EmailJS first so the user gets immediate feedback and we capture errors
+      await sendContactEmail(form);
+
+      // 2. Try adding to Firestore in the background
+      addDoc(collection(db, 'contactMessages'), {
         ...form,
         submittedAt: serverTimestamp(),
         status: 'new',
         replied: false,
+      }).catch((err) => {
+        console.error('Firestore save failed:', err);
       });
-      await sendContactEmail(form).catch(() => { });
+
       setSuccess(true);
-      toast.success('Quote request submitted successfully!');
-    } catch (err) {
-      console.error('Error submitting quote request:', err);
-      toast.error('Failed to submit quote request. Please try again.');
+      toastSuccess('Clearance inquiry submitted successfully!');
+    } catch (err: any) {
+      console.error('Error submitting inquiry:', err);
+      toastError(err?.text || err?.message || 'Failed to submit clearance inquiry. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -192,7 +198,7 @@ export default function ContactSection() {
                     setSuccess(false);
                     setForm({ name: '', email: '', subject: 'Cargo Clearance', message: '' });
                   }}
-                  className="font-cond text-xs tracking-[2px] uppercase font-bold text-fire-orange border border-fire-orange hover:bg-fire-orange/10 px-6 py-3 rounded transition-colors"
+                  className="font-cond text-xs tracking-[2px] uppercase font-bold text-fire-orange border border-fire-orange hover:bg-fire-orange/10 px-6 py-3 rounded-full transition-colors"
                 >
                   Submit Another Request
                 </button>
@@ -282,7 +288,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full font-cond text-sm tracking-[2px] uppercase font-bold text-white py-4 rounded bg-gradient-to-r from-fire-crimson to-fire-orange hover:shadow-[0_4px_20px_rgba(232,97,10,0.3)] hover:-translate-y-0.5 flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none"
+                  className="w-full font-cond text-sm tracking-[2px] uppercase font-bold text-white py-4 rounded-full bg-gradient-to-r from-fire-orange to-fire-amber hover:shadow-[0_4px_20px_rgba(232,97,10,0.3)] hover:-translate-y-0.5 flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none"
                 >
                   {loading ? (
                     <Loader2 size={16} className="animate-spin" />

@@ -3,85 +3,173 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
-const R = 2.0; // Globe radius
+const R = 2.0;
 
-/** Convert lat/lon degrees to a 3-D point on the sphere surface */
 function ll(lat: number, lon: number, r = R): THREE.Vector3 {
-  const phi   = (90 - lat) * (Math.PI / 180);
+  const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lon + 180) * (Math.PI / 180);
   return new THREE.Vector3(
     -r * Math.sin(phi) * Math.cos(theta),
-     r * Math.cos(phi),
-     r * Math.sin(phi) * Math.sin(theta),
+    r * Math.cos(phi),
+    r * Math.sin(phi) * Math.sin(theta),
   );
 }
 
-/** Major global freight / air hubs [lat, lon] — Colombo is index 0 */
 const HUBS: [number, number][] = [
-  [ 6.93,  79.85],  // Colombo (Sri Lanka)
-  [25.20,  55.27],  // Dubai
-  [ 1.35, 103.82],  // Singapore
+  [6.93, 79.85],  // Colombo
+  [25.20, 55.27],  // Dubai
+  [1.35, 103.82],  // Singapore
   [22.31, 114.17],  // Hong Kong
-  [51.90,   4.48],  // Rotterdam
-  [51.50,  -0.12],  // London
-  [-1.28,  36.82],  // Nairobi
+  [51.90, 4.48],  // Rotterdam
+  [51.50, -0.12],  // London
+  [-1.28, 36.82],  // Nairobi
   [13.75, 100.52],  // Bangkok
-  [19.08,  72.88],  // Mumbai
+  [19.08, 72.88],  // Mumbai
   [-33.87, 151.21], // Sydney
 ];
 
-/** Build a lifted arc (QuadraticBezier) between two hubs */
 function buildArc(from: [number, number], to: [number, number], lift = 1.25, segs = 72) {
-  const A   = ll(from[0], from[1]);
-  const B   = ll(to[0],   to[1]);
+  const A = ll(from[0], from[1]);
+  const B = ll(to[0], to[1]);
   const mid = A.clone().add(B).multiplyScalar(0.5).normalize().multiplyScalar(R * lift);
   return new THREE.QuadraticBezierCurve3(A, mid, B).getPoints(segs);
 }
 
-// ─── Textured Earth Globe with Clouds & Routes ───────────────────────────────
+// Custom shader material for day/night Earth blend
+const EarthMaterial = ({ colorMap, normalMap, specularMap, nightMap, cloudsAlpha }: {
+  colorMap: THREE.Texture;
+  normalMap: THREE.Texture;
+  specularMap: THREE.Texture;
+  nightMap: THREE.Texture;
+  cloudsAlpha: THREE.Texture;
+}) => {
+  const matRef = useRef<THREE.ShaderMaterial>(null);
+
+  const uniforms = useMemo(() => ({
+    uDayMap: { value: colorMap },
+    uNightMap: { value: nightMap },
+    uNormalMap: { value: normalMap },
+    uSpecMap: { value: specularMap },
+    uCloudsMap: { value: cloudsAlpha },
+    uSunDir: { value: new THREE.Vector3(5, 3, 5).normalize() },
+  }), [colorMap, nightMap, normalMap, specularMap, cloudsAlpha]);
+
+  const vertexShader = `
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vWorldPos;
+
+    void main() {
+      vUv = uv;
+      vNormal = normalize(normalMatrix * normal);
+      vWorldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    uniform sampler2D uDayMap;
+    uniform sampler2D uNightMap;
+    uniform sampler2D uNormalMap;
+    uniform sampler2D uSpecMap;
+    uniform sampler2D uCloudsMap;
+    uniform vec3 uSunDir;
+
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vWorldPos;
+
+    void main() {
+      // Normal mapping
+      vec3 nMap = texture2D(uNormalMap, vUv).rgb * 2.0 - 1.0;
+      vec3 N = normalize(vNormal + nMap * 0.6);
+
+      float NdotL = dot(N, normalize(uSunDir));
+
+      // Day/night blend with soft terminator
+      float terminator = smoothstep(-0.18, 0.22, NdotL);
+
+      vec4 dayColor   = texture2D(uDayMap,   vUv);
+      vec4 nightColor = texture2D(uNightMap, vUv);
+
+      // City lights only on the night side
+      vec3 nightLit = nightColor.rgb * (1.0 - terminator) * 1.8;
+
+      // Specular highlight (ocean glint)
+      float specMask = texture2D(uSpecMap, vUv).r;
+      vec3 viewDir = normalize(-vWorldPos);
+      vec3 halfDir = normalize(normalize(uSunDir) + viewDir);
+      float specPow = pow(max(dot(N, halfDir), 0.0), 80.0);
+      vec3 specColor = vec3(0.4, 0.5, 0.7) * specPow * specMask * terminator;
+
+      // Clouds (from alpha channel of clouds texture)
+      float cloud = texture2D(uCloudsMap, vUv).r;
+      vec3 cloudColor = mix(vec3(0.85, 0.88, 0.92), vec3(1.0), cloud) * terminator;
+      float cloudMix  = cloud * 0.72;
+
+      // Compose
+      vec3 dayLit  = dayColor.rgb * (0.08 + 0.92 * terminator);
+      vec3 surface = mix(dayLit, cloudColor, cloudMix);
+      vec3 color   = surface + nightLit + specColor;
+
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  return (
+    <shaderMaterial
+      ref={matRef}
+      uniforms={uniforms}
+      vertexShader={vertexShader}
+      fragmentShader={fragmentShader}
+    />
+  );
+};
+
 function Globe() {
   const earthRef = useRef<THREE.Mesh>(null);
-  const cloudsRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const particleRefs = useRef<THREE.Mesh[]>([]);
   const tRef = useRef<number[]>([]);
 
-  // Load high-resolution textures from jsdelivr CDN
-  const [colorMap, normalMap, specularMap, cloudsMap] = useTexture([
+  // High-quality textures from three.js r154 CDN
+  // Day: NASA Blue Marble 2048, Night: city lights, Normal + Specular for realism
+  const [colorMap, normalMap, specularMap, nightMap, cloudsMap] = useTexture([
     'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_atmos_2048.jpg',
     'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_normal_2048.jpg',
     'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_specular_2048.jpg',
-    'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_clouds_1024.png'
+    'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_lights_2048.png',
+    'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r154/examples/textures/planets/earth_clouds_1024.png',
   ]);
 
-  // Arc curves: Colombo → every other hub
+  // Improve texture filtering for sharper detail
+  [colorMap, normalMap, specularMap, nightMap, cloudsMap].forEach(t => {
+    t.minFilter = THREE.LinearMipmapLinearFilter;
+    t.magFilter = THREE.LinearFilter;
+    t.anisotropy = 8;
+  });
+
   const curves = useMemo(() =>
     HUBS.slice(1).map(hub => {
       const pts = buildArc(HUBS[0], hub);
       return new THREE.CatmullRomCurve3(pts);
     }),
-  []);
+    []);
 
-  // TubeGeometry for each route
   const tubeGeoms = useMemo(() =>
-    curves.map(c => new THREE.TubeGeometry(c, 80, 0.008, 4, false)),
-  [curves]);
+    curves.map(c => new THREE.TubeGeometry(c, 80, 0.007, 4, false)),
+    [curves]);
 
-  // Hub 3-D positions
   const hubPos = useMemo(() => HUBS.map(([a, o]) => ll(a, o)), []);
 
-  // Init particle offsets
   useMemo(() => {
     tRef.current = curves.map(() => Math.random());
   }, [curves]);
 
   useFrame((_, dt) => {
-    // Rotate Earth and Clouds
     if (earthRef.current) earthRef.current.rotation.y += dt * 0.035;
-    if (cloudsRef.current) cloudsRef.current.rotation.y += dt * 0.045;
-    if (groupRef.current) groupRef.current.rotation.y += dt * 0.01; // Slow group drift
+    if (groupRef.current) groupRef.current.rotation.y += dt * 0.008;
 
-    // Animate air routing particles
     tRef.current = tRef.current.map((t, i) => {
       const next = (t + dt * (0.05 + i * 0.005)) % 1;
       const pos = curves[i].getPoint(next);
@@ -92,76 +180,52 @@ function Globe() {
 
   return (
     <group ref={groupRef}>
-      {/* ── Base Earth Mesh with Real Textures ── */}
+      {/* ── Realistic Earth with day/night shader ── */}
       <mesh ref={earthRef}>
-        <sphereGeometry args={[R, 64, 64]} />
-        <meshPhongMaterial
-          map={colorMap}
+        <sphereGeometry args={[R, 128, 128]} />
+        <EarthMaterial
+          colorMap={colorMap}
           normalMap={normalMap}
-          normalScale={new THREE.Vector2(0.85, 0.85)}
           specularMap={specularMap}
-          specular={new THREE.Color('#333333')}
-          shininess={15}
+          nightMap={nightMap}
+          cloudsAlpha={cloudsMap}
         />
       </mesh>
 
-      {/* ── Clouds Layer ── */}
-      <mesh ref={cloudsRef}>
-        <sphereGeometry args={[R * 1.015, 64, 64]} />
-        <meshPhongMaterial
-          alphaMap={cloudsMap}
-          transparent
-          blending={THREE.NormalBlending}
-          opacity={0.4}
-          depthWrite={false}
-        />
-      </mesh>
-
-      {/* ── Atmosphere Outer Glow ── */}
-      <mesh>
-        <sphereGeometry args={[R * 1.15, 32, 32]} />
-        <meshBasicMaterial
-          color="#3b82f6"
-          transparent
-          opacity={0.12}
-          side={THREE.BackSide}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
-      {/* ── Route Tubes (glowing routing lines) ── */}
+      {/* ── Route Lines ── */}
       {tubeGeoms.map((geom, i) => (
         <mesh key={`rt${i}`} geometry={geom}>
           <meshBasicMaterial
             color="#f97316"
             transparent
-            opacity={0.65}
+            opacity={0.55}
             blending={THREE.AdditiveBlending}
+            depthWrite={false}
           />
         </mesh>
       ))}
 
-      {/* ── Colombo Hub (gold star marker) ── */}
+      {/* ── Colombo Hub ── */}
       <mesh position={hubPos[0]}>
-        <sphereGeometry args={[0.04, 8, 8]} />
+        <sphereGeometry args={[0.045, 10, 10]} />
         <meshBasicMaterial color="#eab308" blending={THREE.AdditiveBlending} />
       </mesh>
 
       {/* ── Other Hub Markers ── */}
       {hubPos.slice(1).map((pos, i) => (
         <mesh key={`hub${i}`} position={pos}>
-          <sphereGeometry args={[0.02, 8, 8]} />
+          <sphereGeometry args={[0.022, 8, 8]} />
           <meshBasicMaterial color="#f97316" blending={THREE.AdditiveBlending} />
         </mesh>
       ))}
 
-      {/* ── Glowing Shipping/Air Routing Particles ── */}
+      {/* ── Routing Particles ── */}
       {curves.map((_, i) => (
         <mesh
           key={`pt${i}`}
           ref={el => { if (el) particleRefs.current[i] = el; }}
         >
-          <sphereGeometry args={[0.018, 6, 6]} />
+          <sphereGeometry args={[0.02, 6, 6]} />
           <meshBasicMaterial color="#fef08a" blending={THREE.AdditiveBlending} />
         </mesh>
       ))}
@@ -169,7 +233,6 @@ function Globe() {
   );
 }
 
-// Loader state fallback
 function GlobeLoader() {
   return (
     <mesh>
@@ -179,22 +242,21 @@ function GlobeLoader() {
   );
 }
 
-// ─── Main Exported EarthScene Canvas ─────────────────────────────────────────
 export default function EarthScene() {
   return (
     <div className="w-full h-full min-h-[400px] lg:min-h-[600px]">
       <Canvas
-        camera={{ position: [0, 0.5, 5.5], fov: 45 }}
+        camera={{ position: [0, 0.3, 5.2], fov: 50 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}
       >
         <Suspense fallback={<GlobeLoader />}>
-          {/* Calibrated Lighting */}
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 3, 5]} intensity={1.2} color="#ffffff" />
-          <directionalLight position={[-5, -3, -5]} intensity={0.3} color="#3b82f6" />
-          <pointLight position={[0, 0, 8]} intensity={0.5} />
+          {/* Sun-like key light from upper-right */}
+          <ambientLight intensity={0.08} />
+          <directionalLight position={[5, 3, 5]} intensity={1.6} color="#fff8f0" />
+          {/* Soft fill from opposite side — deep blue space bounce */}
+          <directionalLight position={[-6, -2, -4]} intensity={0.15} color="#1a2a4a" />
 
           <Globe />
 

@@ -6,7 +6,7 @@ import { X, Loader2, CheckCircle } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { sendQuoteEmail } from '../utils/emailjs';
-import toast from 'react-hot-toast';
+import { toastSuccess, toastError } from '../utils/swal';
 
 export default function QuoteModal() {
   const { isModalOpen, closeModal } = useQuote();
@@ -27,13 +27,16 @@ export default function QuoteModal() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.phone) {
-      toast.error('Please fill in all required fields');
+      toastError('Please fill in all required fields');
       return;
     }
     setLoading(true);
     try {
-      // Save to Firestore
-      await addDoc(collection(db, 'quoteRequests'), {
+      // 1. Send email notification via EmailJS first so errors can be thrown/logged immediately
+      await sendQuoteEmail(form);
+
+      // 2. Save to Firestore in background without blocking the user
+      addDoc(collection(db, 'quoteRequests'), {
         userDetails: {
           name: form.name,
           email: form.email,
@@ -47,12 +50,15 @@ export default function QuoteModal() {
         submittedAt: serverTimestamp(),
         status: 'new',
         notes: '',
+      }).catch((err) => {
+        console.error('Firestore save failed:', err);
       });
-      // Send email notification
-      await sendQuoteEmail(form).catch(() => {});
+
       setSuccess(true);
-    } catch {
-      toast.error('Failed to submit. Please try again.');
+      toastSuccess('Quote request submitted successfully!');
+    } catch (err: any) {
+      console.error('Error submitting quote request:', err);
+      toastError(err?.text || err?.message || 'Failed to submit quote. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -86,7 +92,7 @@ export default function QuoteModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm"
           onClick={handleClose}
         >
           <motion.div
@@ -94,15 +100,15 @@ export default function QuoteModal() {
             animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, scale: 0.9, y: 20, filter: 'blur(10px)' }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
+            className="bg-ash-800 border border-white/5 rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Gradient accent */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
+            {/* Top gradient strip */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-fire-orange to-fire-amber" />
 
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all"
+              className="absolute top-4 right-4 p-1.5 text-ash-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -121,74 +127,74 @@ export default function QuoteModal() {
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
                   >
-                    <CheckCircle className="w-20 h-20 text-green-500 mb-4" />
+                    <CheckCircle className="w-16 h-16 text-fire-orange mb-4 animate-pulse" />
                   </motion.div>
-                  <h3 className="text-2xl font-black text-[#800C30] mb-2">Thank You!</h3>
-                  <p className="text-gray-600 text-sm mb-6">
+                  <h3 className="text-2xl font-display font-bold text-white uppercase mb-2">Thank You!</h3>
+                  <p className="text-ash-400 text-sm mb-6 max-w-[300px]">
                     Your quote request has been submitted. Our team will contact you shortly.
                   </p>
                   <button
                     onClick={handleContinue}
-                    className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg"
+                    className="w-full px-6 py-3.5 bg-gradient-to-r from-fire-orange to-fire-amber text-white font-cond text-xs tracking-[1.5px] uppercase font-bold rounded-full shadow-lg hover:shadow-fire-orange/20 transition-all duration-300"
                   >
                     View Detailed Quote Form →
                   </button>
                 </motion.div>
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  <h2 className="text-2xl font-black uppercase text-[#800C30] mb-1">Request a Quote</h2>
-                  <p className="text-gray-500 text-sm mb-6">Get competitive freight rates with expert support</p>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold uppercase text-white mb-1">Request a Quote</h2>
+                  <p className="text-ash-400 text-sm mb-6">Get competitive freight rates with expert support</p>
 
-                  <form onSubmit={handleSubmit} className="space-y-3">
+                  <form onSubmit={handleSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Full Name *</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Full Name *</label>
                       <input
                         required
                         type="text"
                         placeholder="Your Full Name"
                         value={form.name}
                         onChange={(e) => update('name', e.target.value)}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm"
                       />
                     </div>
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Email Address *</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Email Address *</label>
                       <input
                         required
                         type="email"
                         placeholder="Your Email Address"
                         value={form.email}
                         onChange={(e) => update('email', e.target.value)}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm"
                       />
                     </div>
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Phone Number *</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Phone Number *</label>
                       <input
                         required
                         type="tel"
                         placeholder="Your Phone Number"
                         value={form.phone}
                         onChange={(e) => update('phone', e.target.value)}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm"
                       />
                     </div>
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Company Name</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Company Name</label>
                       <input
                         type="text"
                         placeholder="Company Name (optional)"
                         value={form.company}
                         onChange={(e) => update('company', e.target.value)}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm"
                       />
                     </div>
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Service Interested</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Service Interested</label>
                       <select
                         value={form.service}
                         onChange={(e) => update('service', e.target.value)}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm text-gray-700 bg-white"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm cursor-pointer"
                       >
                         <option value="">Select Service Interested</option>
                         {services.map((s) => (
@@ -197,13 +203,13 @@ export default function QuoteModal() {
                       </select>
                     </div>
                     <div className="flex flex-col text-left">
-                      <label className="text-xs font-bold text-gray-600 uppercase tracking-wider pl-1 mb-1">Additional details</label>
+                      <label className="text-[10px] font-bold text-ash-400 uppercase tracking-widest pl-1 mb-1.5">Additional details</label>
                       <textarea
                         placeholder="Additional details (optional)"
                         value={form.message}
                         onChange={(e) => update('message', e.target.value)}
                         rows={3}
-                        className="w-full p-3.5 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all text-sm resize-none"
+                        className="w-full p-3 rounded-xl bg-ash-900 border border-white/10 text-white placeholder-ash-600 outline-none focus:border-fire-orange/60 transition-all text-sm resize-none"
                       />
                     </div>
 
@@ -211,9 +217,9 @@ export default function QuoteModal() {
                       type="submit"
                       disabled={loading}
                       whileTap={{ scale: 0.97 }}
-                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-cyan-500/20 transition-shadow flex items-center justify-center gap-2 disabled:opacity-60"
+                      className="w-full bg-gradient-to-r from-fire-orange to-fire-amber text-white font-cond text-xs tracking-[1.5px] uppercase font-bold py-3.5 rounded-full shadow-lg hover:shadow-fire-orange/20 transition-all flex items-center justify-center gap-2 disabled:opacity-60 duration-300"
                     >
-                      {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Submit Quote Request →'}
+                      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Submit Quote Request →'}
                     </motion.button>
                   </form>
                 </motion.div>
