@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
             <img
               src="/images/phoenix-cargo-logo.jpeg"
               alt="Phoenix Cargo"
-              onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+              onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
               className="h-12 w-auto mx-auto mb-4 rounded"
             />
           </Link>

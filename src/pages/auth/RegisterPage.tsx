@@ -41,8 +41,8 @@ export default function RegisterPage() {
         err.code === 'auth/email-already-in-use'
           ? 'An account with this email already exists'
           : err.code === 'auth/weak-password'
-          ? 'Password is too weak'
-          : 'Registration failed. Please try again.';
+            ? 'Password is too weak'
+            : 'Registration failed. Please try again.';
       toastError(msg);
     } finally {
       setLoading(false);
@@ -79,7 +79,7 @@ export default function RegisterPage() {
             <img
               src="/images/phoenix-cargo-logo.jpeg"
               alt="Phoenix Cargo"
-              onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+              onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
               className="h-12 w-auto mx-auto mb-4 rounded"
             />
           </Link>

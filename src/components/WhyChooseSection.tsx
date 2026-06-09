@@ -20,7 +20,7 @@ export default function WhyChooseSection() {
     <section
       ref={ref}
       id="why"
-      className="relative py-24 lg:py-32 px-[5vw] overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-[5vw] overflow-hidden"
       style={{ background: 'var(--clr-ash-800)' }}
     >
       {/* Background subtle glowing lines */}
@@ -72,7 +72,7 @@ export default function WhyChooseSection() {
               <h3 className="font-cond text-lg tracking-[1px] uppercase font-bold text-white mb-3 group-hover:text-fire-gold transition-colors">
                 {item.title}
               </h3>
-              <p className="text-sm text-ash-400 font-light leading-relaxed">
+              <p className="text-sm text-ash-200 font-light leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

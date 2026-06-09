@@ -50,11 +50,10 @@ export default function Navbar() {
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        isScrolled
-          ? 'bg-[#800C30]/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10'
-          : 'bg-transparent border-b border-white/10'
-      }`}
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ${isScrolled
+        ? 'bg-[#800C30]/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/10'
+        : 'bg-transparent border-b border-white/10'
+        }`}
     >
       <div className="flex items-center justify-between py-4 px-6 md:px-12 lg:px-16 max-w-[1600px] mx-auto">
         {/* Logo */}
@@ -67,7 +66,9 @@ export default function Navbar() {
             transition={{ type: 'spring', stiffness: 300 }}
           />
         </Link>
-
+        <span className="font-display text-sm sm:text-base font-bold tracking-[1.5px] text-white uppercase leading-none">
+          PHOENIX CARGO
+        </span>
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (

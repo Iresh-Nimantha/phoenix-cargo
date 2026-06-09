@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-export const DEFAULT_LOGO = "/logo.png";
+export const DEFAULT_LOGO = "/logo1.png";
 
 interface SettingsContextType {
   logoUrl: string;
@@ -24,16 +24,16 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
         if (data.logoUrl && !data.logoUrl.includes('Alliance%20Freigh')) {
           setLogoUrl(data.logoUrl);
         } else {
-          setLogoUrl('/logo.png');
+          setLogoUrl('/logo1.png');
         }
         if (data.activeSeasonalEffect) setActiveSeasonalEffect(data.activeSeasonalEffect);
       } else {
-        setLogoUrl('/logo.png');
+        setLogoUrl('/logo1.png');
       }
       setLoading(false);
     }, (error) => {
       console.error("Failed to load settings:", error);
-      setLogoUrl('/logo.png');
+      setLogoUrl('/logo1.png');
       setLoading(false);
     });
     return () => unsub();

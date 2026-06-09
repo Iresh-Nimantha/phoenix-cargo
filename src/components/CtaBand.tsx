@@ -10,7 +10,7 @@ export default function CtaBand() {
   return (
     <section
       ref={ref}
-      className="relative py-20 lg:py-24 px-[5vw] text-center overflow-hidden"
+      className="relative py-14 sm:py-20 lg:py-24 px-4 sm:px-[5vw] text-center overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, var(--clr-fire-dark) 0%, var(--clr-fire-maroon) 50%, var(--clr-fire-dark) 100%)',
       }}
@@ -48,7 +48,7 @@ export default function CtaBand() {
         >
           {content.cta.heading}
         </h2>
-        <p className="text-ash-200 text-base font-light mb-8 max-w-[500px] mx-auto">
+        <p className="text-ash-100 text-sm sm:text-base font-light mb-6 sm:mb-8 max-w-[500px] mx-auto">
           {content.cta.subtext}
         </p>
         <a

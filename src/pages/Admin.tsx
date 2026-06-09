@@ -123,7 +123,7 @@ export default function Admin() {
             src="/images/phoenix-cargo-logo.jpeg"
             alt="Phoenix Cargo Brand Logo"
             onError={(e) => {
-              e.currentTarget.src = '/logo.png';
+              e.currentTarget.src = '/logo1.png';
             }}
             style={{ maxHeight: '80px', width: 'auto', marginBottom: '20px', borderRadius: '4px' }}
           />
@@ -189,7 +189,7 @@ export default function Admin() {
               src="/images/phoenix-cargo-logo.jpeg"
               alt="Logo"
               onError={(e) => {
-                e.currentTarget.src = '/logo.png';
+                e.currentTarget.src = '/logo1.png';
               }}
               style={{ height: '36px', width: 'auto', borderRadius: '2px' }}
             />

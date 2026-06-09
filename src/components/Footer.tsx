@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative pt-24 pb-12 px-[5vw] overflow-hidden"
+      className="relative pt-16 sm:pt-24 pb-10 sm:pb-12 px-4 sm:px-[5vw] overflow-hidden"
       style={{
         background: 'var(--clr-ash-900)',
         borderTop: '1px solid rgba(232,97,10,0.1)'
@@ -19,15 +19,15 @@ export default function Footer() {
 
       <div className="relative z-10 max-w-[1200px] mx-auto">
         {/* Footer main grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-white/5">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 pb-12 sm:pb-16 border-b border-white/5">
           {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="col-span-2 lg:col-span-2 space-y-4 sm:space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/images/phoenix-cargo-logo.jpeg"
+                src="/images/logo1.png"
                 alt="Phoenix Cargo Brand Logo"
-                onError={(e) => { e.currentTarget.src = '/logo.png'; }}
-                className="h-10 w-auto rounded"
+                onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
+                className="h-18 w-auto rounded"
               />
               <span className="font-display text-md font-black text-white tracking-wider">
                 PHOENIX CARGO
@@ -98,7 +98,7 @@ export default function Footer() {
         </div>
 
         {/* Footer bottom bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 text-xs text-ash-400">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 pt-8 sm:pt-10 text-[11px] sm:text-xs text-ash-300 text-center md:text-left">
           <span>{content.footer.copyrightText}</span>
 
           <motion.span

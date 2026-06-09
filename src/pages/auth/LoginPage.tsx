@@ -29,8 +29,8 @@ export default function LoginPage() {
         err.code === 'auth/invalid-credential'
           ? 'Invalid email or password'
           : err.code === 'auth/too-many-requests'
-          ? 'Too many attempts. Please try again later.'
-          : 'Login failed. Please try again.';
+            ? 'Too many attempts. Please try again later.'
+            : 'Login failed. Please try again.';
       toastError(msg);
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ export default function LoginPage() {
             <img
               src="/images/phoenix-cargo-logo.jpeg"
               alt="Phoenix Cargo"
-              onError={(e) => { e.currentTarget.src = '/logo.png'; }}
+              onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
               className="h-12 w-auto mx-auto mb-4 rounded"
             />
           </Link>

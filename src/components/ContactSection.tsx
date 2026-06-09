@@ -59,10 +59,10 @@ export default function ContactSection() {
     <section
       ref={ref}
       id="contact"
-      className="relative py-24 lg:py-32 px-[5vw] overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-[5vw] overflow-hidden"
       style={{ background: 'var(--clr-ash-900)' }}
     >
-      <div className="relative z-10 max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="relative z-10 max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24">
         {/* Left column: Contact Info */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -73,13 +73,13 @@ export default function ContactSection() {
             {content.contact.eyebrow}
           </span>
           <h2
-            className="font-display font-bold uppercase mb-4 leading-tight"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3rem)' }}
+            className="font-display font-bold uppercase mb-4 leading-tight text-white text-center lg:text-left"
+            style={{ fontSize: 'clamp(1.6rem, 4.5vw, 3rem)' }}
           >
             {content.contact.title}{' '}
             <span className="text-fire-orange">{content.contact.titleHighlight}</span>
           </h2>
-          <p className="text-ash-400 font-light text-base leading-relaxed mb-12">
+          <p className="text-ash-200 font-light text-sm sm:text-base leading-relaxed mb-8 sm:mb-12 text-center lg:text-left">
             {content.contact.subtitle}
           </p>
 
@@ -181,7 +181,7 @@ export default function ContactSection() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <div className="bg-ash-800 border border-white/[0.03] rounded-lg p-8 lg:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.4)]">
+          <div className="bg-ash-800 border border-white/[0.03] rounded-lg p-6 sm:p-8 lg:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.4)]">
             {success ? (
               <div className="text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-fire-orange/10 border border-fire-orange/20 flex items-center justify-center text-fire-orange mx-auto mb-6">

@@ -1,4 +1,4 @@
-import { Suspense, useRef, useMemo } from 'react';
+import { Suspense, useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
@@ -178,8 +178,12 @@ function Globe() {
     });
   });
 
+  // Initial rotation to face the route-marked side (Colombo / South Asia region) toward camera
+  // Colombo is at ~80°E longitude. We rotate the group so this faces the camera.
+  const initialGroupRotation: [number, number, number] = [0, -1.4, 0]; // ~ -80° in radians
+
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} rotation={initialGroupRotation}>
       {/* ── Realistic Earth with day/night shader ── */}
       <mesh ref={earthRef}>
         <sphereGeometry args={[R, 128, 128]} />
@@ -243,10 +247,22 @@ function GlobeLoader() {
 }
 
 export default function EarthScene() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // On mobile, pull camera further back to prevent edge clipping
+  const cameraPosition: [number, number, number] = isMobile ? [0, 0.3, 6.2] : [0, 0.3, 5.2];
+
   return (
-    <div className="w-full h-full min-h-[400px] lg:min-h-[600px]">
+    <div className="w-full h-full min-h-[250px] sm:min-h-[350px] lg:min-h-[600px]">
       <Canvas
-        camera={{ position: [0, 0.3, 5.2], fov: 50 }}
+        camera={{ position: cameraPosition, fov: isMobile ? 45 : 50 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ background: 'transparent' }}

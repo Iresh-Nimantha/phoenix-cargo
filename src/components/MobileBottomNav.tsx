@@ -70,9 +70,9 @@ export default function MobileBottomNav() {
           animate={{ y: 0 }}
           exit={{ y: 100 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="md:hidden fixed bottom-0 left-0 right-0 z-50"
+          className="md:hidden fixed bottom-3 left-3 right-3 z-50"
         >
-          <div className="bg-[#800C30]/95 backdrop-blur-2xl border-t border-white/10 p-2 pb-5 shadow-[0_-8px_30px_rgba(0,0,0,0.35)] flex justify-around items-center px-4">
+          <div className="bg-ash-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-1.5 pb-2 shadow-[0_-8px_30px_rgba(0,0,0,0.5)] flex justify-around items-center">
             {navItems.map((item, idx) => {
               const isActive = item.path && location.pathname === item.path;
               return (
@@ -83,15 +83,15 @@ export default function MobileBottomNav() {
                     if (item.action) item.action();
                   }}
                   className={`flex flex-col items-center justify-center w-14 h-12 rounded-xl transition-all relative ${
-                    isActive ? 'text-cyan-400' : 'text-gray-400 hover:text-white'
+                    isActive ? 'text-fire-orange' : 'text-ash-300 hover:text-white active:text-fire-orange'
                   }`}
                 >
-                  <item.icon className={`w-5 h-5 mb-1 ${isActive ? 'stroke-[2.5]' : 'stroke-2'}`} />
-                  <span className="text-[10px] font-bold">{item.label}</span>
+                  <item.icon className={`w-5 h-5 mb-0.5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.5]'}`} />
+                  <span className="text-[9px] font-cond tracking-[0.5px] uppercase font-bold">{item.label}</span>
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIndicator"
-                      className="absolute -bottom-1.5 w-1.5 h-1.5 rounded-full bg-cyan-400"
+                      className="absolute -top-0.5 w-5 h-[2px] rounded-full bg-gradient-to-r from-fire-orange to-fire-gold"
                     />
                   )}
                 </button>

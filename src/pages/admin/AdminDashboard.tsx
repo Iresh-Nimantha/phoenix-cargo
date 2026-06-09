@@ -385,7 +385,7 @@ Do not invent facts or promise exact delivery rates without verification. Always
       activeSeasonalEffect: 'string',
     },
     initial: {
-      logoUrl: '/logo.png',
+      logoUrl: '/logo1.png',
       activeSeasonalEffect: 'none',
     },
   },
@@ -443,11 +443,10 @@ export default function AdminDashboard() {
                     whileTap={{ scale: 0.95 }}
                     whileHover={{ y: -2 }}
                     onClick={() => setActiveContentSection(i)}
-                    className={`p-4 rounded-xl border text-left transition-all ${
-                      isActive
+                    className={`p-4 rounded-xl border text-left transition-all ${isActive
                         ? 'bg-[#800C30] text-white border-[#800C30] shadow-lg shadow-[#800C30]/20'
                         : 'bg-white text-gray-700 border-gray-100 hover:border-cyan-200 hover:shadow-md'
-                    }`}
+                      }`}
                   >
                     <Icon className={`w-5 h-5 mb-2 ${isActive ? 'text-cyan-300' : 'text-cyan-600'}`} />
                     <p className="font-bold text-sm">{section.name}</p>
